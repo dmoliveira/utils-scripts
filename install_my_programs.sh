@@ -23,3 +23,4 @@ sudo apt-get install htop
 # Python Programs
 pip install -U cvskit --user
 pip install -U supervisor --user
+pip install -U flake --user
