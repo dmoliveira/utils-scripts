@@ -25,10 +25,8 @@ sudo apt-get install wharfee
 # Python Programs
 pip install -U cvskit --user
 pip install -U supervisor --user
-<<<<<<< HEAD
 pip install -U flake --user
-=======
 
 # Vim Programs
-# Syntastic (manual installation) >> https://github.com/dmoliveira/syntastic#installation
->>>>>>> 71e2f5a5f58564d78c3642180e1b3dbac44e8e0c
+# Vundle Vim package management >> https://github.com/VundleVim/Vundle.vim
+# Look at my ../run_commands/vimrc_mac
