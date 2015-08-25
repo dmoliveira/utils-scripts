@@ -6,6 +6,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'scrooloose/syntastic'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'itchyny/lightline.vim'
+Plugin 'itchyny/landscape.vim'
 Plugin 'python-rope/ropevim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'git://git.wincent.com/command-t.git'
@@ -60,3 +62,11 @@ let g:syntastic_check_on_wq = 0
 
 " Color Theme
 colorscheme torte
+
+" LightLine
+set encoding=utf-8
+scriptencoding utf-8
+let g:lightline = {
+      \ 'colorscheme': 'landscape',
+      \ }
+set laststatus=2

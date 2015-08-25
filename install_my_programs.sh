@@ -21,6 +21,7 @@ sudo apt-get install terminator
 sudo apt-get install xclip
 sudo apt-get install htop
 sudo apt-get install wharfee
+curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 
 # Python Programs
 pip install -U cvskit --user
