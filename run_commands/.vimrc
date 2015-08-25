@@ -4,6 +4,7 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'chrisbra/csv.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'itchyny/lightline.vim'
