@@ -9,7 +9,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'itchyny/landscape.vim'
-Plugin 'python-rope/ropevim'
+Plugin 'python-rope/rope'
 Plugin 'tpope/vim-fugitive'
 Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -49,8 +49,8 @@ syntax on
 colo delek
 
 " Rope Vim (for Python)
-let ropevim_vim_completion=1
-let ropevim_extended_complete=1
+"let ropevim_vim_completion=1
+"let ropevim_extended_complete=1
 
 " Syntastic
 set statusline+=%#warningmsg#
