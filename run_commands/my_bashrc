@@ -1,0 +1,16 @@
+# Colors for Terminal
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+
+# Git plugin for Bash (source: https://github.com/jimeh/git-aware-prompt)
+export GITAWAREPROMPT=~/.bash/git-aware-prompt
+source "${GITAWAREPROMPT}/main.sh"
+
+# Bash Prompt Options
+_ps1_cgs="\[\e[1;32m\]"
+_ps1_cge="\[\e[0m\]"
+_ps1_cws="\[\e[1;37m\]"
+_ps1_cwe="\[\e[1;36m\]"
+
+# PS1: For MacOS
+export PS1="$_ps1_cgs[\T] \u@\h$_ps1_cge $_ps1_cws\W$_ps1_cwe \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]$_ps1_cgs\$$_ps1_cge"
