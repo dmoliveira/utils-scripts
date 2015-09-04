@@ -27,6 +27,7 @@ curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | 
 pip install -U cvskit --user
 pip install -U supervisor --user
 pip install -U flake --user
+pip install -U pep8-naming --user
 
 # Vim Programs
 # Vundle Vim package management >> https://github.com/VundleVim/Vundle.vim
