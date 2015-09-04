@@ -8,7 +8,7 @@
 #              will increase with time.
 #              Any suggestion are accepted. :-) Send to dmztheone@gmail.com
 #
-# -- Last updated: 08-21-2015
+# -- Last updated: 09-01-2015
 #
 # ------------------------------------------------------------------------------
 #
@@ -21,6 +21,7 @@ sudo apt-get install terminator
 sudo apt-get install xclip
 sudo apt-get install htop
 sudo apt-get install wharfee
+sudo apt-get install lynx-cur
 curl -L https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh | sh
 
 # Python Programs
