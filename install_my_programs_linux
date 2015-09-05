@@ -29,6 +29,8 @@ pip install -U cvskit --user
 pip install -U supervisor --user
 pip install -U flake --user
 pip install -U pep8-naming --user
+pip install -U pyuv --user
+pip install -U pygit2 --user
 
 # Vim Programs
 # Vundle Vim package management >> https://github.com/VundleVim/Vundle.vim

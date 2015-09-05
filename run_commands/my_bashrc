@@ -1,6 +1,15 @@
+# Language
+LANG=en_US.utf8
+
 # Colors for Terminal
 export CLICOLOR=1
 export LSCOLORS=GxFxCxDxBxegedabagaced
+
+# Default Editor
+export EDITOR='vim'
+
+# Powerline
+#POWERLINE_CONFIG_COMMAND="$HOME/.powerline/scripts/powerline-config"
 
 # Git plugin for Bash (source: https://github.com/jimeh/git-aware-prompt)
 export GITAWAREPROMPT=~/.bash/git-aware-prompt

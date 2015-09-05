@@ -4,6 +4,7 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'chrisbra/csv.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'davidhalter/jedi-vim'
@@ -71,3 +72,9 @@ let g:lightline = {
       \ 'colorscheme': 'landscape',
       \ }
 set laststatus=2
+
+" Set Tmux+Vim Seamless
+nnoremap <c-j> <c-w>j
+nnoremap <c-k> <c-w>k
+nnoremap <c-h> <c-w>h
+nnoremap <c-l> <c-w>l
