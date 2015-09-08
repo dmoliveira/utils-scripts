@@ -11,7 +11,7 @@ Plugin 'bling/vim-bufferline'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'godlygeek/csapprox'
 Plugin 'altercation/vim-colors-solarized.git'
-Plugin 'majutsushi/tagbar.git'
+Plugin 'majutsushi/tagbar'
 Plugin 'vim-scripts/supertab.git'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'Raimondi/delimitMate'
@@ -54,7 +54,7 @@ let g:SuperTabDefaultCompletionType = "context"
 
 " TagBar
 let g:tagbar_usearrows = 1
-nnoremap <leader>l :TagbarToggle<CR>
+nmap <F8> :TagbarToggle<CR>
 
 " Solarized Colors
 set background=dark
