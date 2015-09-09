@@ -9,6 +9,8 @@ elasticsearch_dsl
 fabric
 flask
 flasgger
+jedi
+rope
 MySQL-Python
 pydal
 redisco
@@ -25,7 +27,7 @@ simplejson
 tabulate
 csvkit
 supervisor
-flake
+flake8
 pep8-naming
 pyuv
 numpy

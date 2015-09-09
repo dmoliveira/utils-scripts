@@ -48,6 +48,8 @@ execute pathogen#infect()
 
 " Jedi-Vim
 let g:jedi#auto_initialization = 1
+let g:jedi#auto_vim_configuration = 1
+let g:jedi#use_tabs_not_buffers = 1
 
 " SuperTab
 let g:SuperTabDefaultCompletionType = "context"
@@ -136,6 +138,10 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:syntastic_python_checkers = ['pyflakes', 'flake8']
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 
 " Color Theme
 colorscheme torte

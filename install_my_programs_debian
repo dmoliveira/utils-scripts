@@ -23,6 +23,9 @@ sudo apt-get install -y vim
 # Steroids for VIM
 sudo apt-get install -y vim-gnome
 
+# Install Jedi-Vim
+sudo apt-get install -y vim-python-jedi
+
 # Install HTTP request and other tools
 sudo apt-get install -y curl
 
@@ -43,6 +46,9 @@ sudo apt-get install -y htop
 
 # Install shell browser
 sudo apt-get install -y lynx-cur
+
+# Install PyLint (Python Syntax Checker like Flake)
+sudo apt-get install -y pylint
 
 # Install Ctags (Analyzer of functions in +40 prog. languages)
 sudo apt-get install -y ctags
