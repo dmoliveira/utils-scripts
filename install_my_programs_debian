@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+
+# Title: Install my unix programs
+# Description: This scripts install my basic programs that I use day-by-day;
+#              It has a lot of useful programs that I recommend. This list
+#              will increase with time. Any suggestion are accepted. :-) 
+# Tags: Install, Unix
+
+# Debian Programs
+
+# Update and upgrade libraries
+sudo apt-get install -y python-software-properties software-properties-common
+sudo add-apt-repository -y ppa:webupd8team/sublime-text-3
+sudo add-apt-repository -y ppa:pi-rho/dev
+sudo apt-get update -y && sudo apt-get upgrade -y
+
+# Install steroids for bash (I don't use yet)
+sudo apt-get install -y zsh
+
+# Install basic VIM
+sudo apt-get install -y vim
+
+# Steroids for VIM
+sudo apt-get install -y vim-gnome
+
+# Install HTTP request and other tools
+sudo apt-get install -y curl
+
+# Install one of my prefered terminals
+sudo apt-get install -y terminator
+
+# Install Yakuake (light terminal [F12])
+sudo apt-get install -y yakuake
+
+# Install clipbord facility at shell
+sudo apt-get install -y xclip
+
+# Install Python Development Tools
+sudo apt-get install libffi-dev
+
+# Install Computer Performance Window
+sudo apt-get install -y htop
+
+# Install shell browser
+sudo apt-get install -y lynx-cur
+
+# Install Ctags (Analyzer of functions in +40 prog. languages)
+sudo apt-get install -y ctags
+
+# Install Chromelike
+sudo apt-get install -y chromium-browser
+
+# Install Gimp
+sudo apt-get install -y gimp 
+
+# Install MySQL
+sudo apt-get install -y mysql*
+
+# Install MPlayer
+sudo apt-get install -y mplayer
+
+# Install Tmux
+sudo apt-get install -y tmux
+
+# Install SSH access
+sudo apt-get install -y openssl
+
+# Install Default MySQL Library
+sudo apt-get install -y libmysqlclient-dev
+
+# Install spell-checker
+sudo apt-get install -y aspell
+
+# Install Libre Office
+sudo apt-get install -y libreoffice
+
+# Install Sublime 3
+sudo apt-get install -y sublime-text-installer
+
+# Install for Tmux Pluging
+sudo apt-get install -y urlview
+
+# Install GNU Parallel
+sudo apt-get install -y parallel
+(wget -O - pi.dk/3 || curl pi.dk/3/ || fetch -o - http://pi.dk/3) | sudo bash
+
+# Install Git
+sudo apt-get install -y git
+
+# Install Git Libraries
+sudo apt-get install -y libgit2-dev
+sudo apt-get install -y libffi-dev
+
+# Install Latex
+sudo apt-get install -y gedit-latex-plugin texlive-fonts-recommended latex-beamer texpower texlive-pictures texlive-latex-extra imagemagick
+
+# Install Docker
+curl -sSL https://get.docker.com/ | sudo sh
+sudo usermod -aG docker "${USER}"
+sudo gpasswd -a ${USER} docker
+sudo service docker restart
+
+# Remove leftovers
+sudo apt-get autoremove -y
+rm -Rf parallel-*
