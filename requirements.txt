@@ -39,7 +39,7 @@ pytz
 python-dateutil
 numexpr
 bottleneck
-"ipython[all]"
+jupyter
 matplotlib
 boto
 SQLAlchemy
