@@ -50,6 +50,9 @@ sudo apt-get install -y lynx-cur
 # Install PyLint (Python Syntax Checker like Flake)
 sudo apt-get install -y pylint
 
+# Install Tree Folder Visualization
+sudo apt-get install -y tree
+
 # Install Ctags (Analyzer of functions in +40 prog. languages)
 sudo apt-get install -y ctags
 
@@ -61,6 +64,7 @@ sudo apt-get install -y gimp
 
 # Install MySQL
 sudo apt-get install -y mysql*
+sudo apt-get install -y mysql-client
 
 # Install MPlayer
 sudo apt-get install -y mplayer
@@ -86,6 +90,9 @@ sudo apt-get install -y sublime-text-installer
 # Install for Tmux Pluging
 sudo apt-get install -y urlview
 
+# Install JSON Wraggle shell
+sudo apt-get install -y jq
+
 # Install GNU Parallel
 sudo apt-get install -y parallel
 (wget -O - pi.dk/3 || curl pi.dk/3/ || fetch -o - http://pi.dk/3) | sudo bash
@@ -105,6 +112,9 @@ curl -sSL https://get.docker.com/ | sudo sh
 sudo usermod -aG docker "${USER}"
 sudo gpasswd -a ${USER} docker
 sudo service docker restart
+
+# Install Screenshot
+sudo apt-get install -y gnome-screenshot
 
 # Remove leftovers
 sudo apt-get autoremove -y

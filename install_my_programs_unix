@@ -32,6 +32,7 @@ mkdir -p /tmp/git_temp_$random &&\
     git clone https://github.com/powerline/fonts.git /tmp/git_temp_$random &&\
     sudo /tmp/git_temp_$random/install.sh &&\
     sudo rm -Rf /tmp/git_temp_$random
+pip install --user git+git://github.com/powerline/powerline
 
 # Install Symbolic links for .bashrc, .vimrc and .tmux.conf
 # TODO: Not implemented yet
