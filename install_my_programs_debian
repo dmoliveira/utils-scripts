@@ -107,6 +107,9 @@ sudo apt-get install -y git
 sudo apt-get install -y libgit2-dev
 sudo apt-get install -y libffi-dev
 
+# Install Blas
+sudo apt-get install -y gfortran libopenblas-dev liblapack-dev
+
 # Install Latex
 sudo apt-get install -y gedit-latex-plugin texlive-fonts-recommended latex-beamer texpower texlive-pictures texlive-latex-extra imagemagick
 
@@ -128,6 +131,16 @@ sudo apt-get install ncurses-dev
 
 # Install Readline
 sudo apt-get install -y libreadline6 libreadline6-dev
+
+# Install PCReGrep
+sudo apt-get install -y pcregrep
+
+# Install Freetype
+sudo apt-get install -y libfreetype6-dev
+sudo apt-get install -y libxft-dev
+
+# Install libPNG
+sudo apt-get install -y libpng-dev
 
 # Remove leftovers
 sudo apt-get autoremove -y

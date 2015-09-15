@@ -6,6 +6,7 @@ pyasn1
 arrow
 celery
 elasticsearch_dsl
+seaborn
 fabric
 flask
 flasgger
