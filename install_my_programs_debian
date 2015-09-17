@@ -142,6 +142,16 @@ sudo apt-get install -y libxft-dev
 # Install libPNG
 sudo apt-get install -y libpng-dev
 
+# Install XBase-Clients
+sudo apt-get install -y xbase-clients
+
+# Install Flash
+sudo apt-get install -y flashplugin-installer
+sudo apt-get install -y pepperflashplugin-nonfree
+
+# Install Imagemagick
+sudo apt-get install -y imagemagick php5-imagick
+
 # Remove leftovers
 sudo apt-get autoremove -y
 rm -Rf parallel-*

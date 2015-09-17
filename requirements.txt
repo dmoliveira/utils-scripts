@@ -1,7 +1,9 @@
 pip
 virtualenvwrapper
 pyopenssl
+psutil
 ndg-httpsclient
+attrdict
 pyasn1
 arrow
 celery
@@ -31,6 +33,8 @@ csvkit
 supervisor
 flake8
 pep8-naming
+redis
+Logbook
 pyuv
 numpy
 pyparsing
@@ -50,6 +54,7 @@ elasticsearch
 tables
 nltk
 pandas
+scikit-learn
 minepy
 paramiko
 PyYAML

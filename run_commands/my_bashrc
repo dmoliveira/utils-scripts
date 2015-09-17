@@ -23,6 +23,9 @@ export TERM="xterm-256color"
 export GITAWAREPROMPT=~/.bash/git-aware-prompt
 source "${GITAWAREPROMPT}/main.sh"
 
+# Enable X11 Forwarding
+export DISPLAY=:0.0
+
 # Bash Prompt Options
 _ps1_cgs="\[\e[1;32m\]"
 _ps1_cge="\[\e[0m\]"
