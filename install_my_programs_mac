@@ -8,3 +8,4 @@ brew install mplayer
 brew install tmux
 brew install urlview 
 brew install reattach-to-user-namespace
+brew install netcat

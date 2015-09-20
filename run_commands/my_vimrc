@@ -4,6 +4,7 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+Plugin 'JuliaLang/julia-vim'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'sjl/gundo.vim'
@@ -55,6 +56,9 @@ let g:SuperTabDefaultCompletionType = "context"
 " TagBar
 let g:tagbar_usearrows = 1
 nmap <F8> :TagbarToggle<CR>
+
+" Activate Matchit used in Julia-Lang
+runtime macros/matchit.vim
 
 " Solarized Colors
 set background=dark
