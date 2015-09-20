@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+# Title: Install my unix programs
+# Description: This script install programs agnostic from unix system
+# Tags: Install, Unix
+
+# Temp number
+random=$RANDOM
+
+# Create common directories over user directories
+mkdir -p ~/.bash ~/.bash/git-aware-prompt ~/.vim/autoload ~/.vim/bundle ~/.tmux/plugins/tpm ~/.powerline
+
+# Python Programs
+wget -O - https://bootstrap.pypa.io/get-pip.py | sudo python
+parallel -j1 -P1 sudo -H pip install -U {} :::: ./requirements.txt
+sudo python -m nltk.downloader -d /usr/share/nltk_data all
+
+# Oh-my-zsh!
+sudo sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+
+# Install Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+# Install Pathogen.vim
+curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+
+# Install Git Aware Prompt
+git clone git://github.com/jimeh/git-aware-prompt.git ~/.bash/git-aware-prompt
+
+# Install Powerline fonts (Use it on terminal)
+mkdir -p /tmp/git_temp_$random &&\
+    git clone https://github.com/powerline/fonts.git /tmp/git_temp_$random &&\
+    sudo /tmp/git_temp_$random/install.sh &&\
+    sudo rm -Rf /tmp/git_temp_$random
+pip install --user git+git://github.com/powerline/powerline
+
+# Install Symbolic links for .bashrc, .vimrc and .tmux.conf
+# TODO: Not implemented yet
+
+# Install Vim Plugins
+vim +PluginInstall +qall
+
+# Install Tmux TPM
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+
+# install Tmux Powerline
+git clone https://github.com/powerline/powerline.git ~/.powerline
+
+# Install Tmux Plugings
+sudo ~/.tmux/plugins/tpm/bin/install_plugins
+tmux source ~/.tmux.conf
+
+# Create Soft-link (in-progress)
+cwd="$PWD" && cd /usr/local/bin &&\
+    sudo ln -sf ~/.powerline/powerline/scripts/powerline-config &&\
+    sudo ln -sf ~/.powerline/powerline/scripts/powerline-daemon &&\
+    sudo ln -sf ~/.powerline/powerline/scripts/powerline-lint &&\
+    sudo ln -sf ~/.powerline/powerline/scripts/powerline-release.py &&\
+    sudo ln -sf ~/.powerline/powerline/scripts/powerline-render
+cd "$cwd"
+
