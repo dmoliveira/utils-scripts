@@ -152,6 +152,19 @@ sudo apt-get install -y pepperflashplugin-nonfree
 # Install Imagemagick
 sudo apt-get install -y imagemagick php5-imagick
 
+# Install M4
+sudo apt-get install -y m4
+
+# Install Libunwind8-dev
+sudo apt-get install -y libunwind8-dev
+
+# Install CMake
+sudo apt-get install -y cmake
+
+# Install XMonad
+sudo apt-get install -y ghc6 libx11-dev cabal-install gmrun
+sudo apt-get install -y xmonad
+
 # Remove leftovers
 sudo apt-get autoremove -y
 rm -Rf parallel-*

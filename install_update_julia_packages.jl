@@ -9,4 +9,5 @@ using Base.Pkg
 Pkg.update()
 Pkg.add("DataFrames")
 Pkg.add("PyCall")
-Pkg.add("Requests.jl")
+Pkg.add("Requests")
+Pkg.add("JSON")
