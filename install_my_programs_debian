@@ -165,6 +165,12 @@ sudo apt-get install -y cmake
 sudo apt-get install -y ghc6 libx11-dev cabal-install gmrun
 sudo apt-get install -y xmonad
 
+# Install Yakuake
+sudo apt-get install -y yakuake
+
+# Install i3
+sudo apt-get install -y i3
+
 # Remove leftovers
 sudo apt-get autoremove -y
 rm -Rf parallel-*
