@@ -7,6 +7,7 @@
 
 using Base.Pkg
 Pkg.update()
+Pkg.clone("https://github.com/JuliaComputing/MySQL.jl")
 Pkg.add("DataFrames")
 Pkg.add("PyCall")
 Pkg.add("Requests")
@@ -29,3 +30,4 @@ Pkg.add)("LightGraphs")
 Pkg.add("SIUnits")
 Pkg.add("HttpServer")
 Pkg.add("IJulia")
+Pkg.add("StatsBase")
