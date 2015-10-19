@@ -65,3 +65,6 @@ ansible
 powerline-status
 docker-compose
 wharfee
+mpld3
+bokeh
+pygal
