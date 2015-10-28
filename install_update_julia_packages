@@ -9,6 +9,7 @@ using Base.Pkg
 Pkg.update()
 Pkg.clone("https://github.com/JuliaComputing/MySQL.jl")
 Pkg.add("DataFrames")
+Pkg.add("DataFramesMeta")
 Pkg.add("PyCall")
 Pkg.add("Requests")
 Pkg.add("JSON")
