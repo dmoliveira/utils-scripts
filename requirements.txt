@@ -68,3 +68,4 @@ wharfee
 mpld3
 bokeh
 pygal
+gensim
