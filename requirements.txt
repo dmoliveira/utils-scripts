@@ -69,3 +69,6 @@ mpld3
 bokeh
 pygal
 gensim
+bunch
+unidecode
+xgboost
