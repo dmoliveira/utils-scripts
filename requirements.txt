@@ -22,7 +22,6 @@ textblob
 nose
 werkzeug
 click
-logbook
 prettytable
 pika
 pyttsx
@@ -35,7 +34,6 @@ flake8
 pep8-naming
 redis
 Logbook
-pyuv
 numpy
 pyparsing
 tornado
@@ -48,10 +46,7 @@ jupyter
 matplotlib
 boto
 SQLAlchemy
-statsmodel
-scikit-learn
 elasticsearch
-tables
 nltk
 pandas
 scikit-learn
