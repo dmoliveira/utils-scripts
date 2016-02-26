@@ -68,3 +68,4 @@ gensim
 bunch
 unidecode
 xgboost
+networkx
