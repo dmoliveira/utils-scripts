@@ -69,3 +69,4 @@ bunch
 unidecode
 xgboost
 networkx
+bash_kernel
