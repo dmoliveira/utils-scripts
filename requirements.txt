@@ -70,3 +70,4 @@ unidecode
 xgboost
 networkx
 bash_kernel
+fastFM
