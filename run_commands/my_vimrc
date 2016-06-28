@@ -5,6 +5,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'JuliaLang/julia-vim'
+Plugin 'derekwyatt/vim-scala'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'sjl/gundo.vim'
