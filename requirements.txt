@@ -71,3 +71,4 @@ xgboost
 networkx
 bash_kernel
 fastFM
+toree
