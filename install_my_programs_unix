@@ -74,3 +74,22 @@ cwd="$PWD" && cd /usr/local/bin &&\
     sudo ln -sf ~/.powerline/powerline/scripts/powerline-release.py &&\
     sudo ln -sf ~/.powerline/powerline/scripts/powerline-render
 cd "$cwd"
+
+# Install Oracle Java 8
+echo -e "\n14. Install Oracle Java 8"
+sudo add-apt-repository ppa:webupd8team/java -y
+sudo apt-get update
+sudo apt-get install oracle-java8-installer
+sudo apt-get install oracle-java8-set-default
+
+# Install Eclipse
+echo -e "\n15. Install Eclipse JEE Neon"
+wget http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/neon/R/eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz -O eclipse.tar.gz
+tar -xvf eclipse.tar.gz
+sudo mv eclipse /opt
+rm eclipse.tar.gz
+
+# Install Eclim
+echo -e "\n16. Install Eclim"
+wget http://downloads.sourceforge.net/project/eclim/eclim/2.5.0/eclim_2.5.0.jar
+rm eclim_2.5.0.jar
