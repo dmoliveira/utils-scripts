@@ -6,7 +6,6 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'derekwyatt/vim-scala'
 Plugin 'JuliaLang/julia-vim'
-Plugin 'derekwyatt/vim-scala'
 Plugin 'jmcantrell/vim-virtualenv'
 Plugin 'edkolev/tmuxline.vim'
 Plugin 'sjl/gundo.vim'
@@ -33,6 +32,7 @@ Plugin 'python-rope/rope'
 Plugin 'tpope/vim-fugitive'
 Plugin 'git://git.wincent.com/command-t.git'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+Plugin 'terryma/vim-multiple-cursors'
 call vundle#end()
 filetype plugin indent on
 

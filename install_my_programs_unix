@@ -17,6 +17,9 @@ wget -O - https://bootstrap.pypa.io/get-pip.py | sudo python
 parallel -j1 -P1 sudo -H pip install -U {} :::: ./requirements.txt
 sudo python -m nltk.downloader -d /usr/share/nltk_data all
 
+# install Jypter Kernels
+# sudo jupyter toree install --spark_home=$SPARK_HOME   # Install Spark Kernell
+
 # Oh-my-zsh!
 echo -e "\n03. Install Oh-My-Zsh!"
 sudo sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
