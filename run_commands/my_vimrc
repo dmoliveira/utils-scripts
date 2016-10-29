@@ -64,15 +64,6 @@ nmap <F8> :TagbarToggle<CR>
 " Activate Matchit used in Julia-Lang
 runtime macros/matchit.vim
 
-" Solarized Colors
-set background=dark
-let g:solarized_termtrans=1
-let g:solarized_termcolors=256
-let g:solarized_contrast="high"
-let g:solarized_visibility="high"
-colorscheme solarized
-" let g:CSApprox_loaded = 1
-
 " Airline (Clone Powerline)
 let g:airline_symbols = {}
 let g:airline_theme='powerlineish'
@@ -175,3 +166,12 @@ nnoremap <c-j> <c-w>j
 nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
+
+" Solarized Colors
+set background=dark
+let g:solarized_termtrans=1
+let g:solarized_termcolors=256
+let g:solarized_contrast="normal"
+let g:solarized_visibility="normal"
+colorscheme solarized
+let g:CSApprox_loaded = 1
