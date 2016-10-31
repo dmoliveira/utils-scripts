@@ -175,3 +175,7 @@ let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 colorscheme solarized
 let g:CSApprox_loaded = 1
+
+" Highligh Line and Column
+set cursorline
+set cursorcolumn
