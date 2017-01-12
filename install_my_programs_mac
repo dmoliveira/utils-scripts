@@ -5,6 +5,7 @@
 
 # MacOS programs installed at Brew
 brew update
+brew install wget
 brew install macvim --override-system-vim
 brew install ctags
 brew install mplayer
