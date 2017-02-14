@@ -6,6 +6,7 @@
 # MacOS programs installed at Brew
 brew update
 brew install wget
+brew install htop
 brew install macvim --override-system-vim
 brew install ctags
 brew install mplayer
@@ -14,3 +15,4 @@ brew install urlview
 brew install reattach-to-user-namespace
 brew install netcat
 brew install boost
+brew install dos2unix
