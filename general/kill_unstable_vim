@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+parallel -j1 -P1 "sudo kill -9 {}" ::: $(ps aux | grep vim | grep " R " | tr -s " " | cut -f2 -d" ")
