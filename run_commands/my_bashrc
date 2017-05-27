@@ -35,3 +35,6 @@ _ps1_cwe="\[\e[1;36m\]"
 
 # PS1
 export PS1="$_ps1_cgs[\T] \u@\h$_ps1_cge $_ps1_cws\W$_ps1_cwe \[$txtcyn\]\$git_branch\[$txtred\]\$git_dirty\[$txtrst\]$_ps1_cgs\$$_ps1_cge"
+
+# Alias
+alias julia="$HOME/sw/julia/bin/julia"

@@ -96,3 +96,13 @@ rm eclipse.tar.gz
 echo -e "\n16. Install Eclim"
 wget http://downloads.sourceforge.net/project/eclim/eclim/2.5.0/eclim_2.5.0.jar
 rm eclim_2.5.0.jar
+
+# Install Julia Language
+echo -e "\n17. Install Julia v.0.5"
+cur_dir="$PWD"
+cd ~/ && mkdir sw && cd sw
+git clone git://github.com/JuliaLang/julia.git && cd julia && git checkout release-0.5
+make -j $(nprod)
+cd "$cur_dir"
+julia 
+
