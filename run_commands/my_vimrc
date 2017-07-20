@@ -179,3 +179,6 @@ let g:CSApprox_loaded = 1
 " Highligh Line and Column
 set cursorline
 set cursorcolumn
+
+" Run Python3 From VIM
+nmap ,p :w<CR>:!python3 %<CR>
