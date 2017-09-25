@@ -5,7 +5,7 @@ export LC_ALL=en_US.UTF-8
 
 # TMUX Folder Pluging
 export TMUX_PLUGIN_MANAGER_PATH="~/.tmux/plugins"
-export POWERLINE_CONFIG_COMMAND="/home/diego_oliveira/.powerline/powerline/scripts/powerline-config"
+export POWERLINE_CONFIG_COMMAND="/$HOME/.powerline/powerline/scripts/powerline-config"
 
 # Colors for Terminal
 export CLICOLOR=1
