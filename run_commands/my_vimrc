@@ -22,7 +22,8 @@ Plugin 'easymotion/vim-easymotion'
 Plugin 'kien/ctrlp.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+"FIXME: Problems with Calalina MacOs
+"Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
 Plugin 'chrisbra/csv.vim'
 Plugin 'scrooloose/syntastic'
 Plugin 'davidhalter/jedi-vim'
