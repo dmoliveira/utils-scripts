@@ -16,3 +16,7 @@ brew install reattach-to-user-namespace
 brew install netcat
 brew install boost
 brew install dos2unix
+brew install neovim
+# Install Zsh Terminal Environment
+brew install zsh starship fzf zoxide
+brew install zsh-autosuggestions zsh-syntax-highlighting
