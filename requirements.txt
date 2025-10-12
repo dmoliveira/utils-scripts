@@ -72,3 +72,9 @@ networkx
 bash_kernel
 fastFM
 toree
+# Code Checker/ Syntax
+black
+isort
+ruff
+debugpy
+pynvim
