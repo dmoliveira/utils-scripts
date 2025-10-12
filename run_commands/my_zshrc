@@ -1,0 +1,85 @@
+# ─────────────────────────────────────────────
+# Locale & Environment
+# ─────────────────────────────────────────────
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export TERM="xterm-256color"
+
+# ─────────────────────────────────────────────
+# Paths
+# ─────────────────────────────────────────────
+export PATH="$HOME/bin:/usr/local/bin:$PATH"
+
+# ─────────────────────────────────────────────
+# Default Editor
+# ─────────────────────────────────────────────
+export EDITOR="vim"
+
+# ─────────────────────────────────────────────
+# Colors & Options
+# ─────────────────────────────────────────────
+export CLICOLOR=1
+export LSCOLORS=GxFxCxDxBxegedabagaced
+setopt AUTO_CD                 # cd just by typing dir
+setopt HIST_IGNORE_ALL_DUPS
+setopt SHARE_HISTORY
+setopt AUTO_PUSHD PUSHD_IGNORE_DUPS
+
+# ─────────────────────────────────────────────
+# History
+# ─────────────────────────────────────────────
+HISTFILE=~/.zsh_history
+HISTSIZE=20000
+SAVEHIST=20000
+
+# ─────────────────────────────────────────────
+# Plugin Manager: Zinit (lazy loads plugins)
+# ─────────────────────────────────────────────
+if [[ ! -f ~/.zinit/bin/zinit.zsh ]]; then
+  mkdir -p ~/.zinit/bin
+  git clone https://github.com/zdharma-continuum/zinit.git ~/.zinit/bin
+fi
+source ~/.zinit/bin/zinit.zsh
+
+# ─────────────────────────────────────────────
+# Plugins
+# ─────────────────────────────────────────────
+zinit light zsh-users/zsh-autosuggestions
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+
+# fzf & zoxide
+if command -v fzf >/dev/null 2>&1; then
+  [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+fi
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh)"
+fi
+
+# ─────────────────────────────────────────────
+# Prompt: Starship
+# ─────────────────────────────────────────────
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
+
+# ─────────────────────────────────────────────
+# Tmux Autostart (skip if already inside)
+# ─────────────────────────────────────────────
+#if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
+#  tmux attach -t main || tmux new -s main
+#fi
+
+# ─────────────────────────────────────────────
+# Aliases
+# ─────────────────────────────────────────────
+alias ll='ls -lah --color=auto'
+alias gs='git status'
+alias gl='git log --oneline --graph --decorate'
+alias tm='tmux new -A -s main'
+alias vim='nvim'  # comment out if not using neovim
+
+# ─────────────────────────────────────────────
+# Completion Init
+# ─────────────────────────────────────────────
+autoload -Uz compinit && compinit
