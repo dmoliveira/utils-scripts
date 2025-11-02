@@ -1,108 +1,201 @@
 #!/usr/bin/env bash
 
-# Title: Install my unix programs
-# Description: This script install programs agnostic from unix system
-# Tags: Install, Unix
+set -euo pipefail
 
-# Temp number
-random=$RANDOM
+# ------------------------------------------------------------------------------
+# Title: Install My Unix Programs (2025 Edition)
+# Description: Unified setup script for macOS and Debian/Ubuntu AI/ML environments.
+# Author: Diego Oliveira
+# ------------------------------------------------------------------------------
 
-# Create common directories over user directories
-echo -e "\n01. Create Common directories over user directories"
-mkdir -p ~/.bash ~/.bash/git-aware-prompt ~/.vim/autoload ~/.vim/bundle ~/.tmux/plugins/tpm ~/.powerline
+# === Global setup =============================================================
+timestamp=$(date +"%Y%m%d%H%M%S")
+OS=$(uname -s)
+echo "🧠 Detected OS: $OS"
 
-# Python Programs
-echo -e "\n02. Install some Python Programs"
-wget -O - https://bootstrap.pypa.io/get-pip.py | sudo python
-parallel -j1 -P1 sudo -H pip install -U {} :::: ./requirements.txt
-sudo python -m nltk.downloader -d /usr/share/nltk_data all
+# ------------------------------------------------------------------------------
+# 🧩 Utility functions
+# ------------------------------------------------------------------------------
 
-# install Jypter Kernels
-# sudo jupyter toree install --spark_home=$SPARK_HOME   # Install Spark Kernell
+backup_file() {
+  local file="$1"
+  if [[ -f "$file" ]]; then
+    local backup="${file}.${timestamp}.bak"
+    cp "$file" "$backup"
+    echo "📦 Backed up $file → $backup"
+  fi
+}
 
-# Oh-my-zsh!
-echo -e "\n03. Install Oh-My-Zsh!"
-sudo sh -c "$(wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+install_pkg() {
+  local pkg="$1"
+  if [[ "$OS" == "Darwin" ]]; then
+    brew list "$pkg" &>/dev/null || brew install "$pkg"
+  else
+    dpkg -s "$pkg" &>/dev/null || sudo apt install -y "$pkg"
+  fi
+}
 
-# Install Vundle
-echo -e "\n04. Install Vundle"
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+install_brew() {
+  if ! command -v brew &>/dev/null; then
+    echo "🍺 Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
+}
 
-# Install Pathogen.vim
-echo -e "\n05. Install Pathogen.vim"
-curl -LSso ~/.vim/autoload/pathogen.vim https://tpo.pe/pathogen.vim
+install_ohmyzsh() {
+  if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    echo "💫 Installing Oh-My-Zsh..."
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  fi
+}
 
-# Install Git Aware Prompt
-echo -e "\n06. Install Git Aware Prompt"
-git clone git://github.com/jimeh/git-aware-prompt.git ~/.bash/git-aware-prompt
+clone_if_missing() {
+  local repo="$1"
+  local dest="$2"
+  if [[ ! -d "$dest" ]]; then
+    echo "🔗 Cloning $repo → $dest"
+    git clone --depth=1 "$repo" "$dest"
+  fi
+}
 
-# Install Powerline fonts (Use it on terminal)
-echo -e "\n07. Install Powerline fonts (use it on terminal and VIM)"
-mkdir -p /tmp/git_temp_$random &&\
-    git clone https://github.com/powerline/fonts.git /tmp/git_temp_$random &&\
-    sudo /tmp/git_temp_$random/install.sh &&\
-    sudo rm -Rf /tmp/git_temp_$random
-sudo -H pip install -U git+git://github.com/powerline/powerline
+safe_copy() {
+  local src="$1"
+  local dest="$2"
+  if [[ -f "$src" ]]; then
+    mkdir -p "$(dirname "$dest")"
+    cp -f "$src" "$dest"
+    echo "📝 Installed $src → $dest"
+  fi
+}
 
-# Install Symbolic links for .bashrc, .vimrc and .tmux.conf
-echo -e "\n08. Install Symbolic links for .bashrc, .vimrc and .tmux.conf"
-cp "./run_commands/my_bashrc" "$HOME/.my_bashrc"
-cp "./run_commands/my_tmux.conf" "$HOME/.tmux.conf"
-cp "./run_commands/my_vimrc" "$HOME/.vimrc"
-echo "# source .my_bashrc" >> ~/.bashrc
+# ------------------------------------------------------------------------------
+# 🧰 1. System base setup
+# ------------------------------------------------------------------------------
 
-# Install Vim Plugins
-echo -e "\n09. Install Vim Plugins"
-vim +PluginInstall +qall
+setup_system() {
+  echo "⚙️ Setting up system base packages..."
+  if [[ "$OS" == "Darwin" ]]; then
+    install_brew
+    brew update && brew upgrade
+    brew install git curl wget neovim tmux htop tree jq fzf zoxide ripgrep bat fd gh cmake python uv
+  else
+    sudo apt update -y && sudo apt upgrade -y
+    sudo apt install -y curl wget git neovim tmux htop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev
+  fi
+}
 
-# Install Tmux TPM
-echo -e "\n10. Install Tmux TPM"
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# ------------------------------------------------------------------------------
+# 🧠 2. Python setup
+# ------------------------------------------------------------------------------
 
-# install Tmux Powerline
-echo -e "\n11. Install Tmux Powerline"
-git clone https://github.com/powerline/powerline.git ~/.powerline
+setup_python() {
+  echo "🐍 Installing Python packages..."
+  python3 -m ensurepip --upgrade || true
+  pip install -U pip wheel setuptools
+  if [[ -f "./requirements.txt" ]]; then
+    pip install -r ./requirements.txt
+  fi
+}
 
-# Install Tmux Plugings
-echo -e "\n12. Install Tmux Plugings"
-sudo ~/.tmux/plugins/tpm/bin/install_plugins
-tmux source ~/.tmux.conf
+# ------------------------------------------------------------------------------
+# 💫 3. Shell setup (Zsh, Oh-My-Zsh, Starship)
+# ------------------------------------------------------------------------------
 
-# Create Soft-link (in-progress)
-echo -e "\n13. Create Soft-link"
-cwd="$PWD" && cd /usr/local/bin &&\
-    sudo ln -sf ~/.powerline/powerline/scripts/powerline-config &&\
-    sudo ln -sf ~/.powerline/powerline/scripts/powerline-daemon &&\
-    sudo ln -sf ~/.powerline/powerline/scripts/powerline-lint &&\
-    sudo ln -sf ~/.powerline/powerline/scripts/powerline-release.py &&\
-    sudo ln -sf ~/.powerline/powerline/scripts/powerline-render
-cd "$cwd"
+setup_shell() {
+  echo "💫 Configuring shell..."
+  install_ohmyzsh
 
-# Install Oracle Java 8
-echo -e "\n14. Install Oracle Java 8"
-sudo add-apt-repository ppa:webupd8team/java -y
-sudo apt-get update
-sudo apt-get install oracle-java8-installer
-sudo apt-get install oracle-java8-set-default
+  if [[ "$OS" == "Darwin" ]]; then
+    brew install starship
+  else
+    curl -sS https://starship.rs/install.sh | sh -s -- -y
+  fi
 
-# Install Eclipse
-echo -e "\n15. Install Eclipse JEE Neon"
-wget http://eclipse.c3sl.ufpr.br/technology/epp/downloads/release/neon/R/eclipse-jee-neon-R-linux-gtk-x86_64.tar.gz -O eclipse.tar.gz
-tar -xvf eclipse.tar.gz
-sudo mv eclipse /opt
-rm eclipse.tar.gz
+  # Backup and replace configs
+  for file in "$HOME/.bashrc" "$HOME/.zshrc"; do
+    backup_file "$file"
+  done
 
-# Install Eclim
-echo -e "\n16. Install Eclim"
-wget http://downloads.sourceforge.net/project/eclim/eclim/2.5.0/eclim_2.5.0.jar
-rm eclim_2.5.0.jar
+  # Copy new configs
+  safe_copy "./run_commands/my_bashrc" "$HOME/.bashrc"
+  safe_copy "./run_commands/my_zshrc" "$HOME/.zshrc"
 
-# Install Julia Language
-echo -e "\n17. Install Julia v.0.5"
-cur_dir="$PWD"
-cd ~/ && mkdir sw && cd sw
-git clone git://github.com/JuliaLang/julia.git && cd julia && git checkout release-0.5
-make -j $(nprod)
-cd "$cur_dir"
-julia 
+  # Source custom files if preferred style
+  for shell_file in bashrc zshrc; do
+    target="$HOME/.${shell_file}"
+    myfile="$HOME/.my_${shell_file}"
+    [[ -f "./run_commands/my_${shell_file}" ]] && cp "./run_commands/my_${shell_file}" "$myfile"
+    if ! grep -q "source ~/.my_${shell_file}" "$target" 2>/dev/null; then
+      echo "source ~/.my_${shell_file}" >> "$target"
+      echo "🪄 Added sourcing line to $target"
+    fi
+  done
+}
 
+# ------------------------------------------------------------------------------
+# 🪶 4. NeoVim + Lazy.nvim
+# ------------------------------------------------------------------------------
+
+setup_neovim() {
+  echo "🪶 Setting up NeoVim..."
+  clone_if_missing "https://github.com/folke/lazy.nvim.git" "$HOME/.local/share/nvim/lazy/lazy.nvim"
+  mkdir -p "$HOME/.config/nvim"
+  backup_file "$HOME/.config/nvim/init.lua"
+  safe_copy "./run_commands/my_nvim_init.lua" "$HOME/.config/nvim/init.lua"
+}
+
+# ------------------------------------------------------------------------------
+# 🧩 5. Fonts (Nerd Font / Fira Code)
+# ------------------------------------------------------------------------------
+
+setup_fonts() {
+  echo "🔤 Installing fonts..."
+  if [[ "$OS" == "Darwin" ]]; then
+    brew install --cask font-fira-code-nerd-font
+  else
+    mkdir -p ~/.local/share/fonts
+    wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip -O /tmp/FiraCode.zip
+    unzip -o /tmp/FiraCode.zip -d ~/.local/share/fonts >/dev/null
+    fc-cache -fv >/dev/null
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# 🧩 6. Tmux + TPM
+# ------------------------------------------------------------------------------
+
+setup_tmux() {
+  echo "🧩 Installing Tmux plugin manager..."
+  clone_if_missing "https://github.com/tmux-plugins/tpm" "$HOME/.tmux/plugins/tpm"
+  backup_file "$HOME/.tmux.conf"
+  safe_copy "./run_commands/my_tmux.conf" "$HOME/.tmux.conf"
+}
+
+# ------------------------------------------------------------------------------
+# 🤖 7. AI/ML libraries (optional)
+# ------------------------------------------------------------------------------
+
+install_ml_libs() {
+  echo "🧠 Installing AI/ML Python packages..."
+  pip install -U numpy pandas scikit-learn jupyterlab matplotlib seaborn \
+    torch torchvision torchaudio xgboost lightgbm transformers sentence-transformers \
+    openai optuna mlflow
+}
+
+# ------------------------------------------------------------------------------
+# 🚀 Run all setup steps
+# ------------------------------------------------------------------------------
+
+main() {
+  setup_system
+  setup_python
+  setup_shell
+  setup_neovim
+  setup_fonts
+  setup_tmux
+  install_ml_libs
+  echo "✅ All done! Restart your terminal to apply changes."
+  echo "💡 Tip: Add 'eval \"\$(starship init zsh)\"' to ~/.zshrc"
+}
+
+main "$@"

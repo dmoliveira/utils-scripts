@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
 # Title: Install my unix programs
 # Description: This scripts install my basic programs that I use day-by-day;
@@ -9,180 +10,27 @@
 # Debian Programs
 
 # Update and upgrade libraries
-sudo apt-get install -y python-software-properties software-properties-common
-sudo add-apt-repository -y ppa:webupd8team/sublime-text-3
-sudo add-apt-repository -y ppa:pi-rho/dev
-sudo apt-get update -y && sudo apt-get upgrade -y
+echo "Updating system..."
+sudo apt update -y && sudo apt upgrade -y
 
-# Install steroids for bash (I don't use yet)
-sudo apt-get install -y zsh
+echo "Installing essential tools..."
+sudo apt install -y \
+    curl wget git build-essential g++ make cmake pkg-config \
+    neovim tmux zsh htop tree jq ripgrep fzf bat fd-find zoxide \
+    openssl xclip parallel
 
-# Install basic VIM
-sudo apt-get install -y vim
+echo "Installing Python & ML dependencies..."
+sudo apt install -y \
+    python3 python3-pip python3-venv python3-dev python3-setuptools pylint \
+    libffi-dev libopenblas-dev liblapack-dev gfortran libfreetype6-dev libpng-dev \
+    libgit2-dev
 
-# Steroids for VIM
-sudo apt-get install -y vim-gnome
+echo "Installing Docker..."
+curl -fsSL https://get.docker.com | sudo sh
+sudo usermod -aG docker "$USER"
 
-# Install Jedi-Vim
-sudo apt-get install -y vim-python-jedi
+echo "Installing LaTeX (for reports/publications)..."
+sudo apt install -y texlive-latex-extra texlive-fonts-recommended texlive-pictures
 
-# Install HTTP request and other tools
-sudo apt-get install -y curl
-
-# Install one of my prefered terminals
-sudo apt-get install -y terminator
-
-# Install Yakuake (light terminal [F12])
-sudo apt-get install -y yakuake
-
-# Install clipbord facility at shell
-sudo apt-get install -y xclip
-
-# Install Python Development Tools
-sudo apt-get install libffi-dev
-
-# Install Computer Performance Window
-sudo apt-get install -y htop
-
-# Install shell browser
-sudo apt-get install -y lynx-cur
-
-# Install G++
-sudo apt-get install -y g++
-
-# Install PyLint (Python Syntax Checker like Flake)
-sudo apt-get install -y pylint
-
-# Install Tree Folder Visualization
-sudo apt-get install -y tree
-
-# Install Ctags (Analyzer of functions in +40 prog. languages)
-sudo apt-get install -y ctags
-
-# Install Chromelike
-sudo apt-get install -y chromium-browser
-
-# Install Gimp
-sudo apt-get install -y gimp 
-
-# Install MySQL
-sudo apt-get install -y mysql*
-sudo apt-get install -y mysql-client
-
-# Install MPlayer
-sudo apt-get install -y mplayer
-
-# Install Tmux
-sudo apt-get install -y tmux
-
-# Install SSH access
-sudo apt-get install -y openssl
-
-# Install Default MySQL Library
-sudo apt-get install -y libmysqlclient-dev
-
-# Install spell-checker
-sudo apt-get install -y aspell
-
-# Install Libre Office
-sudo apt-get install -y libreoffice
-
-# Install Sublime 3
-sudo apt-get install -y sublime-text-installer
-
-# Install for Tmux Pluging
-sudo apt-get install -y urlview
-
-# Install JSON Wraggle shell
-sudo apt-get install -y jq
-
-# Install GNU Parallel
-sudo apt-get install -y parallel
-(wget -O - pi.dk/3 || curl pi.dk/3/ || fetch -o - http://pi.dk/3) | sudo bash
-
-# Install Git
-sudo apt-get install -y git
-
-# Install Git Libraries
-sudo apt-get install -y libgit2-dev
-sudo apt-get install -y libffi-dev
-
-# Install Blas
-sudo apt-get install -y gfortran libopenblas-dev liblapack-dev
-
-# Install Latex
-sudo apt-get install -y gedit-latex-plugin texlive-fonts-recommended latex-beamer texpower texlive-pictures texlive-latex-extra imagemagick
-
-# Install Docker
-curl -sSL https://get.docker.com/ | sudo sh
-sudo usermod -aG docker "${USER}"
-sudo gpasswd -a ${USER} docker
-sudo service docker restart
-
-# Install Screenshot
-sudo apt-get install -y gnome-screenshot
-
-# Install Python-Setuptools and Dev
-sudo apt-get install python-setuptools
-sudo apt-get install python-dev
-
-# Install NCurses
-sudo apt-get install ncurses-dev
-
-# Install Readline
-sudo apt-get install -y libreadline6 libreadline6-dev
-
-# Install PCReGrep
-sudo apt-get install -y pcregrep
-
-# Install Freetype
-sudo apt-get install -y libfreetype6-dev
-sudo apt-get install -y libxft-dev
-
-# Install libPNG
-sudo apt-get install -y libpng-dev
-
-# Install XBase-Clients
-sudo apt-get install -y xbase-clients
-
-# Install Flash
-sudo apt-get install -y flashplugin-installer
-sudo apt-get install -y pepperflashplugin-nonfree
-
-# Install Imagemagick
-sudo apt-get install -y imagemagick php5-imagick
-
-# Install M4
-sudo apt-get install -y m4
-
-# Install Libunwind8-dev
-sudo apt-get install -y libunwind8-dev
-
-# Install CMake
-sudo apt-get install -y cmake
-
-# Install XMonad
-sudo apt-get install -y ghc6 libx11-dev cabal-install gmrun
-sudo apt-get install -y xmonad
-
-# Install Yakuake
-sudo apt-get install -y yakuake
-
-# Install i3
-sudo apt-get install -y i3
-
-# Install R
-sudo apt-get install -y r-base
-
-# Install Scala
-SCALA_VERSION="2.12.0-M4"
-sudo apt-get remove scala-library scala
-wget http://www.scala-lang.org/files/archive/scala-$SCALA_VERSION.deb
-sudo dpkg -i scala-$SCALA_VERSION.deb
-sudo apt-get update
-sudo apt-get install scala
-rm scala-$SCALA_VERSION.deb
-
-# Remove leftovers
-sudo apt-get autoremove -y
-rm -Rf parallel-*
+echo "Cleaning up..."
+sudo apt autoremove -y && sudo apt clean

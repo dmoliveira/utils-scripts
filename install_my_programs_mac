@@ -1,22 +1,35 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-# Install brew
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# 🧩 Install Homebrew if not already installed
+if ! command -v brew &>/dev/null; then
+  echo "Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
 
-# MacOS programs installed at Brew
-brew update
-brew install wget
-brew install htop
-brew install macvim --override-system-vim
-brew install ctags
-brew install mplayer
-brew install tmux
-brew install urlview 
-brew install reattach-to-user-namespace
-brew install netcat
-brew install boost
-brew install dos2unix
-brew install neovim
-# Install Zsh Terminal Environment
-brew install zsh starship fzf zoxide
-brew install zsh-autosuggestions zsh-syntax-highlighting
+echo "Updating Homebrew..."
+brew update && brew upgrade
+
+# 🧰 Core developer tools
+brew install \
+  wget htop tmux neovim curl git jq tree \
+  fzf zoxide ripgrep bat fd gh \
+  python uv
+
+# 🧠 AI/ML environment (optional)
+brew install \
+  cmake openblas lapack gfortran \
+  protobuf rust
+
+# 🐚 Zsh terminal enhancements
+brew install starship zsh zsh-autosuggestions zsh-syntax-highlighting
+
+# 🧩 Fonts (optional)
+brew install --cask font-fira-code-nerd-font
+
+# 🧮 Lua / auxiliary tools (optional)
+brew install luarocks
+
+echo "✅ Setup complete! Recommended next steps:"
+echo "- Run: 'chsh -s $(which zsh)' to make Zsh your default shell"
+echo "- Run: 'eval \"\$(starship init zsh)\"' to enable Starship prompt"
