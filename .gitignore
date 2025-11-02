@@ -1,2 +1,4 @@
 ssh
 run_commands/tmux/
+.DS_Store
+**/.nvimlog
