@@ -201,6 +201,8 @@ install_ml_libs() {
 install_local_scripts() {
   echo "📎 Installing local helper scripts..."
   install_local_bin_script "./bd_init_project"
+  install_local_bin_script "./codex_apply_config"
+  install_local_bin_script "./repomix_generate"
 }
 
 # ------------------------------------------------------------------------------
@@ -217,6 +219,21 @@ install_beads() {
 }
 
 # ------------------------------------------------------------------------------
+# 🤖 10. Codex config
+# ------------------------------------------------------------------------------
+
+install_codex_config() {
+  echo "🤖 Configuring Codex..."
+  mkdir -p "$HOME/.codex"
+  safe_copy "./run_commands/codex_config.toml" "$HOME/.codex/config.template.toml"
+  if [[ -x "$HOME/.local/bin/codex_apply_config" ]]; then
+    "$HOME/.local/bin/codex_apply_config"
+  else
+    echo "⚠️ codex_apply_config not installed; skipping config apply."
+  fi
+}
+
+# ------------------------------------------------------------------------------
 # 🚀 Run all setup steps
 # ------------------------------------------------------------------------------
 
@@ -224,6 +241,7 @@ main() {
   setup_system
   install_beads
   install_local_scripts
+  install_codex_config
   setup_python
   setup_shell
   setup_neovim

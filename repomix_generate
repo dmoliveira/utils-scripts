@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+set -e
+
+REPO_ROOT="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+AGENTS_FILE="$REPO_ROOT/AGENTS.md"
+MARKER="## Repository context (Repomix)"
+
+cd "$REPO_ROOT"
+
+echo "-> Running Repomix in $REPO_ROOT"
+
+# Ensure AGENTS.md exists
+if [ ! -f "$AGENTS_FILE" ]; then
+  echo "-> Creating AGENTS.md"
+  touch "$AGENTS_FILE"
+fi
+
+# Add instruction only once
+if ! grep -q "$MARKER" "$AGENTS_FILE"; then
+  echo "-> Adding Repomix instruction to AGENTS.md"
+  cat <<EOF >> "$AGENTS_FILE"
+
+## Repository context (Repomix)
+
+This repository may generate a \`repomix-output.xml\` file using Repomix.
+When present, always read and reason over this file before making architectural
+or multi-file changes, as it represents the full repository context.
+EOF
+else
+  echo "-> Repomix instruction already present in AGENTS.md, skipping"
+fi
+
+# Run Repomix
+echo "-> Generating repomix-output.xml"
+npx repomix@latest --compress
+
+echo "OK Repomix completed"
