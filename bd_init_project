@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -e
+
+if ! command -v bd &>/dev/null; then
+  echo "bd not found on PATH. Install beads first." >&2
+  exit 1
+fi
+
+if [ ! -d ".beads" ]; then
+  bd init
+fi
+
+if [ ! -f AGENTS.md ]; then
+  touch AGENTS.md
+fi
+
+grep -q "Use 'bd' for task tracking" AGENTS.md || \
+echo "Use 'bd' for task tracking and planning. Always query 'bd ready' before starting work." >> AGENTS.md

@@ -68,6 +68,18 @@ safe_copy() {
   fi
 }
 
+install_local_bin_script() {
+  local src="$1"
+  local dest_dir="$HOME/.local/bin"
+  local dest="$dest_dir/$(basename "$src")"
+  if [[ -f "$src" ]]; then
+    mkdir -p "$dest_dir"
+    cp -f "$src" "$dest"
+    chmod +x "$dest"
+    echo "🧰 Installed $(basename "$src") → $dest"
+  fi
+}
+
 # ------------------------------------------------------------------------------
 # 🧰 1. System base setup
 # ------------------------------------------------------------------------------
@@ -183,11 +195,35 @@ install_ml_libs() {
 }
 
 # ------------------------------------------------------------------------------
+# 📎 8. Local helper scripts
+# ------------------------------------------------------------------------------
+
+install_local_scripts() {
+  echo "📎 Installing local helper scripts..."
+  install_local_bin_script "./bd_init_project"
+}
+
+# ------------------------------------------------------------------------------
+# 📿 9. Beads (bd)
+# ------------------------------------------------------------------------------
+
+install_beads() {
+  echo "📿 Installing Beads (bd)..."
+  if command -v bd &>/dev/null; then
+    echo "✅ bd already installed. Skipping."
+    return
+  fi
+  curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+}
+
+# ------------------------------------------------------------------------------
 # 🚀 Run all setup steps
 # ------------------------------------------------------------------------------
 
 main() {
   setup_system
+  install_beads
+  install_local_scripts
   setup_python
   setup_shell
   setup_neovim
