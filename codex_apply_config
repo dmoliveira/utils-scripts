@@ -1,0 +1,138 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+CONFIG_DIR="${CODEX_HOME:-$HOME/.codex}"
+TEMPLATE_PATH="${1:-$CONFIG_DIR/config.template.toml}"
+CONFIG_PATH="$CONFIG_DIR/config.toml"
+
+if [[ ! -f "$TEMPLATE_PATH" ]]; then
+  echo "Codex template not found: $TEMPLATE_PATH" >&2
+  exit 1
+fi
+
+mkdir -p "$CONFIG_DIR"
+
+if [[ -f "$CONFIG_PATH" ]]; then
+  timestamp="$(date +"%Y%m%d%H%M%S")"
+  cp "$CONFIG_PATH" "$CONFIG_PATH.$timestamp.bak"
+fi
+
+touch "$CONFIG_PATH"
+
+python3 - "$TEMPLATE_PATH" "$CONFIG_PATH" <<'PY'
+from __future__ import annotations
+
+import re
+import sys
+from pathlib import Path
+
+
+template_path = Path(sys.argv[1])
+config_path = Path(sys.argv[2])
+
+template_lines = template_path.read_text().splitlines()
+config_text = config_path.read_text() if config_path.exists() else ""
+config_lines = config_text.splitlines()
+
+
+def first_section_index(lines: list[str]) -> int:
+    for idx, line in enumerate(lines):
+        if line.lstrip().startswith("["):
+            return idx
+    return len(lines)
+
+
+def upsert_top_level(lines: list[str], key: str, value: str) -> None:
+    first_section = first_section_index(lines)
+    pattern = re.compile(rf"^{re.escape(key)}\s*=")
+    for idx in range(first_section):
+        if pattern.match(lines[idx].strip()):
+            lines[idx] = f"{key} = {value}"
+            return
+
+    insert_at = 0
+    for idx in range(first_section):
+        stripped = lines[idx].strip()
+        if stripped.startswith("model_reasoning_effort ="):
+            insert_at = idx + 1
+            break
+        if stripped.startswith("model ="):
+            insert_at = idx + 1
+    lines.insert(insert_at, f"{key} = {value}")
+
+
+def find_section(lines: list[str], header: str) -> int | None:
+    for idx, line in enumerate(lines):
+        if line.strip() == header:
+            return idx
+    return None
+
+
+def section_end(lines: list[str], start: int) -> int:
+    for idx in range(start + 1, len(lines)):
+        if lines[idx].lstrip().startswith("["):
+            return idx
+    return len(lines)
+
+
+def upsert_section(lines: list[str], header: str, kvs: list[tuple[str, str]]) -> None:
+    idx = find_section(lines, header)
+    if idx is None:
+        if lines and lines[-1].strip():
+            lines.append("")
+        lines.append(header)
+        for key, value in kvs:
+            lines.append(f"{key} = {value}")
+        return
+
+    end = section_end(lines, idx)
+    insert_at = idx + 1
+    for key, value in kvs:
+        pattern = re.compile(rf"^{re.escape(key)}\s*=")
+        found = False
+        for line_idx in range(idx + 1, end):
+            if pattern.match(lines[line_idx].strip()):
+                lines[line_idx] = f"{key} = {value}"
+                found = True
+                break
+        if not found:
+            lines.insert(insert_at, f"{key} = {value}")
+            insert_at += 1
+            end += 1
+
+
+top_level: list[tuple[str, str]] = []
+sections: dict[str, list[tuple[str, str]]] = {}
+current_section: str | None = None
+
+for line in template_lines:
+    stripped = line.strip()
+    if not stripped or stripped.startswith("#"):
+        continue
+    if stripped.startswith("[") and stripped.endswith("]"):
+        current_section = stripped
+        sections.setdefault(current_section, [])
+        continue
+    if "=" not in line:
+        continue
+    key, value = line.split("=", 1)
+    key = key.strip()
+    value = value.strip()
+    if current_section is None:
+        top_level.append((key, value))
+    else:
+        sections[current_section].append((key, value))
+
+
+for key, value in top_level:
+    upsert_top_level(config_lines, key, value)
+
+for header, kvs in sections.items():
+    upsert_section(config_lines, header, kvs)
+
+
+new_text = "\n".join(config_lines)
+if config_text.endswith("\n") or not new_text.endswith("\n"):
+    new_text += "\n"
+config_path.write_text(new_text)
+PY
