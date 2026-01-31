@@ -90,6 +90,10 @@ chmod +x install_my_programs_unix
 ./install_my_programs_unix
 ```
 
+Optional flags (Generic Unix):
+- `--skip-ml` skip AI/ML Python packages
+- `--skip-fonts` skip Nerd Fonts install
+
 ### 3️⃣ Install Python Packages (optional)
 ```bash
 pip install -r requirements.txt
@@ -143,6 +147,13 @@ Example:
 ```
 set -g mouse on
 bind r source-file ~/.tmux.conf \; display "Reloaded!"
+```
+
+### WezTerm
+Config file: `~/.wezterm.lua`  
+Base config in this repo: `run_commands/my_wezterm.lua`
+```
+cp ./run_commands/my_wezterm.lua ~/.wezterm.lua
 ```
 
 ### Neovim

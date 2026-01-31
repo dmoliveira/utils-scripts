@@ -12,6 +12,42 @@ set -euo pipefail
 timestamp=$(date +"%Y%m%d%H%M%S")
 OS=$(uname -s)
 echo "🧠 Detected OS: $OS"
+INSTALL_ML_LIBS=true
+INSTALL_FONTS=true
+
+usage() {
+  cat <<'EOF'
+Usage: install_my_programs_unix [options]
+
+Options:
+  --skip-ml       Skip installing AI/ML Python packages
+  --skip-fonts    Skip installing fonts
+  -h, --help      Show this help message
+EOF
+}
+
+parse_args() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --skip-ml)
+        INSTALL_ML_LIBS=false
+        ;;
+      --skip-fonts)
+        INSTALL_FONTS=false
+        ;;
+      -h|--help)
+        usage
+        exit 0
+        ;;
+      *)
+        echo "Unknown option: $1" >&2
+        usage
+        exit 1
+        ;;
+    esac
+    shift
+  done
+}
 
 # ------------------------------------------------------------------------------
 # 🧩 Utility functions
@@ -103,9 +139,9 @@ setup_system() {
 setup_python() {
   echo "🐍 Installing Python packages..."
   python3 -m ensurepip --upgrade || true
-  pip install -U pip wheel setuptools
+  python3 -m pip install -U pip wheel setuptools
   if [[ -f "./requirements.txt" ]]; then
-    pip install -r ./requirements.txt
+    python3 -m pip install -r ./requirements.txt
   fi
 }
 
@@ -189,7 +225,7 @@ setup_tmux() {
 
 install_ml_libs() {
   echo "🧠 Installing AI/ML Python packages..."
-  pip install -U numpy pandas scikit-learn jupyterlab matplotlib seaborn \
+  python3 -m pip install -U numpy pandas scikit-learn jupyterlab matplotlib seaborn \
     torch torchvision torchaudio xgboost lightgbm transformers sentence-transformers \
     openai optuna mlflow
 }
@@ -238,6 +274,7 @@ install_codex_config() {
 # ------------------------------------------------------------------------------
 
 main() {
+  parse_args "$@"
   setup_system
   install_beads
   install_local_scripts
@@ -245,9 +282,17 @@ main() {
   setup_python
   setup_shell
   setup_neovim
-  setup_fonts
+  if [[ "$INSTALL_FONTS" == "true" ]]; then
+    setup_fonts
+  else
+    echo "🔤 Skipping fonts install."
+  fi
   setup_tmux
-  install_ml_libs
+  if [[ "$INSTALL_ML_LIBS" == "true" ]]; then
+    install_ml_libs
+  else
+    echo "🧠 Skipping AI/ML Python packages."
+  fi
   echo "✅ All done! Restart your terminal to apply changes."
   echo "💡 Tip: Add 'eval \"\$(starship init zsh)\"' to ~/.zshrc"
 }
