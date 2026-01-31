@@ -1,108 +1,104 @@
 #!/usr/bin/env julia
 #
 # Title: Julia Packages Installation
-# Description: Install All Julia Packages that I use.
+# Description: Install all Julia packages that I use.
 # Tags: Programming Language, Julia, Package
 #
 
-using Base.Pkg
+using Pkg
+
+packages = [
+    "AbstractDomains",
+    "ArgParse",
+    "BackpropNeuralNet",
+    "BayesNets",
+    "BenchmarkTools",
+    "BloomFilters",
+    "Bootstrap",
+    "Bokeh",
+    "CRC",
+    "CRF",
+    "Cairo",
+    "Calculus",
+    "Clustering",
+    "Color",
+    "ColorBrewer",
+    "Compat",
+    "Compose",
+    "ConfParser",
+    "Convex",
+    "CovarianceMatrices",
+    "DataFrames",
+    "DataFramesMeta",
+    "DataStructures",
+    "Debug",
+    "Decimals",
+    "DecisionTree",
+    "DimensionalityReduction",
+    "DirichletProcessMixtures",
+    "Distances",
+    "Distributions",
+    "Documenter",
+    "DocOpt",
+    "EmpiricalRisks",
+    "ExtremelyRandomizedTrees",
+    "FiniteStateMachine",
+    "FunctionalCollections",
+    "FunctionalData",
+    "GZip",
+    "GLM",
+    "GLMNet",
+    "Gadfly",
+    "GeoIP",
+    "GeometricalPredicates",
+    "GitHub",
+    "GraphLayout",
+    "GraphViz",
+    "Graphs",
+    "HDF5",
+    "HTTP",
+    "Humanize",
+    "HypothesisTests",
+    "IJulia",
+    "ImageView",
+    "Images",
+    "Immerse",
+    "Interact",
+    "JLD",
+    "JSON",
+    "Lasso",
+    "Levenshtein",
+    "Lumberjack",
+    "MLBase",
+    "Markdown",
+    "NBInclude",
+    "NearestNeighbors",
+    "NumericExtensions",
+    "ProgressMeter",
+    "PyCall",
+    "PyPlot",
+    "RCall",
+    "RDatasets",
+    "Reactive",
+    "RegERMs",
+    "SIUnits",
+    "SQLite",
+    "StatsBase",
+    "TestImages",
+    "Twitter",
+    "UnicodePlots",
+    "Vega",
+    "XGBoost",
+    "YAML",
+    "kNN",
+]
+
+for pkg in packages
+    Pkg.add(pkg)
+end
+
+Pkg.add(PackageSpec(url = "https://github.com/simonster/LIBSVM.jl"))
+Pkg.add(PackageSpec(url = "https://github.com/anj1/NeuralNets.jl"))
+Pkg.add(PackageSpec(url = "https://github.com/lepisma/ELM.jl"))
+
 Pkg.update()
-Pkg.add("DataFrames")
-Pkg.add("DataFramesMeta")
-Pkg.add("PyCall")
-Pkg.add("Requests")
-Pkg.add("JSON")
-Pkg.add("Cairo")
-Pkg.add("Gadfly")
-Pkg.add("GraphViz")
-Pkg.add("IJuliaPortrayals")
-Pkg.add("DecisionTree")
-Pkg.add("JLD")
-Pkg.add("kNN")
-Pkg.add("Images")
-Pkg.add("GraphLayout")
-Pkg.add("Immerse")
-Pkg.add("Distributions")
-Pkg.add("PyPlot")
-Pkg.add("Winston")
-Pkg.add("UnicodePlots")
-Pkg.add("IJulia")
-Pkg.add("Lumberjack")
-Pkg.add("Compat")
-Pkg.add("Interact")
-Pkg.add("LightGraphs")
-Pkg.add("Graphs")
-Pkg.add("SIUnits")
-Pkg.add("HttpServer")
-Pkg.add("IJulia")
-Pkg.add("StatsBase")
-Pkg.add("Twitter")
-Pkg.add("MLBase")
-Pkg.add("Vega")
-Pkg.add("Bokeh")
-Pkg.add("ASCIIPlots")
-Pkg.add("YAML")
-Pkg.add("Winston")
-Pkg.add("AbstractDomains")
-Pkg.add("ArgParse")
-Pkg.add("BackpropNeuralNet")
-Pkg.add("BayesNets")
-Pkg.add("Benchmark")
-Pkg.add("BloomFilters")
-Pkg.add("Bootstrap")
-Pkg.add("CRC")
-Pkg.add("CRF")
-Pkg.add("Calculus")
-Pkg.add("Clustering")
-Pkg.add("Color")
-Pkg.add("ColorBrewer")
-# Pkg.add("Combinatorics")
-Pkg.add("Compose")
-Pkg.add("ConfParser")
-Pkg.add("Convex")
-Pkg.add("CovarianceMatrices")
-Pkg.add("DataArrays")
-Pkg.add("DataStructures")
-Pkg.add("Debug")
-Pkg.add("Decimals")
-Pkg.add("DimensionalityReduction")
-Pkg.add("DirichletProcessMixtures")
-Pkg.add("Distances")
-Pkg.add("DocOpt")
-Pkg.add("EmpiricalRisks")
-Pkg.add("ExtremelyRandomizedTrees")
-Pkg.add("FiniteStateMachine")
-Pkg.add("FunctionalCollections")
-Pkg.add("FunctionalData")
-Pkg.add("GLM")
-Pkg.add("GLMNet")
-Pkg.add("GZip")
-Pkg.add("GeoIP")
-Pkg.add("GeometricalPredicates")
-Pkg.add("GitHub")
-Pkg.add("HDF5")
-Pkg.add("Humanize")
-Pkg.add("HypothesisTests")
-Pkg.add("ImageView")
-Pkg.add("TestImages")
-Pkg.add("RDatasets")
-Pkg.add("SQLite")
-Pkg.add("PyPlot")
-Pkg.add("NumericExtensions")
-Pkg.add("Markdown")
-Pkg.add("Levenshtein")
-Pkg.add("XGBoost")
-Pkg.add("Lasso")
-Pkg.clone("https://github.com/simonster/LIBSVM.jl")
-Pkg.clone("https://github.com/anj1/NeuralNets.jl")
-Pkg.clone("git://github.com/lepisma/ELM.jl.git")
-Pkg.add("NBInclude")
-Pkg.add("RCall")
-Pkg.add("Debug")
-Pkg.add("Levenshtein")
-Pkg.clone("https://github.com/MichaelHatherly/Documenter.jl")
-Pkg.add("NearestNeighbors")
-Pkg.add("RegERMs")
-Pkg.add("Reactive")
-Pkg.clone("Autoreload")
-Pkg.add("ProgressMeter")

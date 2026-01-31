@@ -1,7 +1,15 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 # 
 # Update all Python Library with pip.
 #
 
-pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | sudo xargs -n1 pip install -U --user
+packages=$(python3 -m pip list --outdated --format=freeze | cut -d = -f 1)
+if [[ -z "$packages" ]]; then
+  echo "All Python packages are up to date."
+  exit 0
+fi
+
+echo "$packages" | xargs -n1 python3 -m pip install -U
