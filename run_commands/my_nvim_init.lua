@@ -50,12 +50,10 @@ require("lazy").setup({
   { "rcarriga/nvim-notify" },                          -- Better notifications UI
   { "akinsho/toggleterm.nvim", config = true },        -- Integrated terminal, great for running Python scripts
   { "stevearc/overseer.nvim" },                        -- Manage background jobs or experiment runs
-  { "lewis6991/impatient.nvim" },                      -- Speeds up startup time (cache Lua modules)
   -- Python dev tools
   { "mfussenegger/nvim-dap" },           -- Debugging
   { "mfussenegger/nvim-lint" },          -- Linting
   { "stevearc/conform.nvim" },           -- Autoformat
-  { "jose-elias-alvarez/null-ls.nvim" },               -- Integrate black, flake8, isort
   { "mfussenegger/nvim-dap-python" },                  -- Debug Python
   { "linux-cultist/venv-selector.nvim", config = true }, -- Quickly switch between Python venvs
   { "Vigemus/iron.nvim" },                             -- REPL integration (run code interactively, like Jupyter)
@@ -102,7 +100,7 @@ vim.keymap.set("n", "<leader>r", ":NvimTreeRefresh<CR>", { desc = "Refresh file 
 vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>", { desc = "Reveal current file in tree" })
 
 -- Theme
-require("catppuccin").setup({ flavour = mocha })
+require("catppuccin").setup({ flavour = "mocha" })
 vim.cmd.colorscheme("catppuccin")
 
 -- Statusline

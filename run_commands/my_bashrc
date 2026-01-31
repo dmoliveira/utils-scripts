@@ -8,8 +8,8 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
 # TMUX Folder Pluging
-export TMUX_PLUGIN_MANAGER_PATH="~/.tmux/plugins"
-export POWERLINE_CONFIG_COMMAND="/$HOME/.powerline/powerline/scripts/powerline-config"
+export TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins"
+export POWERLINE_CONFIG_COMMAND="$HOME/.powerline/scripts/powerline-config"
 
 # Colors for Terminal
 export CLICOLOR=1
@@ -17,9 +17,6 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 
 # Default Editor
 export EDITOR='vim'
-
-# Powerline
-POWERLINE_CONFIG_COMMAND="$HOME/.powerline/scripts/powerline-config"
 
 # Use Solaris at Terminal-Vim
 export TERM="xterm-256color"

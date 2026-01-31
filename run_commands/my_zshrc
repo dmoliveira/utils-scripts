@@ -68,6 +68,33 @@ if command -v starship >/dev/null 2>&1; then
 fi
 
 # ─────────────────────────────────────────────
+# WezTerm Git Status
+# ─────────────────────────────────────────────
+_wezterm_update_git_branch() {
+  if [[ -z "${WEZTERM_PANE-}" ]]; then
+    return
+  fi
+
+  if ! typeset -f __wezterm_set_user_var >/dev/null 2>&1; then
+    return
+  fi
+
+  local branch=""
+  if command git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    branch=$(command git symbolic-ref --short HEAD 2>/dev/null)
+    if [[ -z "$branch" ]]; then
+      branch=$(command git rev-parse --short HEAD 2>/dev/null)
+    fi
+  fi
+
+  __wezterm_set_user_var WEZTERM_GIT_BRANCH "$branch"
+}
+
+if ! (( ${precmd_functions[(Ie)_wezterm_update_git_branch]} )); then
+  precmd_functions+=(_wezterm_update_git_branch)
+fi
+
+# ─────────────────────────────────────────────
 # Tmux Autostart (skip if already inside)
 # ─────────────────────────────────────────────
 #if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
