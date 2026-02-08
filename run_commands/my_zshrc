@@ -113,6 +113,30 @@ alias vim='nvim'  # comment out if not using neovim
 # ─────────────────────────────────────────────
 # Completion Init
 # ─────────────────────────────────────────────
-autoload -Uz compinit && compinit
+mkdir -p ~/.zfunc
+fpath=(~/.zfunc $fpath)
+
+if command -v codex >/dev/null 2>&1; then
+  if [[ ! -f ~/.zfunc/_codex ]]; then
+    codex completion zsh > ~/.zfunc/_codex
+  fi
+fi
+
+if command -v az >/dev/null 2>&1; then
+  if [[ ! -f ~/.zfunc/_az ]]; then
+    az completion zsh > ~/.zfunc/_az
+  elif [[ "$(command -v az)" -nt ~/.zfunc/_az ]]; then
+    az completion zsh > ~/.zfunc/_az
+  fi
+fi
+
+setopt AUTO_MENU
+zstyle ':completion:*' menu select
+
+autoload -Uz compinit
+if [[ -f ~/.zcompdump ]] && { [[ -f ~/.zfunc/_codex && ~/.zcompdump -ot ~/.zfunc/_codex ]] || [[ -f ~/.zfunc/_az && ~/.zcompdump -ot ~/.zfunc/_az ]]; }; then
+  rm -f ~/.zcompdump*
+fi
+compinit
 
 # -- EC-End -----------------------------------
