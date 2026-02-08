@@ -94,6 +94,11 @@ if ! (( ${precmd_functions[(Ie)_wezterm_update_git_branch]} )); then
   precmd_functions+=(_wezterm_update_git_branch)
 fi
 
+# Keep completion cycling active after plugin initialization.
+setopt AUTO_MENU
+zstyle ':completion:*' menu select
+bindkey '^I' menu-complete
+
 # ─────────────────────────────────────────────
 # Tmux Autostart (skip if already inside)
 # ─────────────────────────────────────────────
@@ -129,9 +134,6 @@ if command -v az >/dev/null 2>&1; then
     az completion zsh > ~/.zfunc/_az
   fi
 fi
-
-setopt AUTO_MENU
-zstyle ':completion:*' menu select
 
 autoload -Uz compinit
 if [[ -f ~/.zcompdump ]] && { [[ -f ~/.zfunc/_codex && ~/.zcompdump -ot ~/.zfunc/_codex ]] || [[ -f ~/.zfunc/_az && ~/.zcompdump -ot ~/.zfunc/_az ]]; }; then
