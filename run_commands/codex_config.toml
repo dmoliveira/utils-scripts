@@ -67,7 +67,3 @@ trust_level = "trusted"
 enabled = true
 url = "https://mcp.context7.com/mcp"
 http_headers = { "CONTEXT7_API_KEY" = "YOUR_API_KEY" }
-
-[mcp_servers.atlassian]
-command = "npx"
-args = ["@atlassian/mcp-remote@latest"]
