@@ -16,9 +16,10 @@
 5. [Usage](#usage)  
 6. [Post-Install Verification](#post-install-verification)  
 7. [Configuration & Customisation](#configuration--customisation)  
-8. [Contributing](#contributing)  
-9. [Support](#support)  
-10. [License](#license)  
+8. [Troubleshooting](#troubleshooting)  
+9. [Contributing](#contributing)  
+10. [Support](#support)  
+11. [License](#license)  
 
 ---
 
@@ -271,6 +272,34 @@ lightgbm
 sentence-transformers
 gradio
 mlflow
+```
+
+---
+
+## 🛠️ Troubleshooting
+
+### Ghostty config warning in `verify_post_install_unix`
+If you see `Ghostty config validation failed`, run:
+```bash
+/Applications/Ghostty.app/Contents/MacOS/ghostty +validate-config --config-file ~/.config/ghostty/config
+```
+Fix the reported key/value and rerun `make verify`.
+
+### `--strict` mode fails on warnings
+`./verify_post_install_unix --strict` intentionally converts warnings into failures.
+Use strict mode in CI or when validating a clean machine setup.
+
+### Missing `xterm-ghostty` terminfo
+If terminal features look incorrect in tmux/Neovim under Ghostty, use `term = xterm-256color` in `~/.config/ghostty/config` until `xterm-ghostty` terminfo is available on your system.
+
+### Secrets file not loaded by Zsh
+Ensure `~/.config/secrets/shell.env` exists and has safe permissions:
+```bash
+chmod 600 ~/.config/secrets/shell.env
+```
+You can bootstrap it with:
+```bash
+make bootstrap-secrets
 ```
 
 ---
