@@ -5,20 +5,66 @@ set -euo pipefail
 PASS_COUNT=0
 WARN_COUNT=0
 FAIL_COUNT=0
+STRICT_MODE=false
+JSON_MODE=false
+
+usage() {
+  cat <<'EOF'
+Usage: verify_post_install_unix [options]
+
+Options:
+  --strict    Treat warnings as failures
+  --json      Print final summary as JSON only
+  -h, --help  Show this help message
+EOF
+}
+
+parse_args() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --strict)
+        STRICT_MODE=true
+        ;;
+      --json)
+        JSON_MODE=true
+        ;;
+      -h|--help)
+        usage
+        exit 0
+        ;;
+      *)
+        echo "Unknown option: $1" >&2
+        usage >&2
+        exit 1
+        ;;
+    esac
+    shift
+  done
+}
+
+say() {
+  if [[ "$JSON_MODE" == "false" ]]; then
+    printf '%s\n' "$1"
+  fi
+}
 
 pass() {
   PASS_COUNT=$((PASS_COUNT + 1))
-  printf 'PASS: %s\n' "$1"
+  say "PASS: $1"
 }
 
 warn() {
+  if [[ "$STRICT_MODE" == "true" ]]; then
+    fail "$1"
+    return
+  fi
   WARN_COUNT=$((WARN_COUNT + 1))
-  printf 'WARN: %s\n' "$1"
+  say "WARN: $1"
 }
 
 fail() {
   FAIL_COUNT=$((FAIL_COUNT + 1))
-  printf 'FAIL: %s\n' "$1"
+  say "FAIL: $1"
 }
 
 check_command() {
@@ -50,7 +96,28 @@ run_check() {
   fi
 }
 
-echo "==> Checking required commands"
+print_summary() {
+  local status="ok"
+  if [[ "$FAIL_COUNT" -gt 0 ]]; then
+    status="failed"
+  fi
+
+  if [[ "$JSON_MODE" == "true" ]]; then
+    printf '{"status":"%s","strict":%s,"pass":%d,"warn":%d,"fail":%d}\n' \
+      "$status" "$STRICT_MODE" "$PASS_COUNT" "$WARN_COUNT" "$FAIL_COUNT"
+    return
+  fi
+
+  echo
+  echo "==> Summary"
+  printf 'PASS: %s\n' "$PASS_COUNT"
+  printf 'WARN: %s\n' "$WARN_COUNT"
+  printf 'FAIL: %s\n' "$FAIL_COUNT"
+}
+
+parse_args "$@"
+
+say "==> Checking required commands"
 check_command zsh
 check_command tmux
 check_command nvim
@@ -61,12 +128,12 @@ check_command starship
 check_command direnv
 check_command atuin
 
-echo "==> Checking required config files"
+say "==> Checking required config files"
 check_file "$HOME/.zshrc"
 check_file "$HOME/.tmux.conf"
 check_file "$HOME/.config/nvim/init.lua"
 
-echo "==> Running syntax and startup checks"
+say "==> Running syntax and startup checks"
 run_check "zsh config syntax" zsh -n "$HOME/.zshrc"
 run_check "tmux config parse" tmux -L utils-scripts-smoke -f "$HOME/.tmux.conf" new-session -d -s smoke
 tmux -L utils-scripts-smoke kill-server >/dev/null 2>&1 || true
@@ -74,7 +141,7 @@ run_check "nvim init.lua syntax" lua -e "assert(loadfile('$HOME/.config/nvim/ini
 run_check "neovim headless start" nvim --headless +qa
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
-  echo "==> Checking Ghostty on macOS"
+  say "==> Checking Ghostty on macOS"
   if [[ -x "/Applications/Ghostty.app/Contents/MacOS/ghostty" ]]; then
     pass "Ghostty app binary exists"
     if [[ -f "$HOME/.config/ghostty/config" ]]; then
@@ -91,14 +158,10 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   fi
 fi
 
-echo
-echo "==> Summary"
-printf 'PASS: %s\n' "$PASS_COUNT"
-printf 'WARN: %s\n' "$WARN_COUNT"
-printf 'FAIL: %s\n' "$FAIL_COUNT"
+print_summary
 
 if [[ "$FAIL_COUNT" -gt 0 ]]; then
   exit 1
 fi
 
-echo "Smoke test completed successfully."
+say "Smoke test completed successfully."
