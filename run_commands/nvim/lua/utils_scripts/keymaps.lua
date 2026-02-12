@@ -1,0 +1,15 @@
+vim.g.mapleader = " "
+
+vim.keymap.set("n", "<leader>w", ":w<CR>")
+vim.keymap.set("n", "<leader>q", ":q<CR>")
+vim.keymap.set("n", "<leader>c", ":bd<CR>")
+vim.keymap.set("n", "<leader>ff", "<cmd>Telescope find_files<CR>")
+vim.keymap.set("n", "<leader>fg", "<cmd>Telescope live_grep<CR>")
+vim.keymap.set("n", "<leader>fb", "<cmd>Telescope buffers<CR>")
+vim.keymap.set("n", "<leader>fh", "<cmd>Telescope help_tags<CR>")
+vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file explorer" })
+vim.keymap.set("n", "<leader>o", ":NvimTreeFocus<CR>", { desc = "Focus file explorer" })
+vim.keymap.set("n", "<leader>r", ":NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
+vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>", { desc = "Reveal current file in tree" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP definition" })
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP hover" })
