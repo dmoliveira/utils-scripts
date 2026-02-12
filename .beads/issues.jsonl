@@ -1,0 +1,1 @@
+{"id":"bd-182","title":"Add release and changelog workflow","description":"Add a GitHub Actions workflow for creating GitHub releases with generated notes when tags are pushed.","status":"in_progress","priority":2,"issue_type":"task","created_at":"2026-02-12T21:30:27.162776Z","created_by":"diego","updated_at":"2026-02-12T21:30:27.187247Z","compaction_level":0,"original_size":0}
