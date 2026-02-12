@@ -191,6 +191,17 @@ Consider adding:
 - Formatter (`black`, `ruff`)  
 - Plugins (`nvim-treesitter`, `telescope.nvim`, `lualine.nvim`)
 
+Template defaults now include Mason bootstrap for language servers:
+```
+require("mason").setup()
+require("mason-lspconfig").setup({ ensure_installed = { "lua_ls", "pyright", "bashls", "jsonls" } })
+```
+
+After opening Neovim, run:
+```
+:Mason
+```
+
 ### Python
 Keep `requirements.txt` up to date with your preferred ML stack.  
 Recommended additions:
