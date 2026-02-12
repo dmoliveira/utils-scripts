@@ -1,1 +1,0 @@
-{"id":"bd-2my","title":"Add interactive secrets bootstrap helper","description":"Provide helper script to initialize ~/.config/secrets/shell.env with safe permissions.","status":"in_progress","priority":3,"issue_type":"task","created_at":"2026-02-12T21:14:04.925718Z","created_by":"diego","updated_at":"2026-02-12T21:14:04.946255Z","compaction_level":0,"original_size":0}
