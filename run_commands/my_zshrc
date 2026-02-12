@@ -51,6 +51,8 @@ source ~/.zinit/bin/zinit.zsh
 zinit light zsh-users/zsh-autosuggestions
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-history-substring-search
+zinit light Aloxaf/fzf-tab
 
 # fzf & zoxide
 if command -v fzf >/dev/null 2>&1; then
@@ -58,6 +60,44 @@ if command -v fzf >/dev/null 2>&1; then
 fi
 if command -v zoxide >/dev/null 2>&1; then
   eval "$(zoxide init zsh)"
+fi
+if command -v direnv >/dev/null 2>&1; then
+  eval "$(direnv hook zsh)"
+fi
+if command -v atuin >/dev/null 2>&1; then
+  eval "$(atuin init zsh)"
+fi
+
+_load_shell_secrets() {
+  local secrets_file="${XDG_CONFIG_HOME:-$HOME/.config}/secrets/shell.env"
+  local perms=""
+
+  if [[ ! -f "$secrets_file" ]]; then
+    return
+  fi
+
+  if perms=$(stat -f "%OLp" "$secrets_file" 2>/dev/null); then
+    if [[ "$perms" != "600" && "$perms" != "400" ]]; then
+      echo "Skipping $secrets_file: require chmod 600 or 400"
+      return
+    fi
+  elif perms=$(stat -c "%a" "$secrets_file" 2>/dev/null); then
+    if [[ "$perms" != "600" && "$perms" != "400" ]]; then
+      echo "Skipping $secrets_file: require chmod 600 or 400"
+      return
+    fi
+  fi
+
+  source "$secrets_file"
+}
+
+_load_shell_secrets
+
+if [[ -n "${terminfo[kcuu1]-}" ]]; then
+  bindkey "${terminfo[kcuu1]}" history-substring-search-up
+fi
+if [[ -n "${terminfo[kcud1]-}" ]]; then
+  bindkey "${terminfo[kcud1]}" history-substring-search-down
 fi
 
 # ─────────────────────────────────────────────

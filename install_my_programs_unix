@@ -125,10 +125,10 @@ setup_system() {
   if [[ "$OS" == "Darwin" ]]; then
     install_brew
     brew update && brew upgrade
-    brew install git curl wget neovim tmux htop tree jq fzf zoxide ripgrep bat fd gh cmake python uv
+    brew install git curl wget neovim tmux htop tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin
   else
     sudo apt update -y && sudo apt upgrade -y
-    sudo apt install -y curl wget git neovim tmux htop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev
+    sudo apt install -y curl wget git neovim tmux htop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv
   fi
 }
 
@@ -154,9 +154,16 @@ setup_shell() {
   install_ohmyzsh
 
   if [[ "$OS" == "Darwin" ]]; then
-    brew install starship
+    brew install starship atuin
   else
     curl -sS https://starship.rs/install.sh | sh -s -- -y
+    if ! command -v atuin &>/dev/null; then
+      if command -v cargo &>/dev/null; then
+        cargo install atuin --locked || true
+      else
+        echo "⚠️ Atuin not installed (cargo missing). Install Rust/cargo and run: cargo install atuin --locked"
+      fi
+    fi
   fi
 
   # Backup and replace configs
@@ -178,6 +185,15 @@ setup_shell() {
       echo "🪄 Added sourcing line to $target"
     fi
   done
+
+  if [[ -f "./run_commands/secrets_shell.env.example" ]]; then
+    mkdir -p "$HOME/.config/secrets"
+    if [[ ! -f "$HOME/.config/secrets/shell.env" ]]; then
+      cp -f "./run_commands/secrets_shell.env.example" "$HOME/.config/secrets/shell.env"
+      chmod 600 "$HOME/.config/secrets/shell.env"
+      echo "✅ Installed $HOME/.config/secrets/shell.env (edit with your local secrets)"
+    fi
+  fi
 }
 
 # ------------------------------------------------------------------------------
