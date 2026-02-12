@@ -1,1 +1,0 @@
-{"id":"bd-sq7","title":"Modularize Neovim template configuration","description":"Split monolithic my_nvim_init.lua into maintainable modules while preserving defaults.","status":"in_progress","priority":3,"issue_type":"task","created_at":"2026-02-12T21:22:28.014481Z","created_by":"diego","updated_at":"2026-02-12T21:22:35.518157Z","compaction_level":0,"original_size":0}
