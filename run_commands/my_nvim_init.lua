@@ -74,7 +74,6 @@ require("mason-lspconfig").setup({
   ensure_installed = { "lua_ls", "pyright", "bashls", "jsonls" },
 })
 
-local lspconfig = require("lspconfig")
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local servers = {
@@ -93,7 +92,8 @@ local servers = {
 
 for server, opts in pairs(servers) do
   opts.capabilities = lsp_capabilities
-  lspconfig[server].setup(opts)
+  vim.lsp.config(server, opts)
+  vim.lsp.enable(server)
 end
 
 -- General editing settings
