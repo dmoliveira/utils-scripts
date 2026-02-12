@@ -43,12 +43,13 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `install_my_programs_unix` | Generic fallback for Unix systems |
 | `requirements.txt` | Python and AI/ML library dependencies |
 | `run_commands/` | Helper utilities and shell functions |
+| `run_commands/my_ghostty_config` | Ghostty terminal baseline config |
 | `python/` | Additional Python utility scripts |
 | `.gitignore` | Standard ignore patterns |
 | `LICENSE` | GPL-2.0 License file |
 
 Includes dependencies for:  
-- **Terminal:** tmux, zsh, starship  
+- **Terminal:** tmux, zsh, starship, ghostty  
 - **Editor:** neovim (Lua config-ready)  
 - **Python:** numpy, pandas, torch, scikit-learn, transformers (editable)  
 - **Optional:** git, curl, wget, build-essentials  
@@ -154,6 +155,14 @@ Config file: `~/.wezterm.lua`
 Base config in this repo: `run_commands/my_wezterm.lua`
 ```
 cp ./run_commands/my_wezterm.lua ~/.wezterm.lua
+```
+
+### Ghostty
+Config file: `~/.config/ghostty/config`  
+Base config in this repo: `run_commands/my_ghostty_config`
+```
+mkdir -p ~/.config/ghostty
+cp ./run_commands/my_ghostty_config ~/.config/ghostty/config
 ```
 
 ### Neovim

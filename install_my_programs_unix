@@ -220,7 +220,26 @@ setup_tmux() {
 }
 
 # ------------------------------------------------------------------------------
-# 🤖 7. AI/ML libraries (optional)
+# 🧩 7. Ghostty (macOS)
+# ------------------------------------------------------------------------------
+
+setup_ghostty() {
+  if [[ "$OS" != "Darwin" ]]; then
+    echo "🧩 Ghostty setup skipped on non-macOS."
+    return
+  fi
+
+  echo "🧩 Installing Ghostty and config..."
+  if ! brew list --cask ghostty &>/dev/null; then
+    brew install --cask ghostty
+  fi
+  mkdir -p "$HOME/.config/ghostty"
+  backup_file "$HOME/.config/ghostty/config"
+  safe_copy "./run_commands/my_ghostty_config" "$HOME/.config/ghostty/config"
+}
+
+# ------------------------------------------------------------------------------
+# 🤖 8. AI/ML libraries (optional)
 # ------------------------------------------------------------------------------
 
 install_ml_libs() {
@@ -231,7 +250,7 @@ install_ml_libs() {
 }
 
 # ------------------------------------------------------------------------------
-# 📎 8. Local helper scripts
+# 📎 9. Local helper scripts
 # ------------------------------------------------------------------------------
 
 install_local_scripts() {
@@ -242,7 +261,7 @@ install_local_scripts() {
 }
 
 # ------------------------------------------------------------------------------
-# 📿 9. Beads (bd)
+# 📿 10. Beads (bd)
 # ------------------------------------------------------------------------------
 
 install_beads() {
@@ -255,7 +274,7 @@ install_beads() {
 }
 
 # ------------------------------------------------------------------------------
-# 🤖 10. Codex config
+# 🤖 11. Codex config
 # ------------------------------------------------------------------------------
 
 install_codex_config() {
@@ -282,6 +301,7 @@ main() {
   setup_python
   setup_shell
   setup_neovim
+  setup_ghostty
   if [[ "$INSTALL_FONTS" == "true" ]]; then
     setup_fonts
   else
