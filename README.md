@@ -42,6 +42,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `install_my_programs_debian` | Installs core packages on Debian/Ubuntu |
 | `install_my_programs_mac` | Installs core packages on macOS (via Homebrew) |
 | `install_my_programs_unix` | Generic fallback for Unix systems |
+| `Makefile` | Standard shortcuts for install and verification |
 | `requirements.txt` | Python and AI/ML library dependencies |
 | `run_commands/` | Helper utilities and shell functions |
 | `run_commands/my_ghostty_config` | Ghostty terminal baseline config |
@@ -76,6 +77,12 @@ cd utils-scripts
 
 ### 2️⃣ Choose and Run Your Installer  
 
+**Using Make shortcuts (recommended):**
+```bash
+make help
+make install-mac
+```
+
 **Debian / Ubuntu:**
 ```bash
 chmod +x install_my_programs_debian
@@ -107,6 +114,11 @@ pip install -r requirements.txt
 ```bash
 chmod +x verify_post_install_unix
 ./verify_post_install_unix
+```
+
+or with Make:
+```bash
+make verify
 ```
 
 ---
