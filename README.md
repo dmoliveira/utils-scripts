@@ -44,12 +44,13 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `requirements.txt` | Python and AI/ML library dependencies |
 | `run_commands/` | Helper utilities and shell functions |
 | `run_commands/my_ghostty_config` | Ghostty terminal baseline config |
+| `run_commands/secrets_shell.env.example` | Secure shell secrets template |
 | `python/` | Additional Python utility scripts |
 | `.gitignore` | Standard ignore patterns |
 | `LICENSE` | GPL-2.0 License file |
 
 Includes dependencies for:  
-- **Terminal:** tmux, zsh, starship, ghostty  
+- **Terminal:** tmux, zsh, starship, ghostty, atuin, direnv  
 - **Editor:** neovim (Lua config-ready)  
 - **Python:** numpy, pandas, torch, scikit-learn, transformers (editable)  
 - **Optional:** git, curl, wget, build-essentials  
@@ -132,6 +133,19 @@ Example alias:
 ```bash
 alias gs='git status'
 alias py='python3'
+```
+
+Template extras in `run_commands/my_zshrc`:
+- `zsh-history-substring-search` + `fzf-tab` for better recall/completion UX
+- `direnv` hook for per-project env loading
+- `atuin` hook for searchable shell history
+- `ghostty-reload` helper to validate and edit Ghostty config quickly
+
+Secrets best practice:
+```bash
+mkdir -p ~/.config/secrets
+cp ./run_commands/secrets_shell.env.example ~/.config/secrets/shell.env
+chmod 600 ~/.config/secrets/shell.env
 ```
 
 ### Starship Prompt

@@ -16,6 +16,7 @@ brew update && brew upgrade
 brew install \
   wget htop tmux neovim curl git jq tree \
   fzf zoxide ripgrep bat fd gh \
+  direnv atuin \
   python uv
 
 if ! brew list --cask ghostty &>/dev/null; then
@@ -40,6 +41,15 @@ if [[ -f "./run_commands/my_ghostty_config" ]]; then
   fi
   cp -f "./run_commands/my_ghostty_config" "$HOME/.config/ghostty/config"
   echo "✅ Installed Ghostty config to ~/.config/ghostty/config"
+fi
+
+if [[ -f "./run_commands/secrets_shell.env.example" ]]; then
+  mkdir -p "$HOME/.config/secrets"
+  if [[ ! -f "$HOME/.config/secrets/shell.env" ]]; then
+    cp -f "./run_commands/secrets_shell.env.example" "$HOME/.config/secrets/shell.env"
+    chmod 600 "$HOME/.config/secrets/shell.env"
+    echo "✅ Installed $HOME/.config/secrets/shell.env (edit with your local secrets)"
+  fi
 fi
 
 # 🧮 Lua / auxiliary tools (optional)
