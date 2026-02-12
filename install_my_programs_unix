@@ -141,9 +141,11 @@ setup_python() {
   local pip_args=()
   python3 -m ensurepip --upgrade || true
 
-  if ! python3 -m pip install -U pip wheel setuptools; then
+  if [[ "$OS" == "Darwin" ]]; then
+    python3 -m pip install -U pip wheel setuptools
+  else
     pip_args+=(--break-system-packages)
-    python3 -m pip install "${pip_args[@]}" -U pip wheel setuptools
+    python3 -m pip install "${pip_args[@]}" -U wheel setuptools
   fi
 
   if [[ -f "./requirements.txt" ]]; then
