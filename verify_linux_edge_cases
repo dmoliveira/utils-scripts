@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+if [[ "$(uname -s)" != "Linux" ]]; then
+  echo "SKIP: Linux edge-case checks only run on Linux"
+  exit 0
+fi
+
+PASS_COUNT=0
+FAIL_COUNT=0
+
+pass() {
+  PASS_COUNT=$((PASS_COUNT + 1))
+  printf 'PASS: %s\n' "$1"
+}
+
+fail() {
+  FAIL_COUNT=$((FAIL_COUNT + 1))
+  printf 'FAIL: %s\n' "$1"
+}
+
+check_either() {
+  local a="$1"
+  local b="$2"
+  local label="$3"
+  if command -v "$a" >/dev/null 2>&1 || command -v "$b" >/dev/null 2>&1; then
+    pass "$label"
+  else
+    fail "$label"
+  fi
+}
+
+check_either "fd" "fdfind" "fd/fdfind available"
+check_either "bat" "batcat" "bat/batcat available"
+
+if command -v python3 >/dev/null 2>&1; then
+  pass "python3 available"
+else
+  fail "python3 available"
+fi
+
+echo
+printf 'PASS: %s\n' "$PASS_COUNT"
+printf 'FAIL: %s\n' "$FAIL_COUNT"
+
+if [[ "$FAIL_COUNT" -gt 0 ]]; then
+  echo "Hint: On Debian/Ubuntu install variants with: sudo apt install -y fd-find bat"
+  exit 1
+fi
+
+echo "Linux edge-case checks passed."
