@@ -239,6 +239,13 @@ Template defaults also include `tmux-sensible` and an opt-in switch for status p
 set -g @qol_status_plugins 'off'   # change to 'on' for battery/network status plugins
 ```
 
+Session persistence defaults are also enabled via TPM plugins:
+```
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @continuum-restore 'on'
+```
+
 ### WezTerm
 Config file: `~/.wezterm.lua`  
 Base config in this repo: `run_commands/my_wezterm.lua`
@@ -256,10 +263,14 @@ cp ./run_commands/my_ghostty_config ~/.config/ghostty/config
 
 ### Neovim
 Modify `~/.config/nvim/init.lua` to adjust plugins or keymaps.  
-Consider adding:
+Template defaults include:
 - LSP support (`pyright`, `lua_ls`)  
-- Formatter (`black`, `ruff`)  
-- Plugins (`nvim-treesitter`, `telescope.nvim`, `lualine.nvim`)
+- Formatter orchestration (`conform.nvim`)  
+- AI workflow (`CopilotChat.nvim`)  
+- Code navigation (`aerial.nvim`)  
+- Test workflow (`neotest`, `neotest-python`)  
+- SQL workflow (`vim-dadbod`, `vim-dadbod-ui`)  
+- Core UI/search (`nvim-treesitter`, `telescope.nvim`, `lualine.nvim`)
 
 Template defaults now include Mason bootstrap for language servers:
 ```
@@ -279,6 +290,17 @@ After opening Neovim, run:
 ```
 :Mason
 ```
+
+Useful default keymaps:
+- `<leader>fm` format current buffer
+- `<leader>cc` Copilot Chat toggle
+- `<leader>aa` Aerial outline toggle
+- `<leader>tn` run nearest test
+- `<leader>tf` run tests in current file
+- `<leader>ts` toggle neotest summary
+- `<leader>to` open neotest output
+- `<leader>td` debug nearest test with DAP
+- `<leader>db` toggle Dadbod UI
 
 ### Python
 Keep `requirements.txt` up to date with your preferred ML stack.  
