@@ -129,6 +129,8 @@ make verify-strict
 make verify-json
 ```
 
+Pull requests also run repository smoke checks in GitHub Actions (`.github/workflows/smoke-checks.yml`).
+
 ---
 
 ## 🧠 Usage  
