@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+PASS_COUNT=0
+WARN_COUNT=0
+FAIL_COUNT=0
+
+pass() {
+  PASS_COUNT=$((PASS_COUNT + 1))
+  printf 'PASS: %s\n' "$1"
+}
+
+warn() {
+  WARN_COUNT=$((WARN_COUNT + 1))
+  printf 'WARN: %s\n' "$1"
+}
+
+fail() {
+  FAIL_COUNT=$((FAIL_COUNT + 1))
+  printf 'FAIL: %s\n' "$1"
+}
+
+check_command() {
+  local cmd="$1"
+  if command -v "$cmd" >/dev/null 2>&1; then
+    pass "command '$cmd' available"
+  else
+    fail "command '$cmd' missing"
+  fi
+}
+
+check_file() {
+  local file="$1"
+  if [[ -f "$file" ]]; then
+    pass "file '$file' exists"
+  else
+    fail "file '$file' missing"
+  fi
+}
+
+run_check() {
+  local label="$1"
+  shift
+
+  if "$@" >/dev/null 2>&1; then
+    pass "$label"
+  else
+    fail "$label"
+  fi
+}
+
+echo "==> Checking required commands"
+check_command zsh
+check_command tmux
+check_command nvim
+check_command git
+check_command fzf
+check_command zoxide
+check_command starship
+check_command direnv
+check_command atuin
+
+echo "==> Checking required config files"
+check_file "$HOME/.zshrc"
+check_file "$HOME/.tmux.conf"
+check_file "$HOME/.config/nvim/init.lua"
+
+echo "==> Running syntax and startup checks"
+run_check "zsh config syntax" zsh -n "$HOME/.zshrc"
+run_check "tmux config parse" tmux -L utils-scripts-smoke -f "$HOME/.tmux.conf" new-session -d -s smoke
+tmux -L utils-scripts-smoke kill-server >/dev/null 2>&1 || true
+run_check "nvim init.lua syntax" lua -e "assert(loadfile('$HOME/.config/nvim/init.lua'))"
+run_check "neovim headless start" nvim --headless +qa
+
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  echo "==> Checking Ghostty on macOS"
+  if [[ -x "/Applications/Ghostty.app/Contents/MacOS/ghostty" ]]; then
+    pass "Ghostty app binary exists"
+    if [[ -f "$HOME/.config/ghostty/config" ]]; then
+      if "/Applications/Ghostty.app/Contents/MacOS/ghostty" +validate-config --config-file "$HOME/.config/ghostty/config" >/dev/null 2>&1; then
+        pass "Ghostty config validates"
+      else
+        warn "Ghostty config validation failed"
+      fi
+    else
+      warn "Ghostty config not found at $HOME/.config/ghostty/config"
+    fi
+  else
+    warn "Ghostty app not found at /Applications/Ghostty.app"
+  fi
+fi
+
+echo
+echo "==> Summary"
+printf 'PASS: %s\n' "$PASS_COUNT"
+printf 'WARN: %s\n' "$WARN_COUNT"
+printf 'FAIL: %s\n' "$FAIL_COUNT"
+
+if [[ "$FAIL_COUNT" -gt 0 ]]; then
+  exit 1
+fi
+
+echo "Smoke test completed successfully."
