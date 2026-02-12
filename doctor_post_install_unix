@@ -1,0 +1,49 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+echo "==> Running strict environment doctor"
+
+output=""
+set +e
+output=$(./verify_post_install_unix --strict 2>&1)
+exit_code=$?
+set -e
+
+printf '%s\n' "$output"
+
+if [[ "$exit_code" -eq 0 ]]; then
+  echo
+  echo "✅ Doctor passed. Your setup looks healthy."
+  exit 0
+fi
+
+echo
+echo "==> Suggested fixes"
+
+if grep -q "Ghostty config validation failed" <<<"$output"; then
+  echo "- Ghostty config: run /Applications/Ghostty.app/Contents/MacOS/ghostty +validate-config --config-file ~/.config/ghostty/config"
+fi
+
+if grep -q "^FAIL: command '" <<<"$output"; then
+  echo "- Missing commands: rerun installer (make install-mac or make install-unix) and check PATH in ~/.zshrc"
+fi
+
+if grep -q "^FAIL: file '" <<<"$output"; then
+  echo "- Missing config files: rerun installer to copy templates, then rerun make doctor"
+fi
+
+if grep -q "^FAIL: zsh config syntax" <<<"$output"; then
+  echo "- Zsh syntax: run zsh -n ~/.zshrc and fix the reported line"
+fi
+
+if grep -q "^FAIL: tmux config parse" <<<"$output"; then
+  echo "- tmux parse: run tmux -L doctor -f ~/.tmux.conf new-session -d -s smoke to reproduce"
+fi
+
+if grep -q "^FAIL: nvim init.lua syntax" <<<"$output" || grep -q "^FAIL: neovim headless start" <<<"$output"; then
+  echo "- Neovim config: run nvim --headless +qa and inspect plugin/config errors"
+fi
+
+echo "- For broader context, see README troubleshooting section."
+exit "$exit_code"

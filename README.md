@@ -45,6 +45,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `install_my_programs_mac` | Installs core packages on macOS (via Homebrew) |
 | `install_my_programs_unix` | Generic fallback for Unix systems |
 | `Makefile` | Standard shortcuts for install and verification |
+| `doctor_post_install_unix` | Strict doctor mode with fix hints |
 | `bootstrap_shell_secrets` | Interactive helper for shell secrets setup |
 | `requirements.txt` | Python and AI/ML library dependencies |
 | `run_commands/` | Helper utilities and shell functions |
@@ -131,6 +132,7 @@ Additional modes:
 ./verify_post_install_unix --json
 make verify-strict
 make verify-json
+make doctor
 ```
 
 Pull requests also run repository smoke checks in GitHub Actions (`.github/workflows/smoke-checks.yml`).
@@ -178,6 +180,9 @@ If the script reports `FAIL > 0`, fix those items before continuing.
 Verification flags:
 - `--strict` treats warnings as failures (useful for CI and clean-room setup validation)
 - `--json` prints a machine-readable summary (`status`, `strict`, `pass`, `warn`, `fail`)
+
+Doctor mode:
+- `make doctor` runs strict verification and prints actionable fix hints for common failures.
 
 ---
 

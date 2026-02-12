@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -23,3 +23,6 @@ verify-json: ## Run verification and print JSON summary
 
 bootstrap-secrets: ## Interactive setup for shell secrets file
 	./bootstrap_shell_secrets
+
+doctor: ## Run strict verification with guided hints
+	./doctor_post_install_unix
