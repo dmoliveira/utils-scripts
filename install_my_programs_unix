@@ -138,10 +138,16 @@ setup_system() {
 
 setup_python() {
   echo "🐍 Installing Python packages..."
+  local pip_args=()
   python3 -m ensurepip --upgrade || true
-  python3 -m pip install -U pip wheel setuptools
+
+  if ! python3 -m pip install -U pip wheel setuptools; then
+    pip_args+=(--break-system-packages)
+    python3 -m pip install "${pip_args[@]}" -U pip wheel setuptools
+  fi
+
   if [[ -f "./requirements.txt" ]]; then
-    python3 -m pip install -r ./requirements.txt
+    python3 -m pip install "${pip_args[@]}" -r ./requirements.txt
   fi
 }
 
