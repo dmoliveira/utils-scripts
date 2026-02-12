@@ -14,10 +14,11 @@
 3. [Supported Platforms](#supported-platforms)  
 4. [Installation](#installation)  
 5. [Usage](#usage)  
-6. [Configuration & Customisation](#configuration--customisation)  
-7. [Contributing](#contributing)  
-8. [Support](#support)  
-9. [License](#license)  
+6. [Post-Install Verification](#post-install-verification)  
+7. [Configuration & Customisation](#configuration--customisation)  
+8. [Contributing](#contributing)  
+9. [Support](#support)  
+10. [License](#license)  
 
 ---
 
@@ -45,6 +46,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `run_commands/` | Helper utilities and shell functions |
 | `run_commands/my_ghostty_config` | Ghostty terminal baseline config |
 | `run_commands/secrets_shell.env.example` | Secure shell secrets template |
+| `verify_post_install_unix` | End-to-end setup smoke test script |
 | `python/` | Additional Python utility scripts |
 | `.gitignore` | Standard ignore patterns |
 | `LICENSE` | GPL-2.0 License file |
@@ -101,6 +103,12 @@ Optional flags (Generic Unix):
 pip install -r requirements.txt
 ```
 
+### 4️⃣ Run the Post-Install Smoke Test
+```bash
+chmod +x verify_post_install_unix
+./verify_post_install_unix
+```
+
 ---
 
 ## 🧠 Usage  
@@ -122,6 +130,24 @@ For Neovim productivity:
 - `<leader>f` → Fuzzy search  
 - `gd` → Go to definition  
 - `K` → Hover docs  
+
+---
+
+## ✅ Post-Install Verification
+
+Run the smoke test script after installation to validate your terminal stack:
+
+```bash
+./verify_post_install_unix
+```
+
+It checks:
+- required CLI tools (`zsh`, `tmux`, `nvim`, `fzf`, `zoxide`, `starship`, `direnv`, `atuin`)
+- expected config files (`~/.zshrc`, `~/.tmux.conf`, `~/.config/nvim/init.lua`)
+- syntax/startup checks for Zsh, tmux, and Neovim
+- Ghostty config validation on macOS when installed
+
+If the script reports `FAIL > 0`, fix those items before continuing.
 
 ---
 
