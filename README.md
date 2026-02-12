@@ -121,6 +121,14 @@ or with Make:
 make verify
 ```
 
+Additional modes:
+```bash
+./verify_post_install_unix --strict
+./verify_post_install_unix --json
+make verify-strict
+make verify-json
+```
+
 ---
 
 ## 🧠 Usage  
@@ -160,6 +168,10 @@ It checks:
 - Ghostty config validation on macOS when installed
 
 If the script reports `FAIL > 0`, fix those items before continuing.
+
+Verification flags:
+- `--strict` treats warnings as failures (useful for CI and clean-room setup validation)
+- `--json` prints a machine-readable summary (`status`, `strict`, `pass`, `warn`, `fail`)
 
 ---
 
