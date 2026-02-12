@@ -1,0 +1,36 @@
+name: Smoke Checks
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+
+jobs:
+  config-smoke:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y zsh tmux neovim lua5.4
+
+      - name: Prepare tmux powerline placeholder
+        run: mkdir -p "$HOME/.powerline/powerline/bindings/tmux" && touch "$HOME/.powerline/powerline/bindings/tmux/powerline.conf"
+
+      - name: Validate shell script syntax
+        run: bash -n install_my_programs_mac install_my_programs_unix verify_post_install_unix
+
+      - name: Validate zsh template syntax
+        run: zsh -n run_commands/my_zshrc
+
+      - name: Validate tmux template parsing
+        run: tmux -L ci-smoke -f run_commands/my_tmux.conf new-session -d -s smoke && tmux -L ci-smoke kill-server
+
+      - name: Validate Neovim template syntax
+        run: lua -e "assert(loadfile('run_commands/my_nvim_init.lua'))"
+
+      - name: Validate Makefile targets
+        run: make help
