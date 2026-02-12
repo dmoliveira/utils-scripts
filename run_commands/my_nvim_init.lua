@@ -39,6 +39,8 @@ require("lazy").setup({
   -- Git
   { "lewis6991/gitsigns.nvim" },
   -- LSP and completions
+  { "williamboman/mason.nvim" },
+  { "williamboman/mason-lspconfig.nvim" },
   { "neovim/nvim-lspconfig" },
   { "hrsh7th/nvim-cmp" },
   { "hrsh7th/cmp-nvim-lsp" },
@@ -66,6 +68,33 @@ require("lazy").setup({
 })
 
 require("nvim-tree").setup()
+
+require("mason").setup()
+require("mason-lspconfig").setup({
+  ensure_installed = { "lua_ls", "pyright", "bashls", "jsonls" },
+})
+
+local lspconfig = require("lspconfig")
+local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+
+local servers = {
+  lua_ls = {
+    settings = {
+      Lua = {
+        diagnostics = { globals = { "vim" } },
+        workspace = { checkThirdParty = false },
+      },
+    },
+  },
+  pyright = {},
+  bashls = {},
+  jsonls = {},
+}
+
+for server, opts in pairs(servers) do
+  opts.capabilities = lsp_capabilities
+  lspconfig[server].setup(opts)
+end
 
 -- General editing settings
 vim.o.number = true
@@ -98,6 +127,8 @@ vim.keymap.set("n", "<leader>e", ":NvimTreeToggle<CR>", { desc = "Toggle file ex
 vim.keymap.set("n", "<leader>o", ":NvimTreeFocus<CR>",  { desc = "Focus file explorer" })
 vim.keymap.set("n", "<leader>r", ":NvimTreeRefresh<CR>", { desc = "Refresh file explorer" })
 vim.keymap.set("n", "<leader>n", ":NvimTreeFindFile<CR>", { desc = "Reveal current file in tree" })
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP definition" })
+vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP hover" })
 
 -- Theme
 require("catppuccin").setup({ flavour = "mocha" })
