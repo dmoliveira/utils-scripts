@@ -271,6 +271,7 @@ install_ml_libs() {
 
 install_local_scripts() {
   echo "📎 Installing local helper scripts..."
+  install_local_bin_script "./bootstrap_shell_secrets"
   install_local_bin_script "./bd_init_project"
   install_local_bin_script "./codex_apply_config"
   install_local_bin_script "./repomix_generate"

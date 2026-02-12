@@ -43,6 +43,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `install_my_programs_mac` | Installs core packages on macOS (via Homebrew) |
 | `install_my_programs_unix` | Generic fallback for Unix systems |
 | `Makefile` | Standard shortcuts for install and verification |
+| `bootstrap_shell_secrets` | Interactive helper for shell secrets setup |
 | `requirements.txt` | Python and AI/ML library dependencies |
 | `run_commands/` | Helper utilities and shell functions |
 | `run_commands/my_ghostty_config` | Ghostty terminal baseline config |
@@ -198,6 +199,13 @@ Secrets best practice:
 mkdir -p ~/.config/secrets
 cp ./run_commands/secrets_shell.env.example ~/.config/secrets/shell.env
 chmod 600 ~/.config/secrets/shell.env
+```
+
+Interactive helper:
+```bash
+./bootstrap_shell_secrets
+# or
+make bootstrap-secrets
 ```
 
 ### Starship Prompt
