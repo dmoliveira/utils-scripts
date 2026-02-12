@@ -17,9 +17,10 @@
 6. [Post-Install Verification](#post-install-verification)  
 7. [Configuration & Customisation](#configuration--customisation)  
 8. [Troubleshooting](#troubleshooting)  
-9. [Contributing](#contributing)  
-10. [Support](#support)  
-11. [License](#license)  
+9. [Releases](#releases)  
+10. [Contributing](#contributing)  
+11. [Support](#support)  
+12. [License](#license)  
 
 ---
 
@@ -309,6 +310,23 @@ chmod 600 ~/.config/secrets/shell.env
 You can bootstrap it with:
 ```bash
 make bootstrap-secrets
+```
+
+---
+
+## 🚀 Releases
+
+Releases are automated through GitHub Actions when a version tag is pushed.
+
+Workflow:
+- `.github/workflows/release-on-tag.yml`
+- Trigger: push tag matching `v*` (example: `v1.2.0`)
+- Outcome: GitHub Release created with auto-generated changelog notes
+
+Example:
+```bash
+git tag v1.2.0
+git push origin v1.2.0
 ```
 
 ---
