@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+timestamp=$(date +"%Y%m%d%H%M%S")
+
 # 🧩 Install Homebrew if not already installed
 if ! command -v brew &>/dev/null; then
   echo "Installing Homebrew..."
@@ -16,6 +18,10 @@ brew install \
   fzf zoxide ripgrep bat fd gh \
   python uv
 
+if ! brew list --cask ghostty &>/dev/null; then
+  brew install --cask ghostty
+fi
+
 # 🧠 AI/ML environment (optional)
 brew install \
   cmake openblas lapack gfortran \
@@ -26,6 +32,15 @@ brew install starship zsh zsh-autosuggestions zsh-syntax-highlighting
 
 # 🧩 Fonts (optional)
 brew install --cask font-fira-code-nerd-font
+
+if [[ -f "./run_commands/my_ghostty_config" ]]; then
+  mkdir -p "$HOME/.config/ghostty"
+  if [[ -f "$HOME/.config/ghostty/config" ]]; then
+    cp "$HOME/.config/ghostty/config" "$HOME/.config/ghostty/config.${timestamp}.bak"
+  fi
+  cp -f "./run_commands/my_ghostty_config" "$HOME/.config/ghostty/config"
+  echo "✅ Installed Ghostty config to ~/.config/ghostty/config"
+fi
 
 # 🧮 Lua / auxiliary tools (optional)
 brew install luarocks
