@@ -164,6 +164,11 @@ set -g mouse on
 bind r source-file ~/.tmux.conf \; display "Reloaded!"
 ```
 
+Template defaults also include `tmux-sensible` and an opt-in switch for status plugins:
+```
+set -g @qol_status_plugins 'off'   # change to 'on' for battery/network status plugins
+```
+
 ### WezTerm
 Config file: `~/.wezterm.lua`  
 Base config in this repo: `run_commands/my_wezterm.lua`
