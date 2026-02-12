@@ -47,6 +47,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `Makefile` | Standard shortcuts for install and verification |
 | `doctor_post_install_unix` | Strict doctor mode with fix hints |
 | `bootstrap_shell_secrets` | Interactive helper for shell secrets setup |
+| `verify_linux_edge_cases` | Linux-specific command-variant checks |
 | `requirements.txt` | Python and AI/ML library dependencies |
 | `run_commands/` | Helper utilities and shell functions |
 | `run_commands/nvim/lua/utils_scripts/` | Modular Neovim template modules |
@@ -133,6 +134,7 @@ Additional modes:
 make verify-strict
 make verify-json
 make doctor
+make verify-linux
 ```
 
 Pull requests also run repository smoke checks in GitHub Actions (`.github/workflows/smoke-checks.yml`).
@@ -306,6 +308,17 @@ Use strict mode in CI or when validating a clean machine setup.
 
 ### Missing `xterm-ghostty` terminfo
 If terminal features look incorrect in tmux/Neovim under Ghostty, use `term = xterm-256color` in `~/.config/ghostty/config` until `xterm-ghostty` terminfo is available on your system.
+
+### Linux command-name variants (`fd`/`fdfind`, `bat`/`batcat`)
+On Debian/Ubuntu, packages install commands as `fdfind` and `batcat`.
+Run:
+```bash
+make verify-linux
+```
+If needed, install variants with:
+```bash
+sudo apt install -y fd-find bat
+```
 
 ### Secrets file not loaded by Zsh
 Ensure `~/.config/secrets/shell.env` exists and has safe permissions:

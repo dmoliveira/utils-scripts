@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y zsh tmux neovim lua5.4
+        run: sudo apt-get update && sudo apt-get install -y zsh tmux neovim lua5.4 python3 fd-find bat
 
       - name: Prepare tmux powerline placeholder
         run: mkdir -p "$HOME/.powerline/powerline/bindings/tmux" && touch "$HOME/.powerline/powerline/bindings/tmux/powerline.conf"
@@ -34,3 +34,6 @@ jobs:
 
       - name: Validate Makefile targets
         run: make help
+
+      - name: Validate Linux edge-case checks
+        run: ./verify_linux_edge_cases
