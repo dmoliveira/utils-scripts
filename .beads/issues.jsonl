@@ -1,1 +1,0 @@
-{"id":"bd-29l","title":"Add Neovim Mason-based tooling bootstrap","description":"Install and configure mason.nvim and mason-lspconfig for stable language tool setup.","status":"in_progress","priority":2,"issue_type":"task","created_at":"2026-02-12T11:47:04.659172Z","created_by":"diego","updated_at":"2026-02-12T11:47:11.287791Z","compaction_level":0,"original_size":0}
