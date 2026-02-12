@@ -115,6 +115,24 @@ alias gl='git log --oneline --graph --decorate'
 alias tm='tmux new -A -s main'
 alias vim='nvim'  # comment out if not using neovim
 
+ghostty-reload() {
+  local ghostty_bin="/Applications/Ghostty.app/Contents/MacOS/ghostty"
+  local ghostty_cfg="$HOME/.config/ghostty/config"
+
+  if [[ ! -x "$ghostty_bin" ]]; then
+    echo "Ghostty binary not found at $ghostty_bin"
+    return 1
+  fi
+
+  if [[ ! -f "$ghostty_cfg" ]]; then
+    echo "Ghostty config not found at $ghostty_cfg"
+    return 1
+  fi
+
+  "$ghostty_bin" +validate-config --config-file "$ghostty_cfg" || return 1
+  ${EDITOR:-nvim} "$ghostty_cfg"
+}
+
 # ─────────────────────────────────────────────
 # Completion Init
 # ─────────────────────────────────────────────
