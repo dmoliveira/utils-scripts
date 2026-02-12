@@ -138,6 +138,7 @@ make verify-linux
 ```
 
 Pull requests also run repository smoke checks in GitHub Actions (`.github/workflows/smoke-checks.yml`).
+Installer and verification changes also run a disposable Ubuntu golden-path bootstrap workflow (`.github/workflows/golden-path-bootstrap.yml`).
 
 ---
 

@@ -158,10 +158,22 @@ setup_shell() {
   else
     curl -sS https://starship.rs/install.sh | sh -s -- -y
     if ! command -v atuin &>/dev/null; then
+      if command -v apt-get &>/dev/null; then
+        sudo apt-get install -y atuin || true
+      fi
+    fi
+    if ! command -v atuin &>/dev/null; then
       if command -v cargo &>/dev/null; then
         cargo install atuin --locked || true
       else
-        echo "⚠️ Atuin not installed (cargo missing). Install Rust/cargo and run: cargo install atuin --locked"
+        curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | bash || true
+      fi
+    fi
+    if ! command -v atuin &>/dev/null; then
+      if command -v cargo &>/dev/null; then
+        echo "⚠️ Atuin not installed. Retry manually: cargo install atuin --locked"
+      else
+        echo "⚠️ Atuin not installed. Retry manually: curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | bash"
       fi
     fi
   fi
