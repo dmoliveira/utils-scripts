@@ -145,7 +145,7 @@ setup_python() {
     python3 -m pip install -U pip wheel setuptools
   else
     pip_args+=(--break-system-packages)
-    python3 -m pip install "${pip_args[@]}" -U wheel setuptools
+    echo "ℹ️ Using distro-managed pip tooling on Linux (PEP 668); skipping pip/wheel/setuptools upgrade"
   fi
 
   if [[ -f "./requirements.txt" ]]; then
