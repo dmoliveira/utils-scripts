@@ -204,8 +204,12 @@ setup_neovim() {
   echo "🪶 Setting up NeoVim..."
   clone_if_missing "https://github.com/folke/lazy.nvim.git" "$HOME/.local/share/nvim/lazy/lazy.nvim"
   mkdir -p "$HOME/.config/nvim"
+  mkdir -p "$HOME/.config/nvim/lua/utils_scripts"
   backup_file "$HOME/.config/nvim/init.lua"
   safe_copy "./run_commands/my_nvim_init.lua" "$HOME/.config/nvim/init.lua"
+  for module in plugins options keymaps lsp ui; do
+    safe_copy "./run_commands/nvim/lua/utils_scripts/${module}.lua" "$HOME/.config/nvim/lua/utils_scripts/${module}.lua"
+  done
 }
 
 # ------------------------------------------------------------------------------

@@ -47,6 +47,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `bootstrap_shell_secrets` | Interactive helper for shell secrets setup |
 | `requirements.txt` | Python and AI/ML library dependencies |
 | `run_commands/` | Helper utilities and shell functions |
+| `run_commands/nvim/lua/utils_scripts/` | Modular Neovim template modules |
 | `run_commands/my_ghostty_config` | Ghostty terminal baseline config |
 | `run_commands/secrets_shell.env.example` | Secure shell secrets template |
 | `verify_post_install_unix` | End-to-end setup smoke test script |
@@ -257,6 +258,14 @@ Template defaults now include Mason bootstrap for language servers:
 require("mason").setup()
 require("mason-lspconfig").setup({ ensure_installed = { "lua_ls", "pyright", "bashls", "jsonls" } })
 ```
+
+The Neovim template is modularized under:
+- `run_commands/my_nvim_init.lua`
+- `run_commands/nvim/lua/utils_scripts/plugins.lua`
+- `run_commands/nvim/lua/utils_scripts/options.lua`
+- `run_commands/nvim/lua/utils_scripts/lsp.lua`
+- `run_commands/nvim/lua/utils_scripts/keymaps.lua`
+- `run_commands/nvim/lua/utils_scripts/ui.lua`
 
 After opening Neovim, run:
 ```
