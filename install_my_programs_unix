@@ -73,6 +73,44 @@ install_pkg() {
   fi
 }
 
+install_optional_brew_formula() {
+  local formula="$1"
+  local label="${2:-$1}"
+
+  if ! brew info "$formula" >/dev/null 2>&1; then
+    echo "ℹ️ ${label} unavailable in current Homebrew taps; skipping"
+    return
+  fi
+
+  if brew list "$formula" &>/dev/null; then
+    echo "✅ ${label} already installed"
+    return
+  fi
+
+  brew install "$formula"
+  echo "✅ Installed ${label}"
+}
+
+install_apt_first_available() {
+  local label="$1"
+  shift
+
+  local pkg
+  for pkg in "$@"; do
+    if apt-cache show "$pkg" >/dev/null 2>&1; then
+      if dpkg -s "$pkg" >/dev/null 2>&1; then
+        echo "✅ ${label} already installed (${pkg})"
+      else
+        sudo apt install -y "$pkg"
+        echo "✅ Installed ${label} (${pkg})"
+      fi
+      return
+    fi
+  done
+
+  echo "ℹ️ ${label} unavailable in configured apt repositories; skipping"
+}
+
 has_linux_gpu() {
   if command -v nvidia-smi >/dev/null 2>&1; then
     return 0
@@ -173,6 +211,39 @@ setup_monitoring() {
   else
     echo "ℹ️ No GPU device detected; nvtop skipped"
   fi
+}
+
+install_productivity_cli_stack() {
+  echo "🧰 Installing advanced productivity CLI tools..."
+
+  if [[ "$OS" == "Darwin" ]]; then
+    install_optional_brew_formula lazygit
+    install_optional_brew_formula hyperfine
+    install_optional_brew_formula dua-cli "dua-cli (dua)"
+    install_optional_brew_formula dust
+    install_optional_brew_formula procs
+    install_optional_brew_formula xh
+    install_optional_brew_formula doggo
+    install_optional_brew_formula watchexec
+    install_optional_brew_formula kubectl
+    install_optional_brew_formula k9s
+    install_optional_brew_formula trivy
+    install_optional_brew_formula zellij
+    return
+  fi
+
+  install_apt_first_available lazygit lazygit
+  install_apt_first_available hyperfine hyperfine
+  install_apt_first_available "dua-cli (dua)" dua-cli
+  install_apt_first_available dust du-dust dust
+  install_apt_first_available procs procs
+  install_apt_first_available xh xh
+  install_apt_first_available doggo doggo
+  install_apt_first_available watchexec watchexec
+  install_apt_first_available kubectl kubectl kubernetes-client
+  install_apt_first_available k9s k9s
+  install_apt_first_available trivy trivy
+  install_apt_first_available zellij zellij
 }
 
 # ------------------------------------------------------------------------------
@@ -360,6 +431,7 @@ main() {
   parse_args "$@"
   setup_system
   setup_monitoring
+  install_productivity_cli_stack
   install_beads
   install_local_scripts
   install_codex_config

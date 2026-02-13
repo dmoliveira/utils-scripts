@@ -9,6 +9,26 @@ set -euo pipefail
 
 # Debian Programs
 
+install_apt_first_available() {
+    local label="$1"
+    shift
+
+    local pkg
+    for pkg in "$@"; do
+        if apt-cache show "$pkg" >/dev/null 2>&1; then
+            if dpkg -s "$pkg" >/dev/null 2>&1; then
+                echo "✅ $label already installed ($pkg)"
+            else
+                sudo apt install -y "$pkg"
+                echo "✅ Installed $label ($pkg)"
+            fi
+            return
+        fi
+    done
+
+    echo "ℹ️ $label unavailable in apt repositories; skipping"
+}
+
 # Update and upgrade libraries
 echo "Updating system..."
 sudo apt update -y && sudo apt upgrade -y
@@ -30,6 +50,20 @@ if command -v nvidia-smi >/dev/null 2>&1 || [[ -e "/dev/dri" ]]; then
 else
     echo "ℹ️ No GPU device detected; nvtop skipped"
 fi
+
+echo "Installing advanced productivity CLI tools..."
+install_apt_first_available lazygit lazygit
+install_apt_first_available hyperfine hyperfine
+install_apt_first_available "dua-cli (dua)" dua-cli
+install_apt_first_available dust du-dust dust
+install_apt_first_available procs procs
+install_apt_first_available xh xh
+install_apt_first_available doggo doggo
+install_apt_first_available watchexec watchexec
+install_apt_first_available kubectl kubectl kubernetes-client
+install_apt_first_available k9s k9s
+install_apt_first_available trivy trivy
+install_apt_first_available zellij zellij
 
 echo "Installing Python & ML dependencies..."
 sudo apt install -y \

@@ -76,6 +76,18 @@ check_command() {
   fi
 }
 
+check_optional_command() {
+  local cmd="$1"
+  local label="${2:-command '$1' available}"
+  local missing_label="${3:-command '$1' missing (optional)}"
+
+  if command -v "$cmd" >/dev/null 2>&1; then
+    pass "$label"
+  else
+    warn "$missing_label"
+  fi
+}
+
 check_file() {
   local file="$1"
   if [[ -f "$file" ]]; then
@@ -162,6 +174,20 @@ else
     pass "nvtop skipped (no GPU detected)"
   fi
 fi
+
+say "==> Checking advanced productivity tools"
+check_optional_command lazygit "command 'lazygit' available"
+check_optional_command hyperfine "command 'hyperfine' available"
+check_optional_command dua "command 'dua' available"
+check_optional_command dust "command 'dust' available"
+check_optional_command procs "command 'procs' available"
+check_optional_command xh "command 'xh' available"
+check_optional_command doggo "command 'doggo' available"
+check_optional_command watchexec "command 'watchexec' available"
+check_optional_command kubectl "command 'kubectl' available"
+check_optional_command k9s "command 'k9s' available"
+check_optional_command trivy "command 'trivy' available"
+check_optional_command zellij "command 'zellij' available"
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
   say "==> Checking Ghostty on macOS"

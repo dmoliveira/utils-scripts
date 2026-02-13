@@ -4,20 +4,49 @@ set -euo pipefail
 timestamp=$(date +"%Y%m%d%H%M%S")
 ARCH=$(uname -m)
 
+install_optional_brew_formula() {
+  local formula="$1"
+  local label="${2:-$1}"
+
+  if ! brew info "$formula" >/dev/null 2>&1; then
+    echo "ℹ️ ${label} unavailable in current Homebrew taps; skipping"
+    return
+  fi
+
+  if brew list "$formula" &>/dev/null; then
+    echo "✅ ${label} already installed"
+    return
+  fi
+
+  brew install "$formula"
+  echo "✅ Installed ${label}"
+}
+
 install_monitoring_stack() {
   echo "Installing terminal monitoring tools..."
-  brew install bottom
+  install_optional_brew_formula bottom "bottom (btm)"
 
   if [[ "$ARCH" == "arm64" ]]; then
-    if brew info asitop >/dev/null 2>&1; then
-      brew list asitop &>/dev/null || brew install asitop
-      echo "✅ asitop installed for Apple Silicon telemetry"
-    else
-      echo "ℹ️ asitop formula not available in your Homebrew taps; skipping"
-    fi
+    install_optional_brew_formula asitop "asitop"
   fi
 
   echo "ℹ️ nvtop is skipped on macOS; use 'bottom' (btm) and Activity Monitor alternatives"
+}
+
+install_productivity_cli_stack() {
+  echo "Installing advanced productivity CLI tools..."
+  install_optional_brew_formula lazygit
+  install_optional_brew_formula hyperfine
+  install_optional_brew_formula dua-cli "dua-cli (dua)"
+  install_optional_brew_formula dust
+  install_optional_brew_formula procs
+  install_optional_brew_formula xh
+  install_optional_brew_formula doggo
+  install_optional_brew_formula watchexec
+  install_optional_brew_formula kubectl
+  install_optional_brew_formula k9s
+  install_optional_brew_formula trivy
+  install_optional_brew_formula zellij
 }
 
 # 🧩 Install Homebrew if not already installed
@@ -37,6 +66,7 @@ brew install \
   python uv
 
 install_monitoring_stack
+install_productivity_cli_stack
 
 if ! brew list --cask ghostty &>/dev/null; then
   brew install --cask ghostty

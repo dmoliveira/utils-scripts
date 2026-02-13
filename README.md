@@ -62,7 +62,7 @@ Includes dependencies for:
 - **Terminal:** tmux, zsh, starship, ghostty, atuin, direnv, htop, btop  
 - **Editor:** neovim (Lua config-ready)  
 - **Python:** numpy, pandas, torch, scikit-learn, transformers (editable)  
-- **Optional:** git, curl, wget, build-essentials  
+- **Optional:** lazygit, hyperfine, dua-cli, dust, procs, xh, doggo, watchexec, kubectl, k9s, trivy, zellij, git, curl, wget, build-essentials  
 
 ---
 
@@ -116,6 +116,12 @@ Monitoring install behavior:
 - macOS installs `bottom` (`btm`) as the `nvtop` alternative
 - Apple Silicon (`arm64`) attempts to install `asitop` when available in Homebrew
 - Linux installs `nvtop` only when GPU hardware is detected and apt package is available
+
+Advanced tool install behavior:
+- macOS installs all recommended tools via Homebrew when formulas are available
+- Linux installs each tool only when an apt package exists (auto-skip otherwise)
+- Linux `kubectl` tries `kubectl` first and falls back to `kubernetes-client`
+- The installer avoids duplicate installs and prints clear installed/skipped status
 
 ### 3️⃣ Install Python Packages (optional)
 ```bash
@@ -180,6 +186,7 @@ Run the smoke test script after installation to validate your terminal stack:
 It checks:
 - required CLI tools (`zsh`, `tmux`, `nvim`, `fzf`, `zoxide`, `starship`, `direnv`, `atuin`)
 - monitoring tools (`btop` plus `btm` on macOS, `nvtop` on Linux with detected GPU)
+- advanced productivity tools (`lazygit`, `hyperfine`, `dua`, `dust`, `procs`, `xh`, `doggo`, `watchexec`, `kubectl`, `k9s`, `trivy`, `zellij`) as optional checks
 - expected config files (`~/.zshrc`, `~/.tmux.conf`, `~/.config/nvim/init.lua`)
 - syntax/startup checks for Zsh, tmux, and Neovim
 - Ghostty config validation on macOS when installed
@@ -258,6 +265,18 @@ set -g @continuum-restore 'on'
 - On macOS, `btm` (bottom) is installed as the richer TUI alternative to `htop`
 - On Apple Silicon, `asitop` is installed when available to expose SoC metrics
 - On Linux with a detected GPU, `nvtop` is installed when the package exists
+
+### Productivity tools quick guide
+- `lazygit`: fast interactive Git UI; start with `lazygit`, stage with `space`, commit with `c`
+- `hyperfine`: benchmark commands reliably; use `hyperfine 'python script.py' 'uv run python script.py'`
+- `dua` and `dust`: inspect disk usage quickly; run `dua i` for interactive mode and `dust -d 3` for top folders
+- `procs`: modern process viewer; try `procs --sortd cpu` or `procs python`
+- `xh`: readable HTTP client; use `xh GET https://api.github.com/repos/dmoliveira/utils-scripts`
+- `doggo`: DNS debugging; use `doggo openai.com A` or `doggo github.com MX`
+- `watchexec`: rerun on file changes; `watchexec -e py 'pytest -q'`
+- `kubectl` and `k9s`: Kubernetes CLI + TUI; run `kubectl get pods -A` then `k9s`
+- `trivy`: security scan for files/images; `trivy fs .` and `trivy image python:3.12`
+- `zellij`: terminal workspace manager; start with `zellij` and split panes from built-in help (`Ctrl-g` + `?`)
 
 ### WezTerm
 Config file: `~/.wezterm.lua`  
