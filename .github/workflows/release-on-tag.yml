@@ -15,10 +15,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Create GitHub release with generated notes
+      - name: Render structured release notes template
+        run: |
+          set -euo pipefail
+          DATE_UTC="$(date -u +%Y-%m-%d)"
+          sed "s/{{VERSION}}/${GITHUB_REF_NAME}/g; s/{{DATE}}/${DATE_UTC}/g" \
+            .github/RELEASE_NOTES_TEMPLATE.md > /tmp/release-notes.md
+
+      - name: Create GitHub release with structured notes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh release create "${GITHUB_REF_NAME}" \
             --title "${GITHUB_REF_NAME}" \
+            --notes-file /tmp/release-notes.md \
             --generate-notes

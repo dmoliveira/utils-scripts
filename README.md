@@ -57,6 +57,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `run_commands/secrets_shell.env.example` | Secure shell secrets template |
 | `verify_post_install_unix` | End-to-end setup smoke test script |
 | `rollback_installer_backups` | Restore latest installer backup files |
+| `.github/RELEASE_NOTES_TEMPLATE.md` | Structured release notes template used by release workflow |
 | `TERMINAL_PLAYBOOK.md` | Practical workflows and tool scenarios |
 | `python/` | Additional Python utility scripts |
 | `.gitignore` | Standard ignore patterns |
@@ -449,8 +450,21 @@ Releases are automated through GitHub Actions when a version tag is pushed.
 
 Workflow:
 - `.github/workflows/release-on-tag.yml`
+- `.github/RELEASE_NOTES_TEMPLATE.md`
 - Trigger: push tag matching `v*` (example: `v1.2.0`)
-- Outcome: GitHub Release created with auto-generated changelog notes
+- Outcome: GitHub Release created with structured notes sections (`Adds`, `Changes`, `Fixes`, `Removals`) plus generated changelog entries
+
+Template workflow details:
+- release workflow renders `.github/RELEASE_NOTES_TEMPLATE.md` using current tag/date
+- placeholders supported: `{{VERSION}}`, `{{DATE}}`
+- update template content before tagging if you want custom release messaging
+
+Preview template rendering locally:
+```bash
+VERSION=v1.2.0
+DATE_UTC="$(date -u +%Y-%m-%d)"
+sed "s/{{VERSION}}/${VERSION}/g; s/{{DATE}}/${DATE_UTC}/g" .github/RELEASE_NOTES_TEMPLATE.md
+```
 
 Example:
 ```bash
