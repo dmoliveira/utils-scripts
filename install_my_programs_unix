@@ -134,13 +134,13 @@ install_apt_first_available() {
 
   local pkg
   for pkg in "$@"; do
-    if apt-cache show "$pkg" >/dev/null 2>&1; then
-      if dpkg -s "$pkg" >/dev/null 2>&1; then
-        echo "✅ ${label} already installed (${pkg})"
-      else
-        sudo apt install -y "$pkg"
-        echo "✅ Installed ${label} (${pkg})"
-      fi
+    if dpkg -s "$pkg" >/dev/null 2>&1; then
+      echo "✅ ${label} already installed (${pkg})"
+      return
+    fi
+
+    if sudo apt install -y "$pkg" >/dev/null 2>&1; then
+      echo "✅ Installed ${label} (${pkg})"
       return
     fi
   done
