@@ -12,16 +12,16 @@ set -euo pipefail
 timestamp=$(date +"%Y%m%d%H%M%S")
 OS=$(uname -s)
 ARCH=$(uname -m)
-echo "🧠 Detected OS: $OS"
-echo "🧬 Detected ARCH: $ARCH"
 INSTALL_ML_LIBS=true
 INSTALL_FONTS=true
+DRY_RUN=false
 
 usage() {
   cat <<'EOF'
 Usage: install_my_programs_unix [options]
 
 Options:
+  --dry-run       Print planned actions without changing the system
   --skip-ml       Skip installing AI/ML Python packages
   --skip-fonts    Skip installing fonts
   -h, --help      Show this help message
@@ -33,6 +33,9 @@ parse_args() {
     case "$1" in
       --skip-ml)
         INSTALL_ML_LIBS=false
+        ;;
+      --dry-run)
+        DRY_RUN=true
         ;;
       --skip-fonts)
         INSTALL_FONTS=false
@@ -59,23 +62,52 @@ backup_file() {
   local file="$1"
   if [[ -f "$file" ]]; then
     local backup="${file}.${timestamp}.bak"
-    cp "$file" "$backup"
+    run_cmd cp "$file" "$backup"
     echo "📦 Backed up $file → $backup"
   fi
+}
+
+run_cmd() {
+  if [[ "$DRY_RUN" == "true" ]]; then
+    printf '[dry-run] %s\n' "$*"
+    return 0
+  fi
+  "$@"
+}
+
+run_shell() {
+  if [[ "$DRY_RUN" == "true" ]]; then
+    printf '[dry-run] %s\n' "$1"
+    return 0
+  fi
+  eval "$1"
 }
 
 install_pkg() {
   local pkg="$1"
   if [[ "$OS" == "Darwin" ]]; then
-    brew list "$pkg" &>/dev/null || brew install "$pkg"
+    if [[ "$DRY_RUN" == "true" ]]; then
+      run_cmd brew install "$pkg"
+    else
+      brew list "$pkg" &>/dev/null || brew install "$pkg"
+    fi
   else
-    dpkg -s "$pkg" &>/dev/null || sudo apt install -y "$pkg"
+    if [[ "$DRY_RUN" == "true" ]]; then
+      run_cmd sudo apt install -y "$pkg"
+    else
+      dpkg -s "$pkg" &>/dev/null || sudo apt install -y "$pkg"
+    fi
   fi
 }
 
 install_optional_brew_formula() {
   local formula="$1"
   local label="${2:-$1}"
+
+  if [[ "$DRY_RUN" == "true" ]]; then
+    run_cmd brew install "$formula"
+    return
+  fi
 
   if ! brew info "$formula" >/dev/null 2>&1; then
     echo "ℹ️ ${label} unavailable in current Homebrew taps; skipping"
@@ -94,6 +126,11 @@ install_optional_brew_formula() {
 install_apt_first_available() {
   local label="$1"
   shift
+
+  if [[ "$DRY_RUN" == "true" ]]; then
+    run_cmd sudo apt install -y "$1"
+    return
+  fi
 
   local pkg
   for pkg in "$@"; do
@@ -126,14 +163,22 @@ has_linux_gpu() {
 install_brew() {
   if ! command -v brew &>/dev/null; then
     echo "🍺 Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    if [[ "$DRY_RUN" == "true" ]]; then
+      printf '[dry-run] /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"\n'
+    else
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    fi
   fi
 }
 
 install_ohmyzsh() {
   if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
     echo "💫 Installing Oh-My-Zsh..."
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    if [[ "$DRY_RUN" == "true" ]]; then
+      printf '[dry-run] sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended\n'
+    else
+      sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+    fi
   fi
 }
 
@@ -142,7 +187,7 @@ clone_if_missing() {
   local dest="$2"
   if [[ ! -d "$dest" ]]; then
     echo "🔗 Cloning $repo → $dest"
-    git clone --depth=1 "$repo" "$dest"
+    run_cmd git clone --depth=1 "$repo" "$dest"
   fi
 }
 
@@ -150,8 +195,8 @@ safe_copy() {
   local src="$1"
   local dest="$2"
   if [[ -f "$src" ]]; then
-    mkdir -p "$(dirname "$dest")"
-    cp -f "$src" "$dest"
+    run_cmd mkdir -p "$(dirname "$dest")"
+    run_cmd cp -f "$src" "$dest"
     echo "📝 Installed $src → $dest"
   fi
 }
@@ -161,9 +206,9 @@ install_local_bin_script() {
   local dest_dir="$HOME/.local/bin"
   local dest="$dest_dir/$(basename "$src")"
   if [[ -f "$src" ]]; then
-    mkdir -p "$dest_dir"
-    cp -f "$src" "$dest"
-    chmod +x "$dest"
+    run_cmd mkdir -p "$dest_dir"
+    run_cmd cp -f "$src" "$dest"
+    run_cmd chmod +x "$dest"
     echo "🧰 Installed $(basename "$src") → $dest"
   fi
 }
@@ -176,11 +221,13 @@ setup_system() {
   echo "⚙️ Setting up system base packages..."
   if [[ "$OS" == "Darwin" ]]; then
     install_brew
-    brew update && brew upgrade
-    brew install git curl wget neovim tmux htop btop bottom tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin
+    run_cmd brew update
+    run_cmd brew upgrade
+    run_cmd brew install git curl wget neovim tmux htop btop bottom tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin
   else
-    sudo apt update -y && sudo apt upgrade -y
-    sudo apt install -y curl wget git neovim tmux htop btop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv
+    run_cmd sudo apt update -y
+    run_cmd sudo apt upgrade -y
+    run_cmd sudo apt install -y curl wget git neovim tmux htop btop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv
   fi
 }
 
@@ -189,12 +236,7 @@ setup_monitoring() {
 
   if [[ "$OS" == "Darwin" ]]; then
     if [[ "$ARCH" == "arm64" ]]; then
-      if brew info asitop >/dev/null 2>&1; then
-        brew list asitop &>/dev/null || brew install asitop
-        echo "✅ asitop installed for Apple Silicon"
-      else
-        echo "ℹ️ asitop formula unavailable in current taps; skipping"
-      fi
+      install_optional_brew_formula asitop "asitop"
     fi
 
     echo "ℹ️ nvtop skipped on macOS"
@@ -252,10 +294,10 @@ install_productivity_cli_stack() {
 
 setup_python() {
   echo "🐍 Installing Python packages..."
-  python3 -m ensurepip --upgrade || true
-  python3 -m pip install -U pip wheel setuptools
+  run_cmd python3 -m ensurepip --upgrade || true
+  run_cmd python3 -m pip install -U pip wheel setuptools
   if [[ -f "./requirements.txt" ]]; then
-    python3 -m pip install -r ./requirements.txt
+    run_cmd python3 -m pip install -r ./requirements.txt
   fi
 }
 
@@ -268,12 +310,12 @@ setup_shell() {
   install_ohmyzsh
 
   if [[ "$OS" == "Darwin" ]]; then
-    brew install starship atuin
+    run_cmd brew install starship atuin
   else
-    curl -sS https://starship.rs/install.sh | sh -s -- -y
+    run_shell "curl -sS https://starship.rs/install.sh | sh -s -- -y"
     if ! command -v atuin &>/dev/null; then
       if command -v cargo &>/dev/null; then
-        cargo install atuin --locked || true
+        run_cmd cargo install atuin --locked || true
       else
         echo "⚠️ Atuin not installed (cargo missing). Install Rust/cargo and run: cargo install atuin --locked"
       fi
@@ -293,18 +335,22 @@ setup_shell() {
   for shell_file in bashrc zshrc; do
     target="$HOME/.${shell_file}"
     myfile="$HOME/.my_${shell_file}"
-    [[ -f "./run_commands/my_${shell_file}" ]] && cp "./run_commands/my_${shell_file}" "$myfile"
+    [[ -f "./run_commands/my_${shell_file}" ]] && run_cmd cp "./run_commands/my_${shell_file}" "$myfile"
     if ! grep -q "source ~/.my_${shell_file}" "$target" 2>/dev/null; then
-      echo "source ~/.my_${shell_file}" >> "$target"
+      if [[ "$DRY_RUN" == "true" ]]; then
+        printf '[dry-run] echo "source ~/.my_%s" >> %s\n' "$shell_file" "$target"
+      else
+        echo "source ~/.my_${shell_file}" >> "$target"
+      fi
       echo "🪄 Added sourcing line to $target"
     fi
   done
 
-  if [[ -f "./run_commands/secrets_shell.env.example" ]]; then
-    mkdir -p "$HOME/.config/secrets"
+    if [[ -f "./run_commands/secrets_shell.env.example" ]]; then
+    run_cmd mkdir -p "$HOME/.config/secrets"
     if [[ ! -f "$HOME/.config/secrets/shell.env" ]]; then
-      cp -f "./run_commands/secrets_shell.env.example" "$HOME/.config/secrets/shell.env"
-      chmod 600 "$HOME/.config/secrets/shell.env"
+      run_cmd cp -f "./run_commands/secrets_shell.env.example" "$HOME/.config/secrets/shell.env"
+      run_cmd chmod 600 "$HOME/.config/secrets/shell.env"
       echo "✅ Installed $HOME/.config/secrets/shell.env (edit with your local secrets)"
     fi
   fi
@@ -317,8 +363,8 @@ setup_shell() {
 setup_neovim() {
   echo "🪶 Setting up NeoVim..."
   clone_if_missing "https://github.com/folke/lazy.nvim.git" "$HOME/.local/share/nvim/lazy/lazy.nvim"
-  mkdir -p "$HOME/.config/nvim"
-  mkdir -p "$HOME/.config/nvim/lua/utils_scripts"
+  run_cmd mkdir -p "$HOME/.config/nvim"
+  run_cmd mkdir -p "$HOME/.config/nvim/lua/utils_scripts"
   backup_file "$HOME/.config/nvim/init.lua"
   safe_copy "./run_commands/my_nvim_init.lua" "$HOME/.config/nvim/init.lua"
   for module in plugins options keymaps lsp ui; do
@@ -333,12 +379,12 @@ setup_neovim() {
 setup_fonts() {
   echo "🔤 Installing fonts..."
   if [[ "$OS" == "Darwin" ]]; then
-    brew install --cask font-fira-code-nerd-font
+    run_cmd brew install --cask font-fira-code-nerd-font
   else
-    mkdir -p ~/.local/share/fonts
-    wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip -O /tmp/FiraCode.zip
-    unzip -o /tmp/FiraCode.zip -d ~/.local/share/fonts >/dev/null
-    fc-cache -fv >/dev/null
+    run_cmd mkdir -p ~/.local/share/fonts
+    run_cmd wget -q https://github.com/ryanoasis/nerd-fonts/releases/latest/download/FiraCode.zip -O /tmp/FiraCode.zip
+    run_cmd unzip -o /tmp/FiraCode.zip -d ~/.local/share/fonts
+    run_cmd fc-cache -fv
   fi
 }
 
@@ -365,9 +411,9 @@ setup_ghostty() {
 
   echo "🧩 Installing Ghostty and config..."
   if ! brew list --cask ghostty &>/dev/null; then
-    brew install --cask ghostty
+    run_cmd brew install --cask ghostty
   fi
-  mkdir -p "$HOME/.config/ghostty"
+  run_cmd mkdir -p "$HOME/.config/ghostty"
   backup_file "$HOME/.config/ghostty/config"
   safe_copy "./run_commands/my_ghostty_config" "$HOME/.config/ghostty/config"
 }
@@ -378,7 +424,7 @@ setup_ghostty() {
 
 install_ml_libs() {
   echo "🧠 Installing AI/ML Python packages..."
-  python3 -m pip install -U numpy pandas scikit-learn jupyterlab matplotlib seaborn \
+  run_cmd python3 -m pip install -U numpy pandas scikit-learn jupyterlab matplotlib seaborn \
     torch torchvision torchaudio xgboost lightgbm transformers sentence-transformers \
     openai optuna mlflow
 }
@@ -390,22 +436,26 @@ install_ml_libs() {
 install_local_scripts() {
   echo "📎 Installing local helper scripts..."
   install_local_bin_script "./bootstrap_shell_secrets"
-  install_local_bin_script "./bd_init_project"
+  install_local_bin_script "./br_init_project"
   install_local_bin_script "./codex_apply_config"
   install_local_bin_script "./repomix_generate"
 }
 
 # ------------------------------------------------------------------------------
-# 📿 10. Beads (bd)
+# 📿 10. Beads tracker
 # ------------------------------------------------------------------------------
 
-install_beads() {
-  echo "📿 Installing Beads (bd)..."
-  if command -v bd &>/dev/null; then
-    echo "✅ bd already installed. Skipping."
+install_br_tracker() {
+  echo "📿 Installing Beads tracker (br)..."
+  if command -v br &>/dev/null; then
+    echo "✅ br already installed. Skipping."
     return
   fi
-  curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+  if command -v bd &>/dev/null; then
+    echo "ℹ️ Found legacy bd command. Keep using it until br is installed on this machine."
+    return
+  fi
+  run_shell "curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash"
 }
 
 # ------------------------------------------------------------------------------
@@ -414,7 +464,7 @@ install_beads() {
 
 install_codex_config() {
   echo "🤖 Configuring Codex..."
-  mkdir -p "$HOME/.codex"
+  run_cmd mkdir -p "$HOME/.codex"
   safe_copy "./run_commands/codex_config.toml" "$HOME/.codex/config.template.toml"
   if [[ -x "$HOME/.local/bin/codex_apply_config" ]]; then
     "$HOME/.local/bin/codex_apply_config"
@@ -429,10 +479,12 @@ install_codex_config() {
 
 main() {
   parse_args "$@"
+  echo "🧠 Detected OS: $OS"
+  echo "🧬 Detected ARCH: $ARCH"
   setup_system
   setup_monitoring
   install_productivity_cli_stack
-  install_beads
+  install_br_tracker
   install_local_scripts
   install_codex_config
   setup_python

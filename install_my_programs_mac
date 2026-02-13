@@ -3,10 +3,54 @@ set -euo pipefail
 
 timestamp=$(date +"%Y%m%d%H%M%S")
 ARCH=$(uname -m)
+DRY_RUN=false
+
+usage() {
+  cat <<'EOF'
+Usage: install_my_programs_mac [options]
+
+Options:
+  --dry-run   Print planned actions without changing the system
+  -h, --help  Show this help message
+EOF
+}
+
+parse_args() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --dry-run)
+        DRY_RUN=true
+        ;;
+      -h|--help)
+        usage
+        exit 0
+        ;;
+      *)
+        echo "Unknown option: $1" >&2
+        usage >&2
+        exit 1
+        ;;
+    esac
+    shift
+  done
+}
+
+run_cmd() {
+  if [[ "$DRY_RUN" == "true" ]]; then
+    printf '[dry-run] %s\n' "$*"
+    return 0
+  fi
+  "$@"
+}
 
 install_optional_brew_formula() {
   local formula="$1"
   local label="${2:-$1}"
+
+  if [[ "$DRY_RUN" == "true" ]]; then
+    run_cmd brew install "$formula"
+    return
+  fi
 
   if ! brew info "$formula" >/dev/null 2>&1; then
     echo "ℹ️ ${label} unavailable in current Homebrew taps; skipping"
@@ -49,17 +93,24 @@ install_productivity_cli_stack() {
   install_optional_brew_formula zellij
 }
 
+parse_args "$@"
+
 # 🧩 Install Homebrew if not already installed
 if ! command -v brew &>/dev/null; then
   echo "Installing Homebrew..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  if [[ "$DRY_RUN" == "true" ]]; then
+    printf '[dry-run] /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"\n'
+  else
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  fi
 fi
 
 echo "Updating Homebrew..."
-brew update && brew upgrade
+run_cmd brew update
+run_cmd brew upgrade
 
 # 🧰 Core developer tools
-brew install \
+run_cmd brew install \
   wget htop btop tmux neovim curl git jq tree \
   fzf zoxide ripgrep bat fd gh \
   direnv atuin \
@@ -69,40 +120,40 @@ install_monitoring_stack
 install_productivity_cli_stack
 
 if ! brew list --cask ghostty &>/dev/null; then
-  brew install --cask ghostty
+  run_cmd brew install --cask ghostty
 fi
 
 # 🧠 AI/ML environment (optional)
-brew install \
+run_cmd brew install \
   cmake openblas lapack gfortran \
   protobuf rust
 
 # 🐚 Zsh terminal enhancements
-brew install starship zsh zsh-autosuggestions zsh-syntax-highlighting
+run_cmd brew install starship zsh zsh-autosuggestions zsh-syntax-highlighting
 
 # 🧩 Fonts (optional)
-brew install --cask font-fira-code-nerd-font
+run_cmd brew install --cask font-fira-code-nerd-font
 
 if [[ -f "./run_commands/my_ghostty_config" ]]; then
-  mkdir -p "$HOME/.config/ghostty"
+  run_cmd mkdir -p "$HOME/.config/ghostty"
   if [[ -f "$HOME/.config/ghostty/config" ]]; then
-    cp "$HOME/.config/ghostty/config" "$HOME/.config/ghostty/config.${timestamp}.bak"
+    run_cmd cp "$HOME/.config/ghostty/config" "$HOME/.config/ghostty/config.${timestamp}.bak"
   fi
-  cp -f "./run_commands/my_ghostty_config" "$HOME/.config/ghostty/config"
+  run_cmd cp -f "./run_commands/my_ghostty_config" "$HOME/.config/ghostty/config"
   echo "✅ Installed Ghostty config to ~/.config/ghostty/config"
 fi
 
 if [[ -f "./run_commands/secrets_shell.env.example" ]]; then
-  mkdir -p "$HOME/.config/secrets"
+  run_cmd mkdir -p "$HOME/.config/secrets"
   if [[ ! -f "$HOME/.config/secrets/shell.env" ]]; then
-    cp -f "./run_commands/secrets_shell.env.example" "$HOME/.config/secrets/shell.env"
-    chmod 600 "$HOME/.config/secrets/shell.env"
+    run_cmd cp -f "./run_commands/secrets_shell.env.example" "$HOME/.config/secrets/shell.env"
+    run_cmd chmod 600 "$HOME/.config/secrets/shell.env"
     echo "✅ Installed $HOME/.config/secrets/shell.env (edit with your local secrets)"
   fi
 fi
 
 # 🧮 Lua / auxiliary tools (optional)
-brew install luarocks
+run_cmd brew install luarocks
 
 echo "✅ Setup complete! Recommended next steps:"
 echo "- Run: 'chsh -s $(which zsh)' to make Zsh your default shell"
