@@ -76,6 +76,18 @@ check_command() {
   fi
 }
 
+check_optional_command() {
+  local cmd="$1"
+  local label="${2:-command '$1' available}"
+  local missing_label="${3:-command '$1' missing (optional)}"
+
+  if command -v "$cmd" >/dev/null 2>&1; then
+    pass "$label"
+  else
+    warn "$missing_label"
+  fi
+}
+
 check_file() {
   local file="$1"
   if [[ -f "$file" ]]; then
@@ -127,6 +139,7 @@ check_command zoxide
 check_command starship
 check_command direnv
 check_command atuin
+check_command btop
 
 say "==> Checking required config files"
 check_file "$HOME/.zshrc"
@@ -139,6 +152,42 @@ run_check "tmux config parse" tmux -L utils-scripts-smoke -f "$HOME/.tmux.conf" 
 tmux -L utils-scripts-smoke kill-server >/dev/null 2>&1 || true
 run_check "nvim init.lua syntax" lua -e "assert(loadfile('$HOME/.config/nvim/init.lua'))"
 run_check "neovim headless start" nvim --headless +qa
+
+say "==> Checking monitoring tools"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  check_command btm
+  if [[ "$(uname -m)" == "arm64" ]]; then
+    if command -v asitop >/dev/null 2>&1; then
+      pass "command 'asitop' available (Apple Silicon)"
+    else
+      warn "command 'asitop' missing (optional on Apple Silicon)"
+    fi
+  fi
+else
+  if command -v nvidia-smi >/dev/null 2>&1 || [[ -e "/dev/dri" ]]; then
+    if command -v nvtop >/dev/null 2>&1; then
+      pass "command 'nvtop' available (GPU detected)"
+    else
+      warn "command 'nvtop' missing while GPU detected"
+    fi
+  else
+    pass "nvtop skipped (no GPU detected)"
+  fi
+fi
+
+say "==> Checking advanced productivity tools"
+check_optional_command lazygit "command 'lazygit' available"
+check_optional_command hyperfine "command 'hyperfine' available"
+check_optional_command dua "command 'dua' available"
+check_optional_command dust "command 'dust' available"
+check_optional_command procs "command 'procs' available"
+check_optional_command xh "command 'xh' available"
+check_optional_command doggo "command 'doggo' available"
+check_optional_command watchexec "command 'watchexec' available"
+check_optional_command kubectl "command 'kubectl' available"
+check_optional_command k9s "command 'k9s' available"
+check_optional_command trivy "command 'trivy' available"
+check_optional_command zellij "command 'zellij' available"
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
   say "==> Checking Ghostty on macOS"

@@ -1,6 +1,46 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+DRY_RUN=false
+
+usage() {
+    cat <<'EOF'
+Usage: install_my_programs_debian [options]
+
+Options:
+  --dry-run   Print planned actions without changing the system
+  -h, --help  Show this help message
+EOF
+}
+
+parse_args() {
+    while [[ $# -gt 0 ]]; do
+        case "$1" in
+            --dry-run)
+                DRY_RUN=true
+                ;;
+            -h|--help)
+                usage
+                exit 0
+                ;;
+            *)
+                echo "Unknown option: $1" >&2
+                usage >&2
+                exit 1
+                ;;
+        esac
+        shift
+    done
+}
+
+run_cmd() {
+    if [[ "$DRY_RUN" == "true" ]]; then
+        printf '[dry-run] %s\n' "$*"
+        return 0
+    fi
+    "$@"
+}
+
 # Title: Install my unix programs
 # Description: This scripts install my basic programs that I use day-by-day;
 #              It has a lot of useful programs that I recommend. This list
@@ -9,28 +49,90 @@ set -euo pipefail
 
 # Debian Programs
 
+install_apt_first_available() {
+    local label="$1"
+    shift
+
+    if [[ "$DRY_RUN" == "true" ]]; then
+        run_cmd sudo apt install -y "$1"
+        return
+    fi
+
+    local pkg
+    for pkg in "$@"; do
+        if apt-cache show "$pkg" >/dev/null 2>&1; then
+            if dpkg -s "$pkg" >/dev/null 2>&1; then
+                echo "✅ $label already installed ($pkg)"
+            else
+                sudo apt install -y "$pkg"
+                echo "✅ Installed $label ($pkg)"
+            fi
+            return
+        fi
+    done
+
+    echo "ℹ️ $label unavailable in apt repositories; skipping"
+}
+
+parse_args "$@"
+
 # Update and upgrade libraries
 echo "Updating system..."
-sudo apt update -y && sudo apt upgrade -y
+run_cmd sudo apt update -y
+run_cmd sudo apt upgrade -y
 
 echo "Installing essential tools..."
-sudo apt install -y \
+run_cmd sudo apt install -y \
     curl wget git build-essential g++ make cmake pkg-config \
-    neovim tmux zsh htop tree jq ripgrep fzf bat fd-find zoxide \
+    neovim tmux zsh htop btop tree jq ripgrep fzf bat fd-find zoxide \
     openssl xclip parallel
 
+echo "Configuring monitoring stack..."
+if command -v nvidia-smi >/dev/null 2>&1 || [[ -e "/dev/dri" ]]; then
+    if [[ "$DRY_RUN" == "true" ]]; then
+        run_cmd sudo apt install -y nvtop
+        echo "✅ nvtop install planned (dry-run)"
+    elif apt-cache show nvtop >/dev/null 2>&1; then
+        run_cmd sudo apt install -y nvtop
+        echo "✅ nvtop installed"
+    else
+        echo "ℹ️ nvtop package unavailable in apt repositories; skipping"
+    fi
+else
+    echo "ℹ️ No GPU device detected; nvtop skipped"
+fi
+
+echo "Installing advanced productivity CLI tools..."
+install_apt_first_available lazygit lazygit
+install_apt_first_available hyperfine hyperfine
+install_apt_first_available "dua-cli (dua)" dua-cli
+install_apt_first_available dust du-dust dust
+install_apt_first_available procs procs
+install_apt_first_available xh xh
+install_apt_first_available doggo doggo
+install_apt_first_available watchexec watchexec
+install_apt_first_available kubectl kubectl kubernetes-client
+install_apt_first_available k9s k9s
+install_apt_first_available trivy trivy
+install_apt_first_available zellij zellij
+
 echo "Installing Python & ML dependencies..."
-sudo apt install -y \
+run_cmd sudo apt install -y \
     python3 python3-pip python3-venv python3-dev python3-setuptools pylint \
     libffi-dev libopenblas-dev liblapack-dev gfortran libfreetype6-dev libpng-dev \
     libgit2-dev
 
 echo "Installing Docker..."
-curl -fsSL https://get.docker.com | sudo sh
-sudo usermod -aG docker "$USER"
+if [[ "$DRY_RUN" == "true" ]]; then
+    printf '[dry-run] curl -fsSL https://get.docker.com | sudo sh\n'
+else
+    curl -fsSL https://get.docker.com | sudo sh
+fi
+run_cmd sudo usermod -aG docker "$USER"
 
 echo "Installing LaTeX (for reports/publications)..."
-sudo apt install -y texlive-latex-extra texlive-fonts-recommended texlive-pictures
+run_cmd sudo apt install -y texlive-latex-extra texlive-fonts-recommended texlive-pictures
 
 echo "Cleaning up..."
-sudo apt autoremove -y && sudo apt clean
+run_cmd sudo apt autoremove -y
+run_cmd sudo apt clean

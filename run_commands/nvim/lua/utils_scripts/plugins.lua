@@ -29,11 +29,67 @@ return {
   { "stevearc/overseer.nvim" },
   { "mfussenegger/nvim-dap" },
   { "mfussenegger/nvim-lint" },
-  { "stevearc/conform.nvim" },
+  {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        python = { "ruff_organize_imports", "ruff_format" },
+        sh = { "shfmt" },
+        zsh = { "shfmt" },
+        json = { "jq" },
+      },
+    },
+  },
   { "mfussenegger/nvim-dap-python" },
   { "linux-cultist/venv-selector.nvim", config = true },
   { "Vigemus/iron.nvim" },
-  { "github/copilot.vim" },
-  { "jackMort/ChatGPT.nvim", dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" } },
+  {
+    "zbirenbaum/copilot.lua",
+    opts = {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    },
+  },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    dependencies = { "zbirenbaum/copilot.lua", "nvim-lua/plenary.nvim" },
+    opts = {},
+  },
+  {
+    "stevearc/aerial.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter", "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-neotest/nvim-nio",
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-neotest/neotest-python",
+    },
+    config = function()
+      require("neotest").setup({
+        adapters = {
+          require("neotest-python")({ dap = { justMyCode = false } }),
+        },
+      })
+    end,
+  },
+  { "tpope/vim-dadbod" },
+  {
+    "kristijanhusak/vim-dadbod-ui",
+    cmd = { "DBUI", "DBUIToggle", "DBUIAddConnection", "DBUIFindBuffer" },
+    dependencies = { "tpope/vim-dadbod", "kristijanhusak/vim-dadbod-completion" },
+    init = function()
+      vim.g.db_ui_use_nerd_fonts = 1
+    end,
+  },
+  {
+    "kristijanhusak/vim-dadbod-completion",
+    ft = { "sql", "mysql", "plsql" },
+    dependencies = { "tpope/vim-dadbod" },
+  },
   { "nvimdev/dashboard-nvim" },
 }

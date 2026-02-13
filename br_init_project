@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "bd_init_project is deprecated. Use br_init_project instead."
-
-if [[ -x "./br_init_project" ]]; then
-  exec ./br_init_project
-fi
-
 if ! command -v br &>/dev/null; then
   echo "br not found on PATH. Install beads_rust first." >&2
   exit 1

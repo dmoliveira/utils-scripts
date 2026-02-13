@@ -14,13 +14,14 @@
 3. [Supported Platforms](#supported-platforms)  
 4. [Installation](#installation)  
 5. [Usage](#usage)  
-6. [Post-Install Verification](#post-install-verification)  
-7. [Configuration & Customisation](#configuration--customisation)  
-8. [Troubleshooting](#troubleshooting)  
-9. [Releases](#releases)  
-10. [Contributing](#contributing)  
-11. [Support](#support)  
-12. [License](#license)  
+6. [Terminal Playbook](#terminal-playbook)  
+7. [Post-Install Verification](#post-install-verification)  
+8. [Configuration & Customisation](#configuration--customisation)  
+9. [Troubleshooting](#troubleshooting)  
+10. [Releases](#releases)  
+11. [Contributing](#contributing)  
+12. [Support](#support)  
+13. [License](#license)  
 
 ---
 
@@ -47,6 +48,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `Makefile` | Standard shortcuts for install and verification |
 | `doctor_post_install_unix` | Strict doctor mode with fix hints |
 | `bootstrap_shell_secrets` | Interactive helper for shell secrets setup |
+| `br_init_project` | Initialize `.beads/` + AGENTS.md with `br` conventions |
 | `verify_linux_edge_cases` | Linux-specific command-variant checks |
 | `requirements.txt` | Python and AI/ML library dependencies |
 | `run_commands/` | Helper utilities and shell functions |
@@ -54,15 +56,16 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `run_commands/my_ghostty_config` | Ghostty terminal baseline config |
 | `run_commands/secrets_shell.env.example` | Secure shell secrets template |
 | `verify_post_install_unix` | End-to-end setup smoke test script |
+| `TERMINAL_PLAYBOOK.md` | Practical workflows and tool scenarios |
 | `python/` | Additional Python utility scripts |
 | `.gitignore` | Standard ignore patterns |
 | `LICENSE` | GPL-2.0 License file |
 
 Includes dependencies for:  
-- **Terminal:** tmux, zsh, starship, ghostty, atuin, direnv  
+- **Terminal:** tmux, zsh, starship, ghostty, atuin, direnv, htop, btop  
 - **Editor:** neovim (Lua config-ready)  
 - **Python:** numpy, pandas, torch, scikit-learn, transformers (editable)  
-- **Optional:** git, curl, wget, build-essentials  
+- **Optional:** lazygit, hyperfine, dua-cli, dust, procs, xh, doggo, watchexec, kubectl, k9s, trivy, zellij, git, curl, wget, build-essentials  
 
 ---
 
@@ -93,23 +96,47 @@ make install-mac
 ```bash
 chmod +x install_my_programs_debian
 ./install_my_programs_debian
+./install_my_programs_debian --dry-run
 ```
 
 **macOS:**
 ```bash
 chmod +x install_my_programs_mac
 ./install_my_programs_mac
+./install_my_programs_mac --dry-run
 ```
 
 **Generic Unix:**
 ```bash
 chmod +x install_my_programs_unix
 ./install_my_programs_unix
+./install_my_programs_unix --dry-run
 ```
 
 Optional flags (Generic Unix):
+- `--dry-run` preview actions without modifying the machine
 - `--skip-ml` skip AI/ML Python packages
 - `--skip-fonts` skip Nerd Fonts install
+
+Dry-run behavior:
+- prints each planned command with `[dry-run] ...`
+- keeps hardware/OS branching so previews remain realistic
+- performs no filesystem/package-manager mutations
+
+Issue-tracker helper note:
+- use `br_init_project` for new repos; `bd_init_project` is kept only as a compatibility wrapper
+
+Monitoring install behavior:
+- `btop` is installed on macOS and Linux as the default modern monitor
+- macOS installs `bottom` (`btm`) as the `nvtop` alternative
+- Apple Silicon (`arm64`) attempts to install `asitop` when available in Homebrew
+- Linux installs `nvtop` only when GPU hardware is detected and apt package is available
+
+Advanced tool install behavior:
+- macOS installs all recommended tools via Homebrew when formulas are available
+- Linux installs each tool only when an apt package exists (auto-skip otherwise)
+- Linux `kubectl` tries `kubectl` first and falls back to `kubernetes-client`
+- The installer avoids duplicate installs and prints clear installed/skipped status
 
 ### 3️⃣ Install Python Packages (optional)
 ```bash
@@ -135,6 +162,8 @@ make verify-strict
 make verify-json
 make doctor
 make verify-linux
+make playbook
+make leader-pack-check
 ```
 
 Pull requests also run repository smoke checks in GitHub Actions (`.github/workflows/smoke-checks.yml`).
@@ -164,6 +193,23 @@ For Neovim productivity:
 
 ---
 
+## 📘 Terminal Playbook
+
+For practical "what to run when" workflows, see:
+
+- `TERMINAL_PLAYBOOK.md`
+
+Leader-pack helpers from `run_commands/my_zshrc`:
+
+- `leader-pack-help` to print shortcuts
+- `tmux-research` for benchmarking + monitoring + coding
+- `tmux-delivery` for edit + verify loop + security checks
+- `tmux-incident` for live triage (system, k8s, DNS)
+- `make playbook` to quickly locate the playbook file
+- `make leader-pack-check` to validate playbook + zsh template wiring
+
+---
+
 ## ✅ Post-Install Verification
 
 Run the smoke test script after installation to validate your terminal stack:
@@ -174,6 +220,8 @@ Run the smoke test script after installation to validate your terminal stack:
 
 It checks:
 - required CLI tools (`zsh`, `tmux`, `nvim`, `fzf`, `zoxide`, `starship`, `direnv`, `atuin`)
+- monitoring tools (`btop` plus `btm` on macOS, `nvtop` on Linux with detected GPU)
+- advanced productivity tools (`lazygit`, `hyperfine`, `dua`, `dust`, `procs`, `xh`, `doggo`, `watchexec`, `kubectl`, `k9s`, `trivy`, `zellij`) as optional checks
 - expected config files (`~/.zshrc`, `~/.tmux.conf`, `~/.config/nvim/init.lua`)
 - syntax/startup checks for Zsh, tmux, and Neovim
 - Ghostty config validation on macOS when installed
@@ -204,6 +252,8 @@ Template extras in `run_commands/my_zshrc`:
 - `direnv` hook for per-project env loading
 - `atuin` hook for searchable shell history
 - `ghostty-reload` helper to validate and edit Ghostty config quickly
+- leader-pack shortcuts: `lg`, `hf`, `dui`, `ds`, `px`, `hget`, `dns`, `k`, `kga`, `tfscan`
+- tmux templates: `tmux-research`, `tmux-delivery`, `tmux-incident`
 
 Secrets best practice:
 ```bash
@@ -240,6 +290,31 @@ Template defaults also include `tmux-sensible` and an opt-in switch for status p
 set -g @qol_status_plugins 'off'   # change to 'on' for battery/network status plugins
 ```
 
+Session persistence defaults are also enabled via TPM plugins:
+```
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @continuum-restore 'on'
+```
+
+### Monitoring tools
+- Use `btop` as your default monitor for CPU, memory, processes, and IO
+- On macOS, `btm` (bottom) is installed as the richer TUI alternative to `htop`
+- On Apple Silicon, `asitop` is installed when available to expose SoC metrics
+- On Linux with a detected GPU, `nvtop` is installed when the package exists
+
+### Productivity tools quick guide
+- `lazygit`: fast interactive Git UI; start with `lazygit`, stage with `space`, commit with `c`
+- `hyperfine`: benchmark commands reliably; use `hyperfine 'python script.py' 'uv run python script.py'`
+- `dua` and `dust`: inspect disk usage quickly; run `dua i` for interactive mode and `dust -d 3` for top folders
+- `procs`: modern process viewer; try `procs --sortd cpu` or `procs python`
+- `xh`: readable HTTP client; use `xh GET https://api.github.com/repos/dmoliveira/utils-scripts`
+- `doggo`: DNS debugging; use `doggo openai.com A` or `doggo github.com MX`
+- `watchexec`: rerun on file changes; `watchexec -e py 'pytest -q'`
+- `kubectl` and `k9s`: Kubernetes CLI + TUI; run `kubectl get pods -A` then `k9s`
+- `trivy`: security scan for files/images; `trivy fs .` and `trivy image python:3.12`
+- `zellij`: terminal workspace manager; start with `zellij` and split panes from built-in help (`Ctrl-g` + `?`)
+
 ### WezTerm
 Config file: `~/.wezterm.lua`  
 Base config in this repo: `run_commands/my_wezterm.lua`
@@ -257,10 +332,14 @@ cp ./run_commands/my_ghostty_config ~/.config/ghostty/config
 
 ### Neovim
 Modify `~/.config/nvim/init.lua` to adjust plugins or keymaps.  
-Consider adding:
+Template defaults include:
 - LSP support (`pyright`, `lua_ls`)  
-- Formatter (`black`, `ruff`)  
-- Plugins (`nvim-treesitter`, `telescope.nvim`, `lualine.nvim`)
+- Formatter orchestration (`conform.nvim`)  
+- AI workflow (`CopilotChat.nvim`)  
+- Code navigation (`aerial.nvim`)  
+- Test workflow (`neotest`, `neotest-python`)  
+- SQL workflow (`vim-dadbod`, `vim-dadbod-ui`)  
+- Core UI/search (`nvim-treesitter`, `telescope.nvim`, `lualine.nvim`)
 
 Template defaults now include Mason bootstrap for language servers:
 ```
@@ -280,6 +359,17 @@ After opening Neovim, run:
 ```
 :Mason
 ```
+
+Useful default keymaps:
+- `<leader>fm` format current buffer
+- `<leader>cc` Copilot Chat toggle
+- `<leader>aa` Aerial outline toggle
+- `<leader>tn` run nearest test
+- `<leader>tf` run tests in current file
+- `<leader>ts` toggle neotest summary
+- `<leader>to` open neotest output
+- `<leader>td` debug nearest test with DAP
+- `<leader>db` toggle Dadbod UI
 
 ### Python
 Keep `requirements.txt` up to date with your preferred ML stack.  
