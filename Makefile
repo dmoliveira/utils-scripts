@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor verify-linux playbook leader-pack-check
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor verify-linux playbook leader-pack-check rollback rollback-dry-run
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -37,3 +37,9 @@ leader-pack-check: ## Validate leader-pack docs and zsh template
 	@test -f TERMINAL_PLAYBOOK.md
 	@zsh -n run_commands/my_zshrc
 	@printf "Leader pack checks passed.\n"
+
+rollback: ## Restore latest installer backups
+	./rollback_installer_backups
+
+rollback-dry-run: ## Preview rollback actions without file changes
+	./rollback_installer_backups --dry-run

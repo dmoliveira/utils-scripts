@@ -1,0 +1,110 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+DRY_RUN=false
+LIST_ONLY=false
+
+usage() {
+  cat <<'EOF'
+Usage: rollback_installer_backups [options]
+
+Restore the most recent installer backup (*.TIMESTAMP.bak) for common config files.
+
+Options:
+  --dry-run   Show restore actions without changing files
+  --list      List latest backups without restoring
+  -h, --help  Show this help message
+EOF
+}
+
+parse_args() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --dry-run)
+        DRY_RUN=true
+        ;;
+      --list)
+        LIST_ONLY=true
+        ;;
+      -h|--help)
+        usage
+        exit 0
+        ;;
+      *)
+        echo "Unknown option: $1" >&2
+        usage >&2
+        exit 1
+        ;;
+    esac
+    shift
+  done
+}
+
+run_cmd() {
+  if [[ "$DRY_RUN" == "true" ]]; then
+    printf '[dry-run] %s\n' "$*"
+    return 0
+  fi
+  "$@"
+}
+
+latest_backup_for() {
+  local target="$1"
+  local latest=""
+
+  shopt -s nullglob
+  local matches=("${target}".*.bak)
+  shopt -u nullglob
+
+  if (( ${#matches[@]} > 0 )); then
+    latest="$(ls -1t "${target}".*.bak | sed -n '1p')"
+  fi
+
+  printf '%s' "$latest"
+}
+
+restore_target() {
+  local target="$1"
+  local backup
+  backup="$(latest_backup_for "$target")"
+
+  if [[ -z "$backup" ]]; then
+    echo "ℹ️ No backup found for $target"
+    return
+  fi
+
+  if [[ "$LIST_ONLY" == "true" ]]; then
+    echo "📦 $target <= $backup"
+    return
+  fi
+
+  run_cmd cp "$backup" "$target"
+  echo "✅ Restored $target from $backup"
+}
+
+main() {
+  parse_args "$@"
+
+  local targets=(
+    "$HOME/.bashrc"
+    "$HOME/.zshrc"
+    "$HOME/.tmux.conf"
+    "$HOME/.config/nvim/init.lua"
+    "$HOME/.config/ghostty/config"
+  )
+
+  local target
+  for target in "${targets[@]}"; do
+    restore_target "$target"
+  done
+
+  if [[ "$LIST_ONLY" == "true" ]]; then
+    echo "✅ Listed latest backups."
+  elif [[ "$DRY_RUN" == "true" ]]; then
+    echo "✅ Dry-run completed."
+  else
+    echo "✅ Rollback completed."
+  fi
+}
+
+main "$@"
