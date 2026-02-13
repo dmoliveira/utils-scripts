@@ -149,6 +149,8 @@ make verify-strict
 make verify-json
 make doctor
 make verify-linux
+make playbook
+make leader-pack-check
 ```
 
 Pull requests also run repository smoke checks in GitHub Actions (`.github/workflows/smoke-checks.yml`).
@@ -189,6 +191,8 @@ Leader-pack helpers from `run_commands/my_zshrc`:
 - `tmux-research` for benchmarking + monitoring + coding
 - `tmux-delivery` for edit + verify loop + security checks
 - `tmux-incident` for live triage (system, k8s, DNS)
+- `make playbook` to quickly locate the playbook file
+- `make leader-pack-check` to validate playbook + zsh template wiring
 
 ---
 
