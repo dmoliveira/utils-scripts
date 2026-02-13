@@ -152,6 +152,15 @@ if [[ -f "./run_commands/secrets_shell.env.example" ]]; then
   fi
 fi
 
+if [[ -f "./run_commands/my_starship.toml" ]]; then
+  run_cmd mkdir -p "$HOME/.config"
+  if [[ -f "$HOME/.config/starship.toml" ]]; then
+    run_cmd cp "$HOME/.config/starship.toml" "$HOME/.config/starship.toml.${timestamp}.bak"
+  fi
+  run_cmd cp -f "./run_commands/my_starship.toml" "$HOME/.config/starship.toml"
+  echo "✅ Installed Starship config to ~/.config/starship.toml"
+fi
+
 # 🧮 Lua / auxiliary tools (optional)
 run_cmd brew install luarocks
 

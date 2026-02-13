@@ -145,6 +145,7 @@ say "==> Checking required config files"
 check_file "$HOME/.zshrc"
 check_file "$HOME/.tmux.conf"
 check_file "$HOME/.config/nvim/init.lua"
+check_file "$HOME/.config/starship.toml"
 
 say "==> Running syntax and startup checks"
 run_check "zsh config syntax" zsh -n "$HOME/.zshrc"

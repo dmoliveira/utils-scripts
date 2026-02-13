@@ -2,6 +2,7 @@
 set -euo pipefail
 
 DRY_RUN=false
+timestamp=$(date +"%Y%m%d%H%M%S")
 
 usage() {
   cat <<'EOF'
@@ -115,6 +116,7 @@ install_apt_first_available kubectl kubectl kubernetes-client
 install_apt_first_available k9s k9s
 install_apt_first_available trivy trivy
 install_apt_first_available zellij zellij
+install_apt_first_available starship starship
 
 echo "Installing Python & ML dependencies..."
 run_cmd sudo apt install -y \
@@ -136,3 +138,12 @@ run_cmd sudo apt install -y texlive-latex-extra texlive-fonts-recommended texliv
 echo "Cleaning up..."
 run_cmd sudo apt autoremove -y
 run_cmd sudo apt clean
+
+if [[ -f "./run_commands/my_starship.toml" ]]; then
+  run_cmd mkdir -p "$HOME/.config"
+  if [[ -f "$HOME/.config/starship.toml" ]]; then
+    run_cmd cp "$HOME/.config/starship.toml" "$HOME/.config/starship.toml.${timestamp}.bak"
+  fi
+  run_cmd cp -f "./run_commands/my_starship.toml" "$HOME/.config/starship.toml"
+  echo "✅ Installed Starship config to ~/.config/starship.toml"
+fi
