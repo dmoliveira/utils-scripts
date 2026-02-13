@@ -127,6 +127,7 @@ check_command zoxide
 check_command starship
 check_command direnv
 check_command atuin
+check_command btop
 
 say "==> Checking required config files"
 check_file "$HOME/.zshrc"
@@ -139,6 +140,28 @@ run_check "tmux config parse" tmux -L utils-scripts-smoke -f "$HOME/.tmux.conf" 
 tmux -L utils-scripts-smoke kill-server >/dev/null 2>&1 || true
 run_check "nvim init.lua syntax" lua -e "assert(loadfile('$HOME/.config/nvim/init.lua'))"
 run_check "neovim headless start" nvim --headless +qa
+
+say "==> Checking monitoring tools"
+if [[ "$(uname -s)" == "Darwin" ]]; then
+  check_command btm
+  if [[ "$(uname -m)" == "arm64" ]]; then
+    if command -v asitop >/dev/null 2>&1; then
+      pass "command 'asitop' available (Apple Silicon)"
+    else
+      warn "command 'asitop' missing (optional on Apple Silicon)"
+    fi
+  fi
+else
+  if command -v nvidia-smi >/dev/null 2>&1 || [[ -e "/dev/dri" ]]; then
+    if command -v nvtop >/dev/null 2>&1; then
+      pass "command 'nvtop' available (GPU detected)"
+    else
+      warn "command 'nvtop' missing while GPU detected"
+    fi
+  else
+    pass "nvtop skipped (no GPU detected)"
+  fi
+fi
 
 if [[ "$(uname -s)" == "Darwin" ]]; then
   say "==> Checking Ghostty on macOS"
