@@ -292,14 +292,17 @@ Base config in this repo: `run_commands/my_starship.toml`
 ```bash
 mkdir -p ~/.config
 cp ./run_commands/my_starship.toml ~/.config/starship.toml
+starship explain
 ```
 
 Keep personal prompt tweaks in a clearly marked block so they are easy to remove later.
 
 ```toml
-[character]
-success_symbol = "🚀 "
-error_symbol = "💥 "
+[git_branch]
+symbol = " "
+
+[python]
+symbol = " "
 ```
 
 ### tmux
