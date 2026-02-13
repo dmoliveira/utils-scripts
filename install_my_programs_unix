@@ -11,7 +11,9 @@ set -euo pipefail
 # === Global setup =============================================================
 timestamp=$(date +"%Y%m%d%H%M%S")
 OS=$(uname -s)
+ARCH=$(uname -m)
 echo "🧠 Detected OS: $OS"
+echo "🧬 Detected ARCH: $ARCH"
 INSTALL_ML_LIBS=true
 INSTALL_FONTS=true
 
@@ -71,6 +73,18 @@ install_pkg() {
   fi
 }
 
+has_linux_gpu() {
+  if command -v nvidia-smi >/dev/null 2>&1; then
+    return 0
+  fi
+
+  if [[ -e "/dev/dri" ]]; then
+    return 0
+  fi
+
+  return 1
+}
+
 install_brew() {
   if ! command -v brew &>/dev/null; then
     echo "🍺 Installing Homebrew..."
@@ -125,10 +139,39 @@ setup_system() {
   if [[ "$OS" == "Darwin" ]]; then
     install_brew
     brew update && brew upgrade
-    brew install git curl wget neovim tmux htop tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin
+    brew install git curl wget neovim tmux htop btop bottom tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin
   else
     sudo apt update -y && sudo apt upgrade -y
-    sudo apt install -y curl wget git neovim tmux htop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv
+    sudo apt install -y curl wget git neovim tmux htop btop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv
+  fi
+}
+
+setup_monitoring() {
+  echo "📈 Configuring monitoring stack..."
+
+  if [[ "$OS" == "Darwin" ]]; then
+    if [[ "$ARCH" == "arm64" ]]; then
+      if brew info asitop >/dev/null 2>&1; then
+        brew list asitop &>/dev/null || brew install asitop
+        echo "✅ asitop installed for Apple Silicon"
+      else
+        echo "ℹ️ asitop formula unavailable in current taps; skipping"
+      fi
+    fi
+
+    echo "ℹ️ nvtop skipped on macOS"
+    return
+  fi
+
+  if has_linux_gpu; then
+    if apt-cache show nvtop >/dev/null 2>&1; then
+      sudo apt install -y nvtop
+      echo "✅ nvtop installed (Linux GPU detected)"
+    else
+      echo "ℹ️ nvtop package not available in configured apt repositories"
+    fi
+  else
+    echo "ℹ️ No GPU device detected; nvtop skipped"
   fi
 }
 
@@ -316,6 +359,7 @@ install_codex_config() {
 main() {
   parse_args "$@"
   setup_system
+  setup_monitoring
   install_beads
   install_local_scripts
   install_codex_config

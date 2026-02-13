@@ -59,7 +59,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `LICENSE` | GPL-2.0 License file |
 
 Includes dependencies for:  
-- **Terminal:** tmux, zsh, starship, ghostty, atuin, direnv  
+- **Terminal:** tmux, zsh, starship, ghostty, atuin, direnv, htop, btop  
 - **Editor:** neovim (Lua config-ready)  
 - **Python:** numpy, pandas, torch, scikit-learn, transformers (editable)  
 - **Optional:** git, curl, wget, build-essentials  
@@ -110,6 +110,12 @@ chmod +x install_my_programs_unix
 Optional flags (Generic Unix):
 - `--skip-ml` skip AI/ML Python packages
 - `--skip-fonts` skip Nerd Fonts install
+
+Monitoring install behavior:
+- `btop` is installed on macOS and Linux as the default modern monitor
+- macOS installs `bottom` (`btm`) as the `nvtop` alternative
+- Apple Silicon (`arm64`) attempts to install `asitop` when available in Homebrew
+- Linux installs `nvtop` only when GPU hardware is detected and apt package is available
 
 ### 3️⃣ Install Python Packages (optional)
 ```bash
@@ -173,6 +179,7 @@ Run the smoke test script after installation to validate your terminal stack:
 
 It checks:
 - required CLI tools (`zsh`, `tmux`, `nvim`, `fzf`, `zoxide`, `starship`, `direnv`, `atuin`)
+- monitoring tools (`btop` plus `btm` on macOS, `nvtop` on Linux with detected GPU)
 - expected config files (`~/.zshrc`, `~/.tmux.conf`, `~/.config/nvim/init.lua`)
 - syntax/startup checks for Zsh, tmux, and Neovim
 - Ghostty config validation on macOS when installed
@@ -245,6 +252,12 @@ set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-continuum'
 set -g @continuum-restore 'on'
 ```
+
+### Monitoring tools
+- Use `btop` as your default monitor for CPU, memory, processes, and IO
+- On macOS, `btm` (bottom) is installed as the richer TUI alternative to `htop`
+- On Apple Silicon, `asitop` is installed when available to expose SoC metrics
+- On Linux with a detected GPU, `nvtop` is installed when the package exists
 
 ### WezTerm
 Config file: `~/.wezterm.lua`  

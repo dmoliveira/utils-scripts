@@ -16,8 +16,20 @@ sudo apt update -y && sudo apt upgrade -y
 echo "Installing essential tools..."
 sudo apt install -y \
     curl wget git build-essential g++ make cmake pkg-config \
-    neovim tmux zsh htop tree jq ripgrep fzf bat fd-find zoxide \
+    neovim tmux zsh htop btop tree jq ripgrep fzf bat fd-find zoxide \
     openssl xclip parallel
+
+echo "Configuring monitoring stack..."
+if command -v nvidia-smi >/dev/null 2>&1 || [[ -e "/dev/dri" ]]; then
+    if apt-cache show nvtop >/dev/null 2>&1; then
+        sudo apt install -y nvtop
+        echo "✅ nvtop installed"
+    else
+        echo "ℹ️ nvtop package unavailable in apt repositories; skipping"
+    fi
+else
+    echo "ℹ️ No GPU device detected; nvtop skipped"
+fi
 
 echo "Installing Python & ML dependencies..."
 sudo apt install -y \

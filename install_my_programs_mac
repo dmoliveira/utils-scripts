@@ -2,6 +2,23 @@
 set -euo pipefail
 
 timestamp=$(date +"%Y%m%d%H%M%S")
+ARCH=$(uname -m)
+
+install_monitoring_stack() {
+  echo "Installing terminal monitoring tools..."
+  brew install bottom
+
+  if [[ "$ARCH" == "arm64" ]]; then
+    if brew info asitop >/dev/null 2>&1; then
+      brew list asitop &>/dev/null || brew install asitop
+      echo "✅ asitop installed for Apple Silicon telemetry"
+    else
+      echo "ℹ️ asitop formula not available in your Homebrew taps; skipping"
+    fi
+  fi
+
+  echo "ℹ️ nvtop is skipped on macOS; use 'bottom' (btm) and Activity Monitor alternatives"
+}
 
 # 🧩 Install Homebrew if not already installed
 if ! command -v brew &>/dev/null; then
@@ -14,10 +31,12 @@ brew update && brew upgrade
 
 # 🧰 Core developer tools
 brew install \
-  wget htop tmux neovim curl git jq tree \
+  wget htop btop tmux neovim curl git jq tree \
   fzf zoxide ripgrep bat fd gh \
   direnv atuin \
   python uv
+
+install_monitoring_stack
 
 if ! brew list --cask ghostty &>/dev/null; then
   brew install --cask ghostty
