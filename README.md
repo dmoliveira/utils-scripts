@@ -56,6 +56,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `run_commands/my_ghostty_config` | Ghostty terminal baseline config |
 | `run_commands/secrets_shell.env.example` | Secure shell secrets template |
 | `verify_post_install_unix` | End-to-end setup smoke test script |
+| `rollback_installer_backups` | Restore latest installer backup files |
 | `TERMINAL_PLAYBOOK.md` | Practical workflows and tool scenarios |
 | `python/` | Additional Python utility scripts |
 | `.gitignore` | Standard ignore patterns |
@@ -164,6 +165,15 @@ make doctor
 make verify-linux
 make playbook
 make leader-pack-check
+make rollback
+make rollback-dry-run
+```
+
+Rollback helper:
+```bash
+./rollback_installer_backups --list
+./rollback_installer_backups --dry-run
+./rollback_installer_backups
 ```
 
 Pull requests also run repository smoke checks in GitHub Actions (`.github/workflows/smoke-checks.yml`).
@@ -419,6 +429,14 @@ chmod 600 ~/.config/secrets/shell.env
 You can bootstrap it with:
 ```bash
 make bootstrap-secrets
+```
+
+### Revert config files after an installer run
+Installers create timestamped backups like `~/.zshrc.<timestamp>.bak`.
+Use:
+```bash
+make rollback-dry-run
+make rollback
 ```
 
 ---
