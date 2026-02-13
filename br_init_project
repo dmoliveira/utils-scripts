@@ -15,5 +15,5 @@ if [[ ! -f AGENTS.md ]]; then
 fi
 
 if ! grep -q "Use 'br' for task tracking" AGENTS.md; then
-  echo "Use 'br' for task tracking and planning. Always query 'br ready' before starting work." >> AGENTS.md
+  echo "Use 'br' for task tracking and planning. Always query 'br ready' before starting work." >>AGENTS.md
 fi

@@ -28,7 +28,7 @@ parse_args() {
       --json)
         JSON_MODE=true
         ;;
-      -h|--help)
+      -h | --help)
         usage
         exit 0
         ;;

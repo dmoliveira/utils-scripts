@@ -167,6 +167,7 @@ make playbook
 make leader-pack-check
 make rollback
 make rollback-dry-run
+make shell-lint
 ```
 
 Rollback helper:
@@ -178,6 +179,7 @@ Rollback helper:
 
 Pull requests also run repository smoke checks in GitHub Actions (`.github/workflows/smoke-checks.yml`).
 Installer and verification changes also run a disposable Ubuntu golden-path bootstrap workflow (`.github/workflows/golden-path-bootstrap.yml`).
+Shell scripts are linted in CI with shellcheck + shfmt (`.github/workflows/shell-lint.yml`).
 
 ---
 

@@ -21,7 +21,7 @@ parse_args() {
       --dry-run)
         DRY_RUN=true
         ;;
-      -h|--help)
+      -h | --help)
         usage
         exit 0
         ;;

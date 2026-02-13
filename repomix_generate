@@ -18,7 +18,7 @@ fi
 # Add instruction only once
 if ! grep -q "$MARKER" "$AGENTS_FILE"; then
   echo "-> Adding Repomix instruction to AGENTS.md"
-  cat <<EOF >> "$AGENTS_FILE"
+  cat <<EOF >>"$AGENTS_FILE"
 
 ## Repository context (Repomix)
 
