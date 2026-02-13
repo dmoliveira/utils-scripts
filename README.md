@@ -459,6 +459,11 @@ Template workflow details:
 - placeholders supported: `{{VERSION}}`, `{{DATE}}`
 - update template content before tagging if you want custom release messaging
 
+Recommended release flow:
+1. update `.github/RELEASE_NOTES_TEMPLATE.md` with release highlights
+2. create and push your version tag
+3. review the generated GitHub Release notes and publish
+
 Preview template rendering locally:
 ```bash
 VERSION=v1.2.0
@@ -501,4 +506,4 @@ This project is licensed under the [GNU GPL-2.0 License](LICENSE).
 
 **Author:** [Diego Marinho](https://github.com/dmoliveira)  
 **Repository:** [github.com/dmoliveira/utils-scripts](https://github.com/dmoliveira/utils-scripts)  
-**Last Updated:** 2025-11-02
+**Last Updated:** 2026-02-13
