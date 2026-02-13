@@ -90,6 +90,7 @@ main() {
     "$HOME/.zshrc"
     "$HOME/.tmux.conf"
     "$HOME/.config/nvim/init.lua"
+    "$HOME/.config/starship.toml"
     "$HOME/.config/ghostty/config"
   )
 

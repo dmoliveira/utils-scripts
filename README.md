@@ -54,6 +54,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `run_commands/` | Helper utilities and shell functions |
 | `run_commands/nvim/lua/utils_scripts/` | Modular Neovim template modules |
 | `run_commands/my_ghostty_config` | Ghostty terminal baseline config |
+| `run_commands/my_starship.toml` | Starship prompt baseline config |
 | `run_commands/secrets_shell.env.example` | Secure shell secrets template |
 | `verify_post_install_unix` | End-to-end setup smoke test script |
 | `rollback_installer_backups` | Restore latest installer backup files |
@@ -178,6 +179,8 @@ Rollback helper:
 ./rollback_installer_backups
 ```
 
+The installers also manage `~/.config/starship.toml` from `run_commands/my_starship.toml` and create timestamped backups before replacing it.
+
 Pull requests also run repository smoke checks in GitHub Actions (`.github/workflows/smoke-checks.yml`).
 Installer and verification changes also run a disposable Ubuntu golden-path bootstrap workflow (`.github/workflows/golden-path-bootstrap.yml`).
 Shell scripts are linted in CI with shellcheck + shfmt (`.github/workflows/shell-lint.yml`).
@@ -284,6 +287,15 @@ make bootstrap-secrets
 
 ### Starship Prompt
 Config file: `~/.config/starship.toml`
+Base config in this repo: `run_commands/my_starship.toml`
+
+```bash
+mkdir -p ~/.config
+cp ./run_commands/my_starship.toml ~/.config/starship.toml
+```
+
+Keep personal prompt tweaks in a clearly marked block so they are easy to remove later.
+
 ```toml
 [character]
 success_symbol = "🚀 "

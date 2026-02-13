@@ -347,10 +347,12 @@ setup_shell() {
   for file in "$HOME/.bashrc" "$HOME/.zshrc"; do
     backup_file "$file"
   done
+  backup_file "$HOME/.config/starship.toml"
 
   # Copy new configs
   safe_copy "./run_commands/my_bashrc" "$HOME/.bashrc"
   safe_copy "./run_commands/my_zshrc" "$HOME/.zshrc"
+  safe_copy "./run_commands/my_starship.toml" "$HOME/.config/starship.toml"
 
   # Source custom files if preferred style
   for shell_file in bashrc zshrc; do
