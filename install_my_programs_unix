@@ -134,13 +134,13 @@ install_apt_first_available() {
 
   local pkg
   for pkg in "$@"; do
-    if apt-cache show "$pkg" >/dev/null 2>&1; then
-      if dpkg -s "$pkg" >/dev/null 2>&1; then
-        echo "✅ ${label} already installed (${pkg})"
-      else
-        sudo apt install -y "$pkg"
-        echo "✅ Installed ${label} (${pkg})"
-      fi
+    if dpkg -s "$pkg" >/dev/null 2>&1; then
+      echo "✅ ${label} already installed (${pkg})"
+      return
+    fi
+
+    if sudo apt install -y "$pkg" >/dev/null 2>&1; then
+      echo "✅ Installed ${label} (${pkg})"
       return
     fi
   done
@@ -227,7 +227,7 @@ setup_system() {
   else
     run_cmd sudo apt update -y
     run_cmd sudo apt upgrade -y
-    run_cmd sudo apt install -y curl wget git neovim tmux htop btop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv
+    run_cmd sudo apt install -y curl wget git neovim tmux zsh htop btop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv
   fi
 }
 
@@ -294,10 +294,18 @@ install_productivity_cli_stack() {
 
 setup_python() {
   echo "🐍 Installing Python packages..."
+  local pip_args=()
   run_cmd python3 -m ensurepip --upgrade || true
-  run_cmd python3 -m pip install -U pip wheel setuptools
+
+  if [[ "$OS" == "Darwin" ]]; then
+    run_cmd python3 -m pip install -U pip wheel setuptools
+  else
+    pip_args+=(--break-system-packages)
+    echo "ℹ️ Using distro-managed pip tooling on Linux (PEP 668); skipping pip/wheel/setuptools upgrade"
+  fi
+
   if [[ -f "./requirements.txt" ]]; then
-    run_cmd python3 -m pip install -r ./requirements.txt
+    run_cmd python3 -m pip install "${pip_args[@]}" -r ./requirements.txt
   fi
 }
 
@@ -314,10 +322,22 @@ setup_shell() {
   else
     run_shell "curl -sS https://starship.rs/install.sh | sh -s -- -y"
     if ! command -v atuin &>/dev/null; then
+      if command -v apt-get &>/dev/null; then
+        sudo apt-get install -y atuin || true
+      fi
+    fi
+    if ! command -v atuin &>/dev/null; then
       if command -v cargo &>/dev/null; then
         run_cmd cargo install atuin --locked || true
       else
-        echo "⚠️ Atuin not installed (cargo missing). Install Rust/cargo and run: cargo install atuin --locked"
+        curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | bash || true
+      fi
+    fi
+    if ! command -v atuin &>/dev/null; then
+      if command -v cargo &>/dev/null; then
+        echo "⚠️ Atuin not installed. Retry manually: cargo install atuin --locked"
+      else
+        echo "⚠️ Atuin not installed. Retry manually: curl --proto '=https' --tlsv1.2 -LsSf https://setup.atuin.sh | bash"
       fi
     fi
   fi

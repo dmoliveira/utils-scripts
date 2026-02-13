@@ -1,0 +1,46 @@
+name: Golden Path Bootstrap
+
+on:
+  pull_request:
+    paths:
+      - "install_my_programs_unix"
+      - "install_my_programs_debian"
+      - "run_commands/**"
+      - "verify_post_install_unix"
+      - "Makefile"
+      - ".github/workflows/golden-path-bootstrap.yml"
+  push:
+    branches:
+      - master
+    paths:
+      - "install_my_programs_unix"
+      - "install_my_programs_debian"
+      - "run_commands/**"
+      - "verify_post_install_unix"
+      - "Makefile"
+      - ".github/workflows/golden-path-bootstrap.yml"
+
+jobs:
+  bootstrap-ubuntu:
+    runs-on: ubuntu-latest
+    container:
+      image: ubuntu:24.04
+
+    steps:
+      - name: Install checkout dependencies
+        run: apt-get update && apt-get install -y git ca-certificates
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install base bootstrap prerequisites
+        run: apt-get update && apt-get install -y sudo curl unzip python3 python3-pip
+
+      - name: Run installer (golden path)
+        run: ./install_my_programs_unix --skip-ml --skip-fonts
+
+      - name: Run verification
+        run: ./verify_post_install_unix
+
+      - name: Assert expected config outputs
+        run: test -f "$HOME/.zshrc" && test -f "$HOME/.tmux.conf" && test -f "$HOME/.config/nvim/init.lua"

@@ -150,7 +150,11 @@ say "==> Running syntax and startup checks"
 run_check "zsh config syntax" zsh -n "$HOME/.zshrc"
 run_check "tmux config parse" tmux -L utils-scripts-smoke -f "$HOME/.tmux.conf" new-session -d -s smoke
 tmux -L utils-scripts-smoke kill-server >/dev/null 2>&1 || true
-run_check "nvim init.lua syntax" lua -e "assert(loadfile('$HOME/.config/nvim/init.lua'))"
+if command -v lua >/dev/null 2>&1; then
+  run_check "nvim init.lua syntax" lua -e "assert(loadfile('$HOME/.config/nvim/init.lua'))"
+else
+  warn "command 'lua' missing; skipping standalone init.lua syntax parse"
+fi
 run_check "neovim headless start" nvim --headless +qa
 
 say "==> Checking monitoring tools"
