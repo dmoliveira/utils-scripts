@@ -14,13 +14,14 @@
 3. [Supported Platforms](#supported-platforms)  
 4. [Installation](#installation)  
 5. [Usage](#usage)  
-6. [Post-Install Verification](#post-install-verification)  
-7. [Configuration & Customisation](#configuration--customisation)  
-8. [Troubleshooting](#troubleshooting)  
-9. [Releases](#releases)  
-10. [Contributing](#contributing)  
-11. [Support](#support)  
-12. [License](#license)  
+6. [Terminal Playbook](#terminal-playbook)  
+7. [Post-Install Verification](#post-install-verification)  
+8. [Configuration & Customisation](#configuration--customisation)  
+9. [Troubleshooting](#troubleshooting)  
+10. [Releases](#releases)  
+11. [Contributing](#contributing)  
+12. [Support](#support)  
+13. [License](#license)  
 
 ---
 
@@ -54,6 +55,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `run_commands/my_ghostty_config` | Ghostty terminal baseline config |
 | `run_commands/secrets_shell.env.example` | Secure shell secrets template |
 | `verify_post_install_unix` | End-to-end setup smoke test script |
+| `TERMINAL_PLAYBOOK.md` | Practical workflows and tool scenarios |
 | `python/` | Additional Python utility scripts |
 | `.gitignore` | Standard ignore patterns |
 | `LICENSE` | GPL-2.0 License file |
@@ -175,6 +177,21 @@ For Neovim productivity:
 
 ---
 
+## 📘 Terminal Playbook
+
+For practical "what to run when" workflows, see:
+
+- `TERMINAL_PLAYBOOK.md`
+
+Leader-pack helpers from `run_commands/my_zshrc`:
+
+- `leader-pack-help` to print shortcuts
+- `tmux-research` for benchmarking + monitoring + coding
+- `tmux-delivery` for edit + verify loop + security checks
+- `tmux-incident` for live triage (system, k8s, DNS)
+
+---
+
 ## ✅ Post-Install Verification
 
 Run the smoke test script after installation to validate your terminal stack:
@@ -217,6 +234,8 @@ Template extras in `run_commands/my_zshrc`:
 - `direnv` hook for per-project env loading
 - `atuin` hook for searchable shell history
 - `ghostty-reload` helper to validate and edit Ghostty config quickly
+- leader-pack shortcuts: `lg`, `hf`, `dui`, `ds`, `px`, `hget`, `dns`, `k`, `kga`, `tfscan`
+- tmux templates: `tmux-research`, `tmux-delivery`, `tmux-incident`
 
 Secrets best practice:
 ```bash
