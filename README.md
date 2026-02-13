@@ -48,6 +48,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `Makefile` | Standard shortcuts for install and verification |
 | `doctor_post_install_unix` | Strict doctor mode with fix hints |
 | `bootstrap_shell_secrets` | Interactive helper for shell secrets setup |
+| `br_init_project` | Initialize `.beads/` + AGENTS.md with `br` conventions |
 | `verify_linux_edge_cases` | Linux-specific command-variant checks |
 | `requirements.txt` | Python and AI/ML library dependencies |
 | `run_commands/` | Helper utilities and shell functions |
@@ -95,23 +96,35 @@ make install-mac
 ```bash
 chmod +x install_my_programs_debian
 ./install_my_programs_debian
+./install_my_programs_debian --dry-run
 ```
 
 **macOS:**
 ```bash
 chmod +x install_my_programs_mac
 ./install_my_programs_mac
+./install_my_programs_mac --dry-run
 ```
 
 **Generic Unix:**
 ```bash
 chmod +x install_my_programs_unix
 ./install_my_programs_unix
+./install_my_programs_unix --dry-run
 ```
 
 Optional flags (Generic Unix):
+- `--dry-run` preview actions without modifying the machine
 - `--skip-ml` skip AI/ML Python packages
 - `--skip-fonts` skip Nerd Fonts install
+
+Dry-run behavior:
+- prints each planned command with `[dry-run] ...`
+- keeps hardware/OS branching so previews remain realistic
+- performs no filesystem/package-manager mutations
+
+Issue-tracker helper note:
+- use `br_init_project` for new repos; `bd_init_project` is kept only as a compatibility wrapper
 
 Monitoring install behavior:
 - `btop` is installed on macOS and Linux as the default modern monitor
