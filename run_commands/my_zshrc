@@ -154,6 +154,115 @@ alias gs='git status'
 alias gl='git log --oneline --graph --decorate'
 alias tm='tmux new -A -s main'
 alias vim='nvim'  # comment out if not using neovim
+alias lg='lazygit'
+alias hf='hyperfine'
+alias dui='dua i'
+alias ds='dust -d 3'
+alias px='procs'
+alias hget='xh GET'
+alias dns='doggo'
+alias k='kubectl'
+alias kga='kubectl get all -A'
+alias tfscan='trivy fs .'
+
+tmux-research() {
+  local session="research"
+
+  if ! command -v tmux >/dev/null 2>&1; then
+    echo "tmux not installed"
+    return 1
+  fi
+
+  if tmux has-session -t "$session" 2>/dev/null; then
+    tmux attach -t "$session"
+    return
+  fi
+
+  tmux new-session -d -s "$session" -n editor -c "$PWD"
+  tmux send-keys -t "$session:editor" "${EDITOR:-nvim} ." C-m
+
+  tmux new-window -t "$session" -n git -c "$PWD"
+  tmux send-keys -t "$session:git" "command -v lazygit >/dev/null 2>&1 && lazygit || git status" C-m
+
+  tmux new-window -t "$session" -n benchmark -c "$PWD"
+  tmux send-keys -t "$session:benchmark" "command -v hyperfine >/dev/null 2>&1 && hyperfine --warmup 1 'python -V'" C-m
+
+  tmux new-window -t "$session" -n monitor -c "$PWD"
+  tmux send-keys -t "$session:monitor" "command -v btop >/dev/null 2>&1 && btop || htop" C-m
+
+  tmux select-window -t "$session:editor"
+  tmux attach -t "$session"
+}
+
+tmux-delivery() {
+  local session="delivery"
+
+  if ! command -v tmux >/dev/null 2>&1; then
+    echo "tmux not installed"
+    return 1
+  fi
+
+  if tmux has-session -t "$session" 2>/dev/null; then
+    tmux attach -t "$session"
+    return
+  fi
+
+  tmux new-session -d -s "$session" -n editor -c "$PWD"
+  tmux send-keys -t "$session:editor" "${EDITOR:-nvim} ." C-m
+
+  tmux split-window -h -t "$session:editor" -c "$PWD"
+  tmux send-keys -t "$session:editor.2" "command -v watchexec >/dev/null 2>&1 && watchexec -e py,sh,lua,md 'make verify' || make verify" C-m
+
+  tmux new-window -t "$session" -n git -c "$PWD"
+  tmux send-keys -t "$session:git" "command -v lazygit >/dev/null 2>&1 && lazygit || git status" C-m
+
+  tmux new-window -t "$session" -n security -c "$PWD"
+  tmux send-keys -t "$session:security" "command -v trivy >/dev/null 2>&1 && trivy fs . || echo 'trivy not installed'" C-m
+
+  tmux select-window -t "$session:editor"
+  tmux attach -t "$session"
+}
+
+tmux-incident() {
+  local session="incident"
+
+  if ! command -v tmux >/dev/null 2>&1; then
+    echo "tmux not installed"
+    return 1
+  fi
+
+  if tmux has-session -t "$session" 2>/dev/null; then
+    tmux attach -t "$session"
+    return
+  fi
+
+  tmux new-session -d -s "$session" -n monitor -c "$PWD"
+  tmux send-keys -t "$session:monitor" "command -v btop >/dev/null 2>&1 && btop || htop" C-m
+
+  tmux split-window -h -t "$session:monitor" -c "$PWD"
+  tmux send-keys -t "$session:monitor.2" "command -v procs >/dev/null 2>&1 && procs --sortd cpu || ps aux" C-m
+
+  tmux new-window -t "$session" -n k8s -c "$PWD"
+  tmux send-keys -t "$session:k8s" "command -v k9s >/dev/null 2>&1 && k9s || kubectl get pods -A" C-m
+
+  tmux new-window -t "$session" -n network -c "$PWD"
+  tmux send-keys -t "$session:network" "command -v doggo >/dev/null 2>&1 && doggo github.com A || nslookup github.com" C-m
+
+  tmux select-window -t "$session:monitor"
+  tmux attach -t "$session"
+}
+
+leader-pack-help() {
+  cat <<'EOF'
+Terminal leader pack shortcuts:
+  tmux-research    Research + benchmark + monitor layout
+  tmux-delivery    Delivery + verify + security layout
+  tmux-incident    Incident response + k8s + network layout
+
+Useful aliases:
+  lg, hf, dui, ds, px, hget, dns, k, kga, tfscan
+EOF
+}
 
 ghostty-reload() {
   local ghostty_bin="/Applications/Ghostty.app/Contents/MacOS/ghostty"
