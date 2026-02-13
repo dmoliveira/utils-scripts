@@ -26,7 +26,7 @@ parse_args() {
       --list)
         LIST_ONLY=true
         ;;
-      -h|--help)
+      -h | --help)
         usage
         exit 0
         ;;
@@ -56,7 +56,7 @@ latest_backup_for() {
   local matches=("${target}".*.bak)
   shopt -u nullglob
 
-  if (( ${#matches[@]} > 0 )); then
+  if ((${#matches[@]} > 0)); then
     latest="$(ls -1t "${target}".*.bak | sed -n '1p')"
   fi
 

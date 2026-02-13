@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-# 
+#
 # Update all Python Library with pip.
 #
 

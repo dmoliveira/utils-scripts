@@ -1,0 +1,66 @@
+name: Shell Lint
+
+on:
+  pull_request:
+    paths:
+      - "install_my_programs_*"
+      - "verify_*"
+      - "doctor_post_install_unix"
+      - "bootstrap_shell_secrets"
+      - "rollback_installer_backups"
+      - "br_init_project"
+      - "bd_init_project"
+      - "codex_apply_config"
+      - "repomix_generate"
+      - "general/**"
+      - "python/update_python_library"
+      - ".github/workflows/shell-lint.yml"
+  push:
+    branches:
+      - master
+    paths:
+      - "install_my_programs_*"
+      - "verify_*"
+      - "doctor_post_install_unix"
+      - "bootstrap_shell_secrets"
+      - "rollback_installer_backups"
+      - "br_init_project"
+      - "bd_init_project"
+      - "codex_apply_config"
+      - "repomix_generate"
+      - "general/**"
+      - "python/update_python_library"
+      - ".github/workflows/shell-lint.yml"
+
+jobs:
+  shellcheck-shfmt:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install lint tools
+        run: sudo apt-get update && sudo apt-get install -y shellcheck shfmt
+
+      - name: Run shellcheck and shfmt
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mapfile -t shell_files < <(
+            git ls-files | while IFS= read -r f; do
+              [[ -f "$f" ]] || continue
+              if head -n1 "$f" | grep -Eq '^#!/usr/bin/env (bash|sh)|^#!/bin/(bash|sh)'; then
+                printf '%s\n' "$f"
+              fi
+            done
+          )
+
+          if [[ "${#shell_files[@]}" -eq 0 ]]; then
+            echo "No shell files found to lint."
+            exit 0
+          fi
+
+          shellcheck -S warning "${shell_files[@]}"
+          shfmt -d -i 2 -ci "${shell_files[@]}"

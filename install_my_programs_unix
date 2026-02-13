@@ -40,7 +40,7 @@ parse_args() {
       --skip-fonts)
         INSTALL_FONTS=false
         ;;
-      -h|--help)
+      -h | --help)
         usage
         exit 0
         ;;
@@ -204,7 +204,8 @@ safe_copy() {
 install_local_bin_script() {
   local src="$1"
   local dest_dir="$HOME/.local/bin"
-  local dest="$dest_dir/$(basename "$src")"
+  local dest
+  dest="$dest_dir/$(basename "$src")"
   if [[ -f "$src" ]]; then
     run_cmd mkdir -p "$dest_dir"
     run_cmd cp -f "$src" "$dest"
@@ -360,13 +361,13 @@ setup_shell() {
       if [[ "$DRY_RUN" == "true" ]]; then
         printf '[dry-run] echo "source ~/.my_%s" >> %s\n' "$shell_file" "$target"
       else
-        echo "source ~/.my_${shell_file}" >> "$target"
+        echo "source ~/.my_${shell_file}" >>"$target"
       fi
       echo "🪄 Added sourcing line to $target"
     fi
   done
 
-    if [[ -f "./run_commands/secrets_shell.env.example" ]]; then
+  if [[ -f "./run_commands/secrets_shell.env.example" ]]; then
     run_cmd mkdir -p "$HOME/.config/secrets"
     if [[ ! -f "$HOME/.config/secrets/shell.env" ]]; then
       run_cmd cp -f "./run_commands/secrets_shell.env.example" "$HOME/.config/secrets/shell.env"
