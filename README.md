@@ -249,6 +249,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/direnv.md`
 - `docs/cheatsheets/atuin.md`
 - `docs/cheatsheets/dua.md`
+- `docs/cheatsheets/dust.md`
 
 Each cheatsheet includes:
 - top commands to memorize
