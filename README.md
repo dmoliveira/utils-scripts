@@ -237,6 +237,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/nvim.md`
 - `docs/cheatsheets/starship.md`
 - `docs/cheatsheets/lazygit.md`
+- `docs/cheatsheets/btop.md`
 
 Each cheatsheet includes:
 - top commands to memorize

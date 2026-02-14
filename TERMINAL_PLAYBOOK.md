@@ -17,6 +17,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/nvim.md`
 - `docs/cheatsheets/starship.md`
 - `docs/cheatsheets/lazygit.md`
+- `docs/cheatsheets/btop.md`
 
 ## Tool Guide
 
