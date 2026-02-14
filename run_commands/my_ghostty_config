@@ -10,7 +10,7 @@ window-padding-y = 8
 working-directory = /Users/diego/Codes
 scrollback-limit = 20000
 copy-on-select = true
-macos-option-as-alt = both
+macos-option-as-alt = true
 keybind = super+c=copy_to_clipboard
 keybind = super+v=paste_from_clipboard
 keybind = ctrl+shift+c=copy_to_clipboard
