@@ -256,6 +256,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/rg.md`
 - `docs/cheatsheets/jq.md`
 - `docs/cheatsheets/bat.md`
+- `docs/cheatsheets/br.md`
 
 Each cheatsheet includes:
 - top commands to memorize
