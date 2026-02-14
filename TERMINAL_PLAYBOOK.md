@@ -15,6 +15,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/tmux.md`
 - `docs/cheatsheets/zsh.md`
 - `docs/cheatsheets/nvim.md`
+- `docs/cheatsheets/starship.md`
 
 ## Tool Guide
 
