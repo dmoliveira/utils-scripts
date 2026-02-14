@@ -35,6 +35,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/fd.md`
 - `docs/cheatsheets/rg.md`
 - `docs/cheatsheets/jq.md`
+- `docs/cheatsheets/bat.md`
 
 ## Tool Guide
 
