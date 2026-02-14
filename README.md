@@ -260,6 +260,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/uv.md`
 - `docs/cheatsheets/make.md`
 - `docs/cheatsheets/zellij.md`
+- `docs/cheatsheets/ghostty.md`
 
 Each cheatsheet includes:
 - top commands to memorize

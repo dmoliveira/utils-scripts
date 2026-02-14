@@ -40,6 +40,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/uv.md`
 - `docs/cheatsheets/make.md`
 - `docs/cheatsheets/zellij.md`
+- `docs/cheatsheets/ghostty.md`
 
 ## Tool Guide
 
