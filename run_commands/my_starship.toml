@@ -1,7 +1,7 @@
 add_newline = false
 command_timeout = 1200
 
-format = "$directory$git_branch$git_status$python$nodejs$golang$rust$kubernetes$custom.cmd_duration_adaptive$character"
+format = "$directory$git_branch$git_status$python$nodejs$golang$rust$kubernetes$custom$character"
 right_format = "$jobs$time"
 
 [directory]
