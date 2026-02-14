@@ -26,6 +26,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/kubectl.md`
 - `docs/cheatsheets/k9s.md`
 - `docs/cheatsheets/watchexec.md`
+- `docs/cheatsheets/direnv.md`
 
 ## Tool Guide
 
