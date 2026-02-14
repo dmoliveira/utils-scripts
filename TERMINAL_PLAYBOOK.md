@@ -33,6 +33,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/gh.md`
 - `docs/cheatsheets/zoxide.md`
 - `docs/cheatsheets/fd.md`
+- `docs/cheatsheets/rg.md`
 
 ## Tool Guide
 
