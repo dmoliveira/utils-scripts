@@ -27,6 +27,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/k9s.md`
 - `docs/cheatsheets/watchexec.md`
 - `docs/cheatsheets/direnv.md`
+- `docs/cheatsheets/atuin.md`
 
 ## Tool Guide
 

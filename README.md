@@ -247,6 +247,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/k9s.md`
 - `docs/cheatsheets/watchexec.md`
 - `docs/cheatsheets/direnv.md`
+- `docs/cheatsheets/atuin.md`
 
 Each cheatsheet includes:
 - top commands to memorize
