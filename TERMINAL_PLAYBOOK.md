@@ -28,6 +28,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/watchexec.md`
 - `docs/cheatsheets/direnv.md`
 - `docs/cheatsheets/atuin.md`
+- `docs/cheatsheets/dua.md`
 
 ## Tool Guide
 
