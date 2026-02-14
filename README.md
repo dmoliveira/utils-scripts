@@ -368,7 +368,7 @@ By default, tmux labels use safe ASCII markers for font compatibility:
 set -g @status_use_nerd_fonts 'off'   # *, !
 ```
 Activity/bell markers are rendered in a dedicated prefix block before each background window label.
-Idle windows display a subtle `·` marker so the event marker position is always visible.
+Idle windows display a `:` marker so the event marker position is always visible.
 
 If your font fully supports Nerd glyphs, set `@status_use_nerd_fonts` to `on`.
 

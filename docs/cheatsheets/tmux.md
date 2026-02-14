@@ -38,7 +38,7 @@ The repo tmux template highlights windows when output lands in a background wind
 ```text
 *   window has new activity/output
 !   bell/urgent event (if emitted by the process)
-·   no new event (idle marker)
+:   no new event (idle marker)
 ```
 
 If your command does not emit a bell, you still get the `*` activity marker.
