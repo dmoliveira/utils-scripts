@@ -241,6 +241,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/hyperfine.md`
 - `docs/cheatsheets/procs.md`
 - `docs/cheatsheets/xh.md`
+- `docs/cheatsheets/doggo.md`
 
 Each cheatsheet includes:
 - top commands to memorize
