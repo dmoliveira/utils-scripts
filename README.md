@@ -251,6 +251,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/dua.md`
 - `docs/cheatsheets/dust.md`
 - `docs/cheatsheets/gh.md`
+- `docs/cheatsheets/zoxide.md`
 
 Each cheatsheet includes:
 - top commands to memorize
