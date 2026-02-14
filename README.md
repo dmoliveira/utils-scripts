@@ -252,6 +252,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/dust.md`
 - `docs/cheatsheets/gh.md`
 - `docs/cheatsheets/zoxide.md`
+- `docs/cheatsheets/fd.md`
 
 Each cheatsheet includes:
 - top commands to memorize
