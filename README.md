@@ -250,6 +250,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/atuin.md`
 - `docs/cheatsheets/dua.md`
 - `docs/cheatsheets/dust.md`
+- `docs/cheatsheets/gh.md`
 
 Each cheatsheet includes:
 - top commands to memorize

@@ -30,6 +30,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/atuin.md`
 - `docs/cheatsheets/dua.md`
 - `docs/cheatsheets/dust.md`
+- `docs/cheatsheets/gh.md`
 
 ## Tool Guide
 
