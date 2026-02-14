@@ -2,7 +2,7 @@ add_newline = false
 command_timeout = 1200
 
 format = "$directory$git_branch$git_status$python$nodejs$golang$rust$kubernetes$cmd_duration$character"
-right_format = "$jobs$time"
+right_format = "$memory_usage$battery$jobs$time"
 
 [directory]
 style = "bold #61afef"
@@ -24,12 +24,12 @@ ahead = "⇡${count}"
 behind = "⇣${count}"
 diverged = "⇕${count}"
 up_to_date = "✓"
-untracked = "?"
-stashed = ""
-modified = "!"
-staged = "+"
-renamed = "»"
-deleted = "✘"
+untracked = "?${count}"
+stashed = "${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
 
 [python]
 symbol = " "
@@ -58,9 +58,35 @@ format = "on [$symbol$context(\\($namespace\\))]($style) "
 disabled = false
 
 [cmd_duration]
-min_time = 1200
+min_time = 2000
 format = "took [$duration]($style) "
 style = "bold #e5c07b"
+show_milliseconds = true
+show_notifications = true
+min_time_to_notify = 15000
+
+[memory_usage]
+disabled = false
+threshold = 75
+symbol = "󰍛 "
+style = "bold #e06c75"
+format = "[$symbol${ram}]($style) "
+
+[battery]
+full_symbol = "󰁹 "
+charging_symbol = "󰂄 "
+discharging_symbol = "󰂃 "
+unknown_symbol = "󰂑 "
+empty_symbol = "󰂎 "
+format = "[$symbol$percentage]($style) "
+
+[[battery.display]]
+threshold = 30
+style = "bold #e5c07b"
+
+[[battery.display]]
+threshold = 15
+style = "bold #e06c75"
 
 [jobs]
 symbol = " "
