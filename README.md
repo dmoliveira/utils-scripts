@@ -233,6 +233,7 @@ Leader-pack helpers from `run_commands/my_zshrc`:
 Per-tool, power-user guides live in:
 
 - `docs/cheatsheets/tmux.md`
+- `docs/cheatsheets/zsh.md`
 
 Each cheatsheet includes:
 - top commands to memorize
