@@ -36,20 +36,22 @@ Ctrl-b r      reload ~/.tmux.conf
 The repo tmux template highlights windows when output lands in a background window.
 
 ```text
-●   window has new activity/output
+*   window has new activity/output
 !   bell/urgent event (if emitted by the process)
 ```
 
-If your command does not emit a bell, you still get the `●` activity marker.
+If your command does not emit a bell, you still get the `*` activity marker.
 If Powerline is unavailable, the config falls back to a native tmux status line.
 The defaults keep notifications non-intrusive: badges update in the window list without visual popup/bell overlays.
-Default labels use Nerd Font icons (``, ``, ``).
+Default labels are ASCII for compatibility (`W`, `*`, `!`).
 
 If your font has glyph issues, switch to safe symbols:
 
 ```text
 set -g @status_use_nerd_fonts 'off'
 ```
+
+If your font fully supports Nerd glyphs, set `@status_use_nerd_fonts` to `on`.
 
 Richer status (CPU + battery) is enabled by default:
 

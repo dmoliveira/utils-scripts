@@ -359,14 +359,16 @@ Window status highlighting is enabled by default so background activity is easie
 ```
 setw -g monitor-activity on
 setw -g monitor-bell on
-# window badges: ● = activity, ! = bell
+# window badges: * = activity, ! = bell
 # visual popup/bell overlays are disabled to reduce distraction
 ```
 
-Nerd Font icons are enabled by default in tmux labels. If needed, switch to safe symbols:
+By default, tmux labels use safe ASCII markers for font compatibility:
 ```
-set -g @status_use_nerd_fonts 'off'
+set -g @status_use_nerd_fonts 'off'   # W, *, !
 ```
+
+If your font fully supports Nerd glyphs, set `@status_use_nerd_fonts` to `on`.
 
 Session persistence defaults are also enabled via TPM plugins:
 ```
