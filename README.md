@@ -299,15 +299,11 @@ Keep personal prompt tweaks in a clearly marked block so they are easy to remove
 
 Template defaults include:
 - compact git dirtiness counts only when dirty (example: `+2 !1 ?3`)
-- right-side memory and battery modules with low-noise thresholds (memory >85%, battery <25%)
 - command-duration tiers: show after 2s, notify after 15s
 
 ```toml
 [git_branch]
 symbol = " "
-
-[memory_usage]
-threshold = 85
 
 [python]
 symbol = " "
