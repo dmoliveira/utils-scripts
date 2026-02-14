@@ -34,6 +34,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/zoxide.md`
 - `docs/cheatsheets/fd.md`
 - `docs/cheatsheets/rg.md`
+- `docs/cheatsheets/jq.md`
 
 ## Tool Guide
 
