@@ -234,6 +234,7 @@ Per-tool, power-user guides live in:
 
 - `docs/cheatsheets/tmux.md`
 - `docs/cheatsheets/zsh.md`
+- `docs/cheatsheets/nvim.md`
 
 Each cheatsheet includes:
 - top commands to memorize
@@ -380,6 +381,8 @@ cp ./run_commands/my_ghostty_config ~/.config/ghostty/config
 
 ### Neovim
 Modify `~/.config/nvim/init.lua` to adjust plugins or keymaps.  
+Power-user reference: `docs/cheatsheets/nvim.md`
+
 Template defaults include:
 - LSP support (`pyright`, `lua_ls`)  
 - Formatter orchestration (`conform.nvim`)  
