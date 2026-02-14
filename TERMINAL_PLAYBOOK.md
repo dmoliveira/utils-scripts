@@ -21,6 +21,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/hyperfine.md`
 - `docs/cheatsheets/procs.md`
 - `docs/cheatsheets/xh.md`
+- `docs/cheatsheets/doggo.md`
 
 ## Tool Guide
 
