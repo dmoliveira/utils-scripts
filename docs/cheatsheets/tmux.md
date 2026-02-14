@@ -36,19 +36,19 @@ Ctrl-b r      reload ~/.tmux.conf
 The repo tmux template highlights windows when output lands in a background window.
 
 ```text
-*   window has new activity/output
+●   window has new activity/output
 !   bell/urgent event (if emitted by the process)
 ```
 
-If your command does not emit a bell, you still get the `*` activity marker.
+If your command does not emit a bell, you still get the `●` activity marker.
 If Powerline is unavailable, the config falls back to a native tmux status line.
 The defaults keep notifications non-intrusive: badges update in the window list without visual popup/bell overlays.
-Default labels are ASCII for compatibility (`W`).
+Default labels use Nerd Font icons (``, ``, ``).
 
-If your font supports Nerd Font glyphs, enable:
+If your font has glyph issues, switch to safe symbols:
 
 ```text
-set -g @status_use_nerd_fonts 'on'
+set -g @status_use_nerd_fonts 'off'
 ```
 
 Richer status (CPU + battery) is enabled by default:
@@ -57,8 +57,8 @@ Richer status (CPU + battery) is enabled by default:
 set -g @qol_status_plugins 'on'   # set to 'off' for minimal status-right
 ```
 
-With this switch enabled, status-right includes CPU and battery metrics.
-On macOS, battery falls back to `pmset` output when tmux-battery data is unavailable, and displays `AC` when no percentage exists.
+With this switch enabled, status-right includes CPU and memory metrics.
+Battery is shown only when a battery percentage is available.
 
 ## Copy and clipboard flow
 
