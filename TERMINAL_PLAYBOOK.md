@@ -31,6 +31,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/dua.md`
 - `docs/cheatsheets/dust.md`
 - `docs/cheatsheets/gh.md`
+- `docs/cheatsheets/zoxide.md`
 
 ## Tool Guide
 
