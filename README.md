@@ -353,16 +353,21 @@ Template defaults also include `tmux-sensible` and status plugins for richer met
 set -g @qol_status_plugins 'on'    # CPU + battery metrics in status-right
 ```
 In this mode the config keeps the native tmux status line (instead of Powerline) so the metrics stay visible.
+Battery shows `AC` when no battery percentage is available (desktop/power adapter cases).
 
 Window status highlighting is enabled by default so background activity is easier to spot:
 ```
 setw -g monitor-activity on
 setw -g monitor-bell on
-# window badges:  = activity,  = bell
+# window badges: * = activity, ! = bell
 # visual popup/bell overlays are disabled to reduce distraction
 ```
 
-Window labels include a Nerd Font window icon (``) by default.
+By default, window labels use plain ASCII markers for font compatibility.
+If your terminal font supports Nerd Font glyphs, set:
+```
+set -g @status_use_nerd_fonts 'on'
+```
 
 Session persistence defaults are also enabled via TPM plugins:
 ```
