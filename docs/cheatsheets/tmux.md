@@ -44,6 +44,7 @@ If your command does not emit a bell, you still get the `*` activity marker.
 If Powerline is unavailable, the config falls back to a native tmux status line.
 The defaults keep notifications non-intrusive: badges update in the window list without visual popup/bell overlays.
 Default labels are ASCII for compatibility (`*`, `!`).
+Markers are shown before each background window index when activity (`*`) or bell (`!`) is present.
 
 If your font has glyph issues, switch to safe symbols:
 
