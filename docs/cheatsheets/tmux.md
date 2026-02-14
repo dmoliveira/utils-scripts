@@ -43,7 +43,7 @@ The repo tmux template highlights windows when output lands in a background wind
 If your command does not emit a bell, you still get the `*` activity marker.
 If Powerline is unavailable, the config falls back to a native tmux status line.
 The defaults keep notifications non-intrusive: badges update in the window list without visual popup/bell overlays.
-Default labels are ASCII for compatibility (`W`, `*`, `!`).
+Default labels are ASCII for compatibility (`*`, `!`).
 
 If your font has glyph issues, switch to safe symbols:
 

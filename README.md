@@ -365,7 +365,7 @@ setw -g monitor-bell on
 
 By default, tmux labels use safe ASCII markers for font compatibility:
 ```
-set -g @status_use_nerd_fonts 'off'   # W, *, !
+set -g @status_use_nerd_fonts 'off'   # *, !
 ```
 
 If your font fully supports Nerd glyphs, set `@status_use_nerd_fonts` to `on`.
