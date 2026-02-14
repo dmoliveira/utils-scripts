@@ -298,16 +298,12 @@ starship explain
 Keep personal prompt tweaks in a clearly marked block so they are easy to remove later.
 
 Template defaults include:
-- compact git dirtiness counts (example: `+2 !1 ?3`)
-- right-side memory and battery modules for laptop/workload awareness
+- compact git dirtiness counts only when dirty (example: `+2 !1 ?3`)
 - command-duration tiers: show after 2s, notify after 15s
 
 ```toml
 [git_branch]
 symbol = " "
-
-[memory_usage]
-threshold = 75
 
 [python]
 symbol = " "
