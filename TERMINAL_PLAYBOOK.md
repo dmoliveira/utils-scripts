@@ -14,6 +14,7 @@ This playbook turns the installed CLI stack into practical workflows for day-to-
 Tool-specific cheatsheets:
 - `docs/cheatsheets/tmux.md`
 - `docs/cheatsheets/zsh.md`
+- `docs/cheatsheets/nvim.md`
 
 ## Tool Guide
 
