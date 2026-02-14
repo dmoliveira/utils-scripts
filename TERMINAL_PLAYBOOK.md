@@ -19,6 +19,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/lazygit.md`
 - `docs/cheatsheets/btop.md`
 - `docs/cheatsheets/hyperfine.md`
+- `docs/cheatsheets/procs.md`
 
 ## Tool Guide
 
