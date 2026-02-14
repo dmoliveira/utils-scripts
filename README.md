@@ -243,6 +243,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/xh.md`
 - `docs/cheatsheets/doggo.md`
 - `docs/cheatsheets/trivy.md`
+- `docs/cheatsheets/kubectl.md`
 
 Each cheatsheet includes:
 - top commands to memorize
