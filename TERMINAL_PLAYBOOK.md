@@ -38,6 +38,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/bat.md`
 - `docs/cheatsheets/br.md`
 - `docs/cheatsheets/uv.md`
+- `docs/cheatsheets/make.md`
 
 ## Tool Guide
 
