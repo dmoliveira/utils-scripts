@@ -259,6 +259,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/br.md`
 - `docs/cheatsheets/uv.md`
 - `docs/cheatsheets/make.md`
+- `docs/cheatsheets/zellij.md`
 
 Each cheatsheet includes:
 - top commands to memorize

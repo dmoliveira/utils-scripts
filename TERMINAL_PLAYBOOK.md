@@ -39,6 +39,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/br.md`
 - `docs/cheatsheets/uv.md`
 - `docs/cheatsheets/make.md`
+- `docs/cheatsheets/zellij.md`
 
 ## Tool Guide
 
