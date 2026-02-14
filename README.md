@@ -235,6 +235,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/tmux.md`
 - `docs/cheatsheets/zsh.md`
 - `docs/cheatsheets/nvim.md`
+- `docs/cheatsheets/starship.md`
 
 Each cheatsheet includes:
 - top commands to memorize
@@ -305,6 +306,7 @@ make bootstrap-secrets
 ### Starship Prompt
 Config file: `~/.config/starship.toml`
 Base config in this repo: `run_commands/my_starship.toml`
+Power-user reference: `docs/cheatsheets/starship.md`
 
 ```bash
 mkdir -p ~/.config
