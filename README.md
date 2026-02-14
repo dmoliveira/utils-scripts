@@ -353,6 +353,16 @@ Template defaults also include `tmux-sensible` and an opt-in switch for status p
 set -g @qol_status_plugins 'off'   # change to 'on' for battery/network status plugins
 ```
 
+Window status highlighting is enabled by default so background activity is easier to spot:
+```
+setw -g monitor-activity on
+setw -g monitor-bell on
+# window badges:  = activity,  = bell
+# visual popup/bell overlays are disabled to reduce distraction
+```
+
+Window labels include a Nerd Font window icon (``) by default.
+
 Session persistence defaults are also enabled via TPM plugins:
 ```
 set -g @plugin 'tmux-plugins/tmux-resurrect'
@@ -457,6 +467,10 @@ If you see `Ghostty config validation failed`, run:
 /Applications/Ghostty.app/Contents/MacOS/ghostty +validate-config --config-file ~/.config/ghostty/config
 ```
 Fix the reported key/value and rerun `make verify`.
+
+### tmux reload shows `powerline-config ... returned 127`
+This means Powerline is not installed in your tmux runtime path.
+The template now falls back to a built-in tmux status line automatically when Powerline is unavailable.
 
 ### `--strict` mode fails on warnings
 `./verify_post_install_unix --strict` intentionally converts warnings into failures.

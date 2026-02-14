@@ -31,6 +31,20 @@ Ctrl-b d      detach session
 Ctrl-b r      reload ~/.tmux.conf
 ```
 
+## Activity highlighting
+
+The repo tmux template highlights windows when output lands in a background window.
+
+```text
+   window has new activity/output
+   bell/urgent event (if emitted by the process)
+```
+
+If your command does not emit a bell, you still get the `` activity marker.
+If Powerline is unavailable, the config falls back to a native tmux status line.
+The defaults keep notifications non-intrusive: badges update in the window list without visual popup/bell overlays.
+Each window label uses a Nerd Font icon (``) so it is easy to scan.
+
 ## Copy and clipboard flow
 
 This repo config includes clipboard-aware copy-mode mappings.
