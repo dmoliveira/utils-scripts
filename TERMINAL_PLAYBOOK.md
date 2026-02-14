@@ -22,6 +22,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/procs.md`
 - `docs/cheatsheets/xh.md`
 - `docs/cheatsheets/doggo.md`
+- `docs/cheatsheets/trivy.md`
 
 ## Tool Guide
 
