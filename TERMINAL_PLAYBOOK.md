@@ -24,6 +24,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/doggo.md`
 - `docs/cheatsheets/trivy.md`
 - `docs/cheatsheets/kubectl.md`
+- `docs/cheatsheets/k9s.md`
 
 ## Tool Guide
 
