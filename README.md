@@ -238,6 +238,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/starship.md`
 - `docs/cheatsheets/lazygit.md`
 - `docs/cheatsheets/btop.md`
+- `docs/cheatsheets/hyperfine.md`
 
 Each cheatsheet includes:
 - top commands to memorize
