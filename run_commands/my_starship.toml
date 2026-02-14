@@ -23,7 +23,7 @@ conflicted = ""
 ahead = "⇡${count}"
 behind = "⇣${count}"
 diverged = "⇕${count}"
-up_to_date = "✓"
+up_to_date = ""
 untracked = "?${count}"
 stashed = "${count}"
 modified = "!${count}"
@@ -67,7 +67,7 @@ min_time_to_notify = 15000
 
 [memory_usage]
 disabled = false
-threshold = 75
+threshold = 85
 symbol = "󰍛 "
 style = "bold #e06c75"
 format = "[$symbol${ram}]($style) "
@@ -81,11 +81,11 @@ empty_symbol = "󰂎 "
 format = "[$symbol$percentage]($style) "
 
 [[battery.display]]
-threshold = 30
+threshold = 25
 style = "bold #e5c07b"
 
 [[battery.display]]
-threshold = 15
+threshold = 12
 style = "bold #e06c75"
 
 [jobs]
