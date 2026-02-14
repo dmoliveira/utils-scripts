@@ -45,6 +45,14 @@ If Powerline is unavailable, the config falls back to a native tmux status line.
 The defaults keep notifications non-intrusive: badges update in the window list without visual popup/bell overlays.
 Each window label uses a Nerd Font icon (``) so it is easy to scan.
 
+Richer status (CPU + battery) is enabled by default:
+
+```text
+set -g @qol_status_plugins 'on'   # set to 'off' for minimal status-right
+```
+
+With this switch enabled, status-right includes `#{cpu_percentage}` and battery metrics.
+
 ## Copy and clipboard flow
 
 This repo config includes clipboard-aware copy-mode mappings.

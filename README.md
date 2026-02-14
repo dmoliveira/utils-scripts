@@ -348,10 +348,11 @@ set -g mouse on
 bind r source-file ~/.tmux.conf \; display "Reloaded!"
 ```
 
-Template defaults also include `tmux-sensible` and an opt-in switch for status plugins:
+Template defaults also include `tmux-sensible` and status plugins for richer metrics:
 ```
-set -g @qol_status_plugins 'off'   # change to 'on' for battery/network status plugins
+set -g @qol_status_plugins 'on'    # CPU + battery metrics in status-right
 ```
+In this mode the config keeps the native tmux status line (instead of Powerline) so the metrics stay visible.
 
 Window status highlighting is enabled by default so background activity is easier to spot:
 ```
