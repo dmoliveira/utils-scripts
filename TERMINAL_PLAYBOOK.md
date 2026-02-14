@@ -29,6 +29,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/direnv.md`
 - `docs/cheatsheets/atuin.md`
 - `docs/cheatsheets/dua.md`
+- `docs/cheatsheets/dust.md`
 
 ## Tool Guide
 
