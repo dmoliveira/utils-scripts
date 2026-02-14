@@ -15,13 +15,14 @@
 4. [Installation](#installation)  
 5. [Usage](#usage)  
 6. [Terminal Playbook](#terminal-playbook)  
-7. [Post-Install Verification](#post-install-verification)  
-8. [Configuration & Customisation](#configuration--customisation)  
-9. [Troubleshooting](#troubleshooting)  
-10. [Releases](#releases)  
-11. [Contributing](#contributing)  
-12. [Support](#support)  
-13. [License](#license)  
+7. [Tool Cheatsheets](#tool-cheatsheets)
+8. [Post-Install Verification](#post-install-verification)  
+9. [Configuration & Customisation](#configuration--customisation)  
+10. [Troubleshooting](#troubleshooting)  
+11. [Releases](#releases)  
+12. [Contributing](#contributing)  
+13. [Support](#support)  
+14. [License](#license)  
 
 ---
 
@@ -60,6 +61,7 @@ Everything is tuned to work well together — lightweight, consistent, and fast.
 | `rollback_installer_backups` | Restore latest installer backup files |
 | `.github/RELEASE_NOTES_TEMPLATE.md` | Structured release notes template used by release workflow |
 | `TERMINAL_PLAYBOOK.md` | Practical workflows and tool scenarios |
+| `docs/cheatsheets/*.md` | Per-tool power-user cheatsheets and workflows |
 | `python/` | Additional Python utility scripts |
 | `.gitignore` | Standard ignore patterns |
 | `LICENSE` | GPL-2.0 License file |
@@ -223,6 +225,19 @@ Leader-pack helpers from `run_commands/my_zshrc`:
 - `tmux-incident` for live triage (system, k8s, DNS)
 - `make playbook` to quickly locate the playbook file
 - `make leader-pack-check` to validate playbook + zsh template wiring
+
+---
+
+## 🗂️ Tool Cheatsheets
+
+Per-tool, power-user guides live in:
+
+- `docs/cheatsheets/tmux.md`
+
+Each cheatsheet includes:
+- top commands to memorize
+- practical examples
+- high-leverage workflows for engineering and incident response
 
 ---
 
