@@ -1,7 +1,7 @@
 add_newline = false
 command_timeout = 1200
 
-format = "$directory$git_branch$git_status$python$nodejs$golang$rust$kubernetes$cmd_duration$character"
+format = "$directory$git_branch$git_status$python$nodejs$golang$rust$kubernetes$custom.cmd_duration_adaptive$character"
 right_format = "$jobs$time"
 
 [directory]
@@ -63,6 +63,13 @@ format = "took [$duration]($style) "
 style = "bold #e5c07b"
 show_milliseconds = true
 show_notifications = false
+
+[custom.cmd_duration_adaptive]
+command = "printf '%s' \"$ADAPTIVE_CMD_DURATION\""
+when = "test -n \"$ADAPTIVE_CMD_DURATION\""
+shell = ["sh", "-c"]
+format = "took [$output]($style) "
+style = "bold #e5c07b"
 
 [jobs]
 symbol = " "
