@@ -239,6 +239,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/lazygit.md`
 - `docs/cheatsheets/btop.md`
 - `docs/cheatsheets/hyperfine.md`
+- `docs/cheatsheets/procs.md`
 
 Each cheatsheet includes:
 - top commands to memorize
