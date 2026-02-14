@@ -368,7 +368,7 @@ By default, tmux labels use a single marker per window for stronger visual cues:
 set -g @status_use_nerd_fonts 'on'
 ```
 Activity/bell markers are rendered in a dedicated prefix block before each background window label.
-Idle windows display a `:` marker so the event marker position is always visible.
+Idle windows keep the marker slot empty; activity/bell markers appear only when there is something to check.
 
 If icons render badly in your terminal, set `@status_use_nerd_fonts` to `off` for pure ASCII markers.
 

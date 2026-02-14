@@ -36,9 +36,9 @@ Ctrl-b r      reload ~/.tmux.conf
 The repo tmux template highlights windows when output lands in a background window.
 
 ```text
-*   window has new activity/output
+●   window has new activity/output
 !   bell/urgent event (if emitted by the process)
-:   no new event (idle marker)
+  no marker for idle windows
 ```
 
 If your command does not emit a bell, you still get the `*` activity marker.
