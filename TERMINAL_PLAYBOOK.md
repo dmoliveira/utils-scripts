@@ -23,6 +23,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/xh.md`
 - `docs/cheatsheets/doggo.md`
 - `docs/cheatsheets/trivy.md`
+- `docs/cheatsheets/kubectl.md`
 
 ## Tool Guide
 
