@@ -246,6 +246,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/kubectl.md`
 - `docs/cheatsheets/k9s.md`
 - `docs/cheatsheets/watchexec.md`
+- `docs/cheatsheets/direnv.md`
 
 Each cheatsheet includes:
 - top commands to memorize
