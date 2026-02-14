@@ -25,6 +25,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/trivy.md`
 - `docs/cheatsheets/kubectl.md`
 - `docs/cheatsheets/k9s.md`
+- `docs/cheatsheets/watchexec.md`
 
 ## Tool Guide
 
