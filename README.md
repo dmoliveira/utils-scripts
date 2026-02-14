@@ -338,7 +338,13 @@ Keep personal prompt tweaks in a clearly marked block so they are easy to remove
 
 Template defaults include:
 - compact git dirtiness counts only when dirty (example: `+2 !1 ?3`)
-- command-duration tiers: show after 2s, notify after 15s
+- adaptive command duration shown after 2s in prompt only (desktop notifications disabled)
+
+Adaptive duration uses two units:
+- `d+h` for multi-day commands
+- `h+m` for multi-hour commands
+- `m+s` for multi-minute commands
+- `s+ms` for multi-second commands
 
 ```toml
 [git_branch]
@@ -356,10 +362,29 @@ set -g mouse on
 bind r source-file ~/.tmux.conf \; display "Reloaded!"
 ```
 
-Template defaults also include `tmux-sensible` and an opt-in switch for status plugins:
+Template defaults also include `tmux-sensible` and status plugins for richer metrics:
 ```
-set -g @qol_status_plugins 'off'   # change to 'on' for battery/network status plugins
+set -g @qol_status_plugins 'on'    # CPU + memory (+ battery when available)
 ```
+In this mode the config keeps the native tmux status line (instead of Powerline) so the metrics stay visible.
+Status-right shows CPU and memory, and only shows battery when a battery value exists.
+
+Window status highlighting is enabled by default so background activity is easier to spot:
+```
+setw -g monitor-activity on
+setw -g monitor-bell on
+# window badges: * = activity, ! = bell
+# visual popup/bell overlays are disabled to reduce distraction
+```
+
+By default, tmux labels use a single marker per window for stronger visual cues:
+```
+set -g @status_use_nerd_fonts 'on'
+```
+Activity/bell markers are rendered in a dedicated prefix block before each background window label.
+Idle windows keep the marker slot empty; activity/bell markers appear only when there is something to check.
+
+If icons render badly in your terminal, set `@status_use_nerd_fonts` to `off` for pure ASCII markers.
 
 Session persistence defaults are also enabled via TPM plugins:
 ```
@@ -465,6 +490,10 @@ If you see `Ghostty config validation failed`, run:
 /Applications/Ghostty.app/Contents/MacOS/ghostty +validate-config --config-file ~/.config/ghostty/config
 ```
 Fix the reported key/value and rerun `make verify`.
+
+### tmux reload shows `powerline-config ... returned 127`
+This means Powerline is not installed in your tmux runtime path.
+The template now falls back to a built-in tmux status line automatically when Powerline is unavailable.
 
 ### `--strict` mode fails on warnings
 `./verify_post_install_unix --strict` intentionally converts warnings into failures.

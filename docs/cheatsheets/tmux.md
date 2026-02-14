@@ -31,6 +31,39 @@ Ctrl-b d      detach session
 Ctrl-b r      reload ~/.tmux.conf
 ```
 
+## Activity highlighting
+
+The repo tmux template highlights windows when output lands in a background window.
+
+```text
+●   window has new activity/output
+!   bell/urgent event (if emitted by the process)
+  no marker for idle windows
+```
+
+If your command does not emit a bell, you still get the `*` activity marker.
+If Powerline is unavailable, the config falls back to a native tmux status line.
+The defaults keep notifications non-intrusive: badges update in the window list without visual popup/bell overlays.
+Default labels use one marker per window (`●`, `!`, `•`) for stronger cues.
+Markers are shown before each background window index when activity (`*`) or bell (`!`) is present.
+
+If your font has glyph issues, switch to safe symbols:
+
+```text
+set -g @status_use_nerd_fonts 'off'
+```
+
+If your font fully supports Nerd glyphs, set `@status_use_nerd_fonts` to `on`.
+
+Richer status (CPU + battery) is enabled by default:
+
+```text
+set -g @qol_status_plugins 'on'   # set to 'off' for minimal status-right
+```
+
+With this switch enabled, status-right includes CPU and memory metrics.
+Battery is shown only when a battery percentage is available.
+
 ## Copy and clipboard flow
 
 This repo config includes clipboard-aware copy-mode mappings.

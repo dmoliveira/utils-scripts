@@ -107,6 +107,72 @@ if command -v starship >/dev/null 2>&1; then
   eval "$(starship init zsh)"
 fi
 
+# Adaptive command-duration formatter for Starship custom module.
+typeset -g _adaptive_cmd_started_at=""
+
+_adaptive_duration_format() {
+  local total_ms=$1
+  local day_ms=86400000
+  local hour_ms=3600000
+  local minute_ms=60000
+  local second_ms=1000
+
+  if (( total_ms >= day_ms )); then
+    local d=$(( total_ms / day_ms ))
+    local h=$(( (total_ms % day_ms) / hour_ms ))
+    printf "%dd%dh" "$d" "$h"
+    return
+  fi
+
+  if (( total_ms >= hour_ms )); then
+    local h=$(( total_ms / hour_ms ))
+    local m=$(( (total_ms % hour_ms) / minute_ms ))
+    printf "%dh%dm" "$h" "$m"
+    return
+  fi
+
+  if (( total_ms >= minute_ms )); then
+    local m=$(( total_ms / minute_ms ))
+    local s=$(( (total_ms % minute_ms) / second_ms ))
+    printf "%dm%ds" "$m" "$s"
+    return
+  fi
+
+  if (( total_ms >= second_ms )); then
+    local s=$(( total_ms / second_ms ))
+    local ms=$(( total_ms % second_ms ))
+    printf "%ds%dms" "$s" "$ms"
+    return
+  fi
+
+  printf "%dms" "$total_ms"
+}
+
+_adaptive_duration_preexec() {
+  _adaptive_cmd_started_at="$EPOCHREALTIME"
+}
+
+_adaptive_duration_precmd() {
+  if [[ -z "${_adaptive_cmd_started_at}" ]]; then
+    export ADAPTIVE_CMD_DURATION=""
+    return
+  fi
+
+  local started_at="$_adaptive_cmd_started_at"
+  _adaptive_cmd_started_at=""
+
+  local elapsed_ms=$(( (EPOCHREALTIME - started_at) * 1000 ))
+  if (( elapsed_ms >= 2000 )); then
+    export ADAPTIVE_CMD_DURATION="$(_adaptive_duration_format "$elapsed_ms")"
+  else
+    export ADAPTIVE_CMD_DURATION=""
+  fi
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook preexec _adaptive_duration_preexec
+add-zsh-hook precmd _adaptive_duration_precmd
+
 # ─────────────────────────────────────────────
 # WezTerm Git Status
 # ─────────────────────────────────────────────
