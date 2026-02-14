@@ -240,6 +240,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/btop.md`
 - `docs/cheatsheets/hyperfine.md`
 - `docs/cheatsheets/procs.md`
+- `docs/cheatsheets/xh.md`
 
 Each cheatsheet includes:
 - top commands to memorize
