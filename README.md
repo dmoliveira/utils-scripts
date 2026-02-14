@@ -363,14 +363,14 @@ setw -g monitor-bell on
 # visual popup/bell overlays are disabled to reduce distraction
 ```
 
-By default, tmux labels use safe ASCII markers for font compatibility:
+By default, tmux labels use mixed markers (ASCII + Nerd icon) for stronger visual cues:
 ```
-set -g @status_use_nerd_fonts 'off'   # *, !
+set -g @status_use_nerd_fonts 'on'
 ```
 Activity/bell markers are rendered in a dedicated prefix block before each background window label.
 Idle windows display a `:` marker so the event marker position is always visible.
 
-If your font fully supports Nerd glyphs, set `@status_use_nerd_fonts` to `on`.
+If icons render badly in your terminal, set `@status_use_nerd_fonts` to `off` for pure ASCII.
 
 Session persistence defaults are also enabled via TPM plugins:
 ```
