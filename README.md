@@ -330,7 +330,7 @@ Keep personal prompt tweaks in a clearly marked block so they are easy to remove
 
 Template defaults include:
 - compact git dirtiness counts only when dirty (example: `+2 !1 ?3`)
-- command-duration tiers: show after 2s, notify after 15s
+- command duration shown after 2s in prompt only (desktop notifications disabled)
 
 ```toml
 [git_branch]

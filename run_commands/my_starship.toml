@@ -62,8 +62,7 @@ min_time = 2000
 format = "took [$duration]($style) "
 style = "bold #e5c07b"
 show_milliseconds = true
-show_notifications = true
-min_time_to_notify = 15000
+show_notifications = false
 
 [jobs]
 symbol = " "

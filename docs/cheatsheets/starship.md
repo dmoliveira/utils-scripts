@@ -25,7 +25,7 @@ Use `STARSHIP_CONFIG=/path/to/file` to validate changes before replacing your li
 
 - compact git dirtiness counts only when the repo is dirty
 - language context appears only when relevant (`python`, `nodejs`, `golang`, `rust`)
-- command duration shown after 2s and notifies after 15s
+- command duration shown after 2s in prompt only (notifications disabled)
 - right-side context keeps prompt body clean (`jobs`, `time`)
 
 ## Fast customization examples
