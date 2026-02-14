@@ -20,6 +20,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/btop.md`
 - `docs/cheatsheets/hyperfine.md`
 - `docs/cheatsheets/procs.md`
+- `docs/cheatsheets/xh.md`
 
 ## Tool Guide
 
