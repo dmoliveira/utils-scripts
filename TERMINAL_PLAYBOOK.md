@@ -18,6 +18,7 @@ Tool-specific cheatsheets:
 - `docs/cheatsheets/starship.md`
 - `docs/cheatsheets/lazygit.md`
 - `docs/cheatsheets/btop.md`
+- `docs/cheatsheets/hyperfine.md`
 
 ## Tool Guide
 
