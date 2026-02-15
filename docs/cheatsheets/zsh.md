@@ -62,6 +62,14 @@ px      # procs
 tfscan  # trivy fs .
 ```
 
+Template function behavior:
+
+```bash
+ngrok http 3000
+```
+
+When running inside tmux, the wrapper forces `TERM=xterm-256color` for ngrok so the dynamic terminal UI renders correctly.
+
 ## Practical power-user flows
 
 ### Flow 1: fast repo start

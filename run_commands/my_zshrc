@@ -231,6 +231,15 @@ alias k='kubectl'
 alias kga='kubectl get all -A'
 alias tfscan='trivy fs .'
 
+ngrok() {
+  if [[ -n "${TMUX-}" ]]; then
+    TERM=xterm-256color command ngrok "$@"
+    return
+  fi
+
+  command ngrok "$@"
+}
+
 tmux-research() {
   local session="research"
 

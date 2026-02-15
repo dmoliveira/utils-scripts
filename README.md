@@ -488,6 +488,10 @@ Fix the reported key/value and rerun `make verify`.
 This means Powerline is not installed in your tmux runtime path.
 The template now falls back to a built-in tmux status line automatically when Powerline is unavailable.
 
+### ngrok says it cannot render dynamic color UI on solaris
+The zsh template wraps `ngrok` and forces `TERM=xterm-256color` when running inside tmux.
+Run `exec zsh` to load the wrapper in current shells.
+
 ### `--strict` mode fails on warnings
 `./verify_post_install_unix --strict` intentionally converts warnings into failures.
 Use strict mode in CI or when validating a clean machine setup.
