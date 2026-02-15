@@ -1,14 +1,16 @@
-# xh Cheatsheet
+# 🧭 xh Cheatsheet
 
-Fast API debugging with a human-friendly HTTP client.
+Friendly, fast API debugging with a human-friendly HTTP client.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 xh GET https://api.github.com/repos/dmoliveira/utils-scripts
 ```
 
-## Core request patterns
+## ✨ Core request patterns
 
 ```bash
 xh GET https://api.example.com/health
@@ -19,7 +21,7 @@ xh DELETE https://api.example.com/items/42
 
 `key=value` sends strings, `key:=value` sends raw JSON values.
 
-## Headers and auth
+## ✨ Headers and auth
 
 ```bash
 xh GET https://api.example.com/me Authorization:"Bearer $TOKEN"
@@ -27,37 +29,37 @@ xh GET https://api.example.com/me X-Request-Id:debug-123
 xh --auth user:pass GET https://api.example.com/private
 ```
 
-## JSON-first workflows
+## ✨ JSON-first workflows
 
 ```bash
 xh GET https://api.example.com/items | jq '.data[] | {id, name}'
 xh POST https://api.example.com/items name=widget tags:='["ops","ml"]'
 ```
 
-## Practical debugging flows
+## ✨ Practical debugging flows
 
-### Flow 1: endpoint sanity check
+### 🔹 Flow 1: endpoint sanity check
 
 ```bash
 xh GET https://api.example.com/health
 xh GET https://api.example.com/version
 ```
 
-### Flow 2: auth regression check
+### 🔹 Flow 2: auth regression check
 
 ```bash
 xh GET https://api.example.com/me Authorization:"Bearer $TOKEN"
 xh GET https://api.example.com/me Authorization:"Bearer invalid"
 ```
 
-### Flow 3: API contract validation in PRs
+### 🔹 Flow 3: API contract validation in PRs
 
 ```bash
 xh GET https://api.example.com/items?page:=1&limit:=20
 xh POST https://api.example.com/items name=test qty:=1
 ```
 
-## Useful flags
+## ✨ Useful flags
 
 ```text
 --print=HhBb   control request/response output sections
@@ -73,13 +75,13 @@ xh --offline POST https://api.example.com/items name=preview
 xh --timeout 5 --follow GET http://example.com
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### TLS/cert issue in local env
+### 🔹 TLS/cert issue in local env
 
 Use a trusted dev cert chain; avoid disabling verification unless temporary.
 
-### Quick fallback comparison
+### 🔹 Quick fallback comparison
 
 ```bash
 curl -i https://api.example.com/health

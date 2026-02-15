@@ -1,14 +1,16 @@
-# br Cheatsheet
+# 🧭 br Cheatsheet
 
-Task tracking with `beads_rust` using dependency-aware issue workflows.
+Friendly, task tracking with `beads_rust` using dependency-aware issue workflows.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 br ready
 ```
 
-## Core lifecycle
+## ✨ Core lifecycle
 
 ```bash
 br ready
@@ -17,7 +19,7 @@ br update <id> --status in_progress
 br close <id> --reason "Completed"
 ```
 
-## Create and organize work
+## ✨ Create and organize work
 
 ```bash
 br create --title-flag "Add feature X" -t task -p P2 -d "Scope and outcome"
@@ -28,7 +30,7 @@ br stats
 - types commonly used: `task`, `bug`, `epic`
 - priorities: `P0` (highest) to `P4` (lowest)
 
-## Daily execution flow
+## ✨ Daily execution flow
 
 1. `br ready` and pick one issue
 2. `br update <id> --status in_progress`
@@ -36,7 +38,7 @@ br stats
 4. open PR and merge
 5. `br close <id> --reason "..."`
 
-## Sync behavior (important)
+## ✨ Sync behavior (important)
 
 `br` is non-invasive and does not run git commands for you.
 
@@ -48,9 +50,9 @@ git add .beads/
 git commit -m "sync beads"
 ```
 
-## Practical team workflows
+## ✨ Practical team workflows
 
-### Flow 1: run one issue per branch
+### 🔹 Flow 1: run one issue per branch
 
 ```bash
 br ready
@@ -58,23 +60,23 @@ br update <id> --status in_progress
 git worktree add ../repo-<id> -b repo-<id>
 ```
 
-### Flow 2: surface blockers quickly
+### 🔹 Flow 2: surface blockers quickly
 
 ```bash
 br update <id> --status blocked
 br show <id>
 ```
 
-### Flow 3: close with traceability
+### 🔹 Flow 3: close with traceability
 
 ```bash
 gh pr merge <pr> --squash --delete-branch
 br close <id> --reason "Merged PR #<pr>"
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### no ready issues
+### 🔹 no ready issues
 
 ```bash
 br ready
@@ -83,7 +85,7 @@ br stats
 
 Create a scoped task or unblock dependencies.
 
-### wrong issue context
+### 🔹 wrong issue context
 
 ```bash
 br show <id>

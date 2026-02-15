@@ -1,15 +1,17 @@
-# direnv Cheatsheet
+# 🧭 direnv Cheatsheet
 
-Safe, repeatable per-project environment loading for shell workflows.
+Friendly, safe, repeatable per-project environment loading for shell workflows.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 direnv version
 direnv status
 ```
 
-## Core workflow
+## ✨ Core workflow
 
 1. create `.envrc` in project root
 2. add only project-specific exports
@@ -27,7 +29,7 @@ EOF
 direnv allow
 ```
 
-## Useful commands
+## ✨ Useful commands
 
 ```bash
 direnv allow
@@ -36,7 +38,7 @@ direnv reload
 direnv status
 ```
 
-## Python/venv patterns
+## ✨ Python/venv patterns
 
 ```bash
 echo 'layout python3' >> .envrc
@@ -50,7 +52,7 @@ echo 'source .venv/bin/activate' >> .envrc
 direnv allow
 ```
 
-## Secrets hygiene pattern
+## ✨ Secrets hygiene pattern
 
 Keep secrets outside repo and source them from a safe path:
 
@@ -65,9 +67,9 @@ Use with repo convention:
 chmod 600 ~/.config/secrets/shell.env
 ```
 
-## Practical workflows
+## ✨ Practical workflows
 
-### Flow 1: project bootstrap
+### 🔹 Flow 1: project bootstrap
 
 ```bash
 cp .envrc.example .envrc
@@ -75,7 +77,7 @@ direnv allow
 make verify
 ```
 
-### Flow 2: fast context switching
+### 🔹 Flow 2: fast context switching
 
 ```bash
 z project-a
@@ -84,7 +86,7 @@ z project-b
 
 `direnv` auto-loads each project environment on directory change.
 
-### Flow 3: temporary debug flags
+### 🔹 Flow 3: temporary debug flags
 
 ```bash
 echo 'export DEBUG=true' >> .envrc
@@ -93,22 +95,22 @@ direnv reload
 
 Remove the line after debugging and reload again.
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### Changes not applied
+### 🔹 Changes not applied
 
 ```bash
 direnv reload
 direnv status
 ```
 
-### "blocked" .envrc
+### 🔹 "blocked" .envrc
 
 ```bash
 direnv allow
 ```
 
-### verify shell hook loaded
+### 🔹 verify shell hook loaded
 
 This repo template includes:
 

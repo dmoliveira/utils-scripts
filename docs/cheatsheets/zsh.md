@@ -1,8 +1,10 @@
-# zsh Cheatsheet
+# 🧭 zsh Cheatsheet
 
-High-leverage zsh commands and flows for the `utils-scripts` environment.
+Friendly, high-leverage zsh commands and flows for the `utils-scripts` environment.
 
-## Reload and validate quickly
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## ✨ Reload and validate quickly
 
 ```bash
 exec zsh
@@ -10,7 +12,7 @@ source ~/.zshrc
 zsh -n ~/.zshrc
 ```
 
-## History power moves
+## ✨ History power moves
 
 ```bash
 history 1
@@ -20,7 +22,7 @@ atuin search "kubectl"
 
 Template behavior includes history substring search on arrow keys and shared history across sessions.
 
-## Navigation and discovery
+## ✨ Navigation and discovery
 
 ```bash
 z repo-name
@@ -30,7 +32,7 @@ pwd
 
 `z`/`zi` come from `zoxide` integration in the template.
 
-## Environment and secrets flow
+## ✨ Environment and secrets flow
 
 ```bash
 direnv allow
@@ -44,7 +46,7 @@ Secrets file convention:
 chmod 600 ~/.config/secrets/shell.env
 ```
 
-## Completion and shell helpers
+## ✨ Completion and shell helpers
 
 ```bash
 leader-pack-help
@@ -62,9 +64,9 @@ px      # procs
 tfscan  # trivy fs .
 ```
 
-## Practical power-user flows
+## 🎯 Friendly power-user flows
 
-### Flow 1: fast repo start
+### 🔹 Flow 1: fast repo start
 
 ```bash
 z utils-scripts
@@ -72,7 +74,7 @@ tm
 nvim .
 ```
 
-### Flow 2: pre-PR quality pass
+### 🔹 Flow 2: pre-PR quality pass
 
 ```bash
 make verify
@@ -81,7 +83,7 @@ tfscan
 lg
 ```
 
-### Flow 3: incident triage shell loop
+### 🔹 Flow 3: incident triage shell loop
 
 ```bash
 tmux-incident
@@ -90,11 +92,11 @@ doggo your-service.internal A
 kubectl get pods -A
 ```
 
-## Debug shell startup slowness
+## ✨ Debug shell startup slowness
 
 ```bash
 time zsh -i -c exit
 zsh -xlic exit 2> /tmp/zsh-startup.log
 ```
 
-Use this when plugin or completion startup feels slow.
+Great when you want to plugin or completion startup feels slow.

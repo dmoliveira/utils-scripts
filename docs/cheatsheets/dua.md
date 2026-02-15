@@ -1,8 +1,10 @@
-# dua Cheatsheet
+# 🧭 dua Cheatsheet
 
-Fast disk-usage triage with interactive navigation.
+Friendly, fast disk-usage triage with interactive navigation.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 dua i
@@ -10,7 +12,7 @@ dua i
 
 `dua i` opens interactive mode to quickly find large directories/files.
 
-## Core commands
+## ✨ Core commands
 
 ```bash
 dua i
@@ -18,9 +20,9 @@ dua .
 dua ~/Downloads
 ```
 
-## Practical workflows
+## ✨ Practical workflows
 
-### Flow 1: repo bloat check
+### 🔹 Flow 1: repo bloat check
 
 ```bash
 dua i .
@@ -28,7 +30,7 @@ dua i .
 
 Look for heavy folders like `node_modules`, build artifacts, caches, or large datasets.
 
-### Flow 2: home directory cleanup
+### 🔹 Flow 2: home directory cleanup
 
 ```bash
 dua i ~
@@ -36,7 +38,7 @@ dua i ~
 
 Drill into `Downloads`, old virtualenvs, and stale archives.
 
-### Flow 3: before/after cleanup validation
+### 🔹 Flow 3: before/after cleanup validation
 
 ```bash
 dua .
@@ -46,7 +48,7 @@ dua .
 
 Run twice to confirm space reclaimed after cleanup.
 
-## Companion commands
+## ✨ Companion commands
 
 ```bash
 dust -d 3
@@ -55,23 +57,23 @@ du -sh *
 
 Use `dust` for a quick summary and `dua i` for deep interactive exploration.
 
-## Safe cleanup pattern
+## ✨ Safe cleanup pattern
 
 1. identify large targets with `dua i`
 2. verify they are safe to remove
 3. delete intentionally
 4. rerun `dua i` to confirm impact
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### command not found
+### 🔹 command not found
 
 ```bash
 command -v dua
 make verify
 ```
 
-### need non-interactive quick summary
+### 🔹 need non-interactive quick summary
 
 ```bash
 dust -d 3

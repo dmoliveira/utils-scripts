@@ -1,14 +1,16 @@
-# fd Cheatsheet
+# 🧭 fd Cheatsheet
 
-Fast file discovery for large repos with clean defaults.
+Friendly, fast file discovery for large repos with clean defaults.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 fd nvim
 ```
 
-## Core patterns
+## ✨ Core patterns
 
 ```bash
 fd "\.md$"
@@ -22,7 +24,7 @@ fd -H "^\.env"
 - `-t d`: directories only
 - `-H`: include hidden files
 
-## Extension and glob filters
+## ✨ Extension and glob filters
 
 ```bash
 fd -e md
@@ -31,42 +33,42 @@ fd -g "**/*.yml"
 fd -g "**/*cheatsheet*"
 ```
 
-## Practical workflows
+## ✨ Practical workflows
 
-### Flow 1: find config quickly
+### 🔹 Flow 1: find config quickly
 
 ```bash
 fd -H "zsh|tmux|starship" run_commands
 ```
 
-### Flow 2: locate scripts before edits
+### 🔹 Flow 2: locate scripts before edits
 
 ```bash
 fd -e sh
 fd "install_my_programs"
 ```
 
-### Flow 3: pair with grep for fast code search
+### 🔹 Flow 3: pair with grep for fast code search
 
 ```bash
 fd -e md docs | xargs rg "cheatsheet"
 ```
 
-## Exclude noisy paths
+## ✨ Exclude noisy paths
 
 ```bash
 fd --exclude .git --exclude node_modules "pattern"
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### command not found
+### 🔹 command not found
 
 ```bash
 command -v fd
 make verify
 ```
 
-### macOS alias differences
+### 🔹 macOS alias differences
 
 Some systems install as `fdfind`; this repo expects `fd` via Homebrew.

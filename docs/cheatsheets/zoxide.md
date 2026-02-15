@@ -1,8 +1,10 @@
-# zoxide Cheatsheet
+# 🧭 zoxide Cheatsheet
 
-Fast directory jumping based on frecency (frequency + recency).
+Friendly, fast directory jumping based on frecency (frequency + recency).
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 zoxide query utils-scripts
@@ -14,7 +16,7 @@ In this repo template, zoxide is auto-initialized in zsh:
 eval "$(zoxide init zsh)"
 ```
 
-## Core commands
+## ✨ Core commands
 
 ```bash
 z <term>
@@ -28,9 +30,9 @@ zoxide query -i
 - `zi <term>`: interactive selection UI
 - `z -`: jump to previous directory
 
-## Practical workflows
+## ✨ Practical workflows
 
-### Flow 1: multi-repo switching
+### 🔹 Flow 1: multi-repo switching
 
 ```bash
 z utils-scripts
@@ -40,7 +42,7 @@ z my-cmds
 
 Reduces repeated long `cd` commands across active repos.
 
-### Flow 2: focused project recall
+### 🔹 Flow 2: focused project recall
 
 ```bash
 zoxide query utils
@@ -49,7 +51,7 @@ z utils
 
 Use `query` first when name collisions are possible.
 
-### Flow 3: interactive jump during incident
+### 🔹 Flow 3: interactive jump during incident
 
 ```bash
 zi
@@ -57,7 +59,7 @@ zi
 
 Pick from ranked recent directories when context is fragmented.
 
-## Combined shell productivity
+## ✨ Combined shell productivity
 
 ```bash
 z utils-scripts
@@ -67,16 +69,16 @@ nvim .
 
 Use zoxide + tmux templates for very fast startup loops.
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### command not found
+### 🔹 command not found
 
 ```bash
 command -v zoxide
 make verify
 ```
 
-### unexpected jump target
+### 🔹 unexpected jump target
 
 Use interactive mode to choose explicitly:
 

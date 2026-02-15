@@ -1,14 +1,16 @@
-# zellij Cheatsheet
+# 🧭 zellij Cheatsheet
 
-Terminal workspace manager with built-in panes, tabs, and session restore support.
+Friendly, terminal workspace manager with built-in panes, tabs, and session restore support.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 zellij
 ```
 
-## Core keys
+## ✨ Core keys
 
 Zellij uses `Ctrl-g` as the mode-prefix by default.
 
@@ -23,7 +25,7 @@ Ctrl-g t      new tab
 Ctrl-g w      close tab
 ```
 
-## Session workflows
+## ✨ Session workflows
 
 ```bash
 zellij attach -c main
@@ -31,9 +33,9 @@ zellij list-sessions
 zellij kill-session main
 ```
 
-## Practical workflows
+## ✨ Practical workflows
 
-### Flow 1: coding workspace
+### 🔹 Flow 1: coding workspace
 
 ```bash
 zellij
@@ -45,7 +47,7 @@ Suggested layout:
 - pane 2: `make verify`
 - pane 3: `lazygit`
 
-### Flow 2: incident triage workspace
+### 🔹 Flow 2: incident triage workspace
 
 ```bash
 zellij
@@ -56,7 +58,7 @@ Suggested tabs:
 - tab 2: `k9s`
 - tab 3: `doggo service.internal A`
 
-### Flow 3: reproducible named session
+### 🔹 Flow 3: reproducible named session
 
 ```bash
 zellij attach -c ops
@@ -64,22 +66,22 @@ zellij attach -c ops
 
 Reuse named sessions to keep context between restarts.
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### command not found
+### 🔹 command not found
 
 ```bash
 command -v zellij
 make verify
 ```
 
-### forgot keybindings
+### 🔹 forgot keybindings
 
 ```text
 Ctrl-g ?
 ```
 
-### reset a stuck layout
+### 🔹 reset a stuck layout
 
 Detach and reattach session:
 

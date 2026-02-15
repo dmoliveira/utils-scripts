@@ -1,8 +1,10 @@
-# gh Cheatsheet
+# 🧭 gh Cheatsheet
 
-High-leverage GitHub CLI workflows for PRs, reviews, and issue management.
+Friendly, high-leverage GitHub CLI workflows for PRs, reviews, and issue management.
 
-## Authentication and setup
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## ✨ Authentication and setup
 
 ```bash
 gh auth status
@@ -10,7 +12,7 @@ gh auth login
 gh repo view
 ```
 
-## Pull request workflows
+## ✨ Pull request workflows
 
 ```bash
 gh pr status
@@ -20,7 +22,7 @@ gh pr checks 123 --watch
 gh pr merge 123 --squash --delete-branch
 ```
 
-## Branch + PR flow (daily)
+## ✨ Branch + PR flow (daily)
 
 ```bash
 git checkout -b feature/foo
@@ -30,7 +32,7 @@ gh pr checks --watch
 gh pr merge --squash --delete-branch
 ```
 
-## Reviews and comments
+## ✨ Reviews and comments
 
 ```bash
 gh pr review 123 --approve
@@ -38,7 +40,7 @@ gh pr review 123 --request-changes --body "Please fix ..."
 gh pr comment 123 --body "Looks good after updates"
 ```
 
-## Issue workflows
+## ✨ Issue workflows
 
 ```bash
 gh issue list
@@ -47,7 +49,7 @@ gh issue create --title "..." --body "..."
 gh issue comment 42 --body "Update: fixed in PR #..."
 ```
 
-## Useful query patterns
+## ✨ Useful query patterns
 
 ```bash
 gh pr list --state open --author @me
@@ -55,42 +57,42 @@ gh pr list --search "is:open label:bug"
 gh issue list --label enhancement --state open
 ```
 
-## API access for advanced usage
+## ✨ API access for advanced usage
 
 ```bash
 gh api repos/dmoliveira/utils-scripts/pulls/1
 gh api repos/dmoliveira/utils-scripts/pulls/1/comments
 ```
 
-## Practical team flows
+## ✨ Practical team flows
 
-### Flow 1: fast PR landing
+### 🔹 Flow 1: fast PR landing
 
 1. `gh pr create --fill`
 2. `gh pr checks --watch`
 3. `gh pr merge --squash --delete-branch`
 
-### Flow 2: reviewer loop
+### 🔹 Flow 2: reviewer loop
 
 1. `gh pr list --search "review-requested:@me"`
 2. `gh pr view <id>`
 3. `gh pr review <id> --approve` (or request changes)
 
-### Flow 3: issue-to-PR traceability
+### 🔹 Flow 3: issue-to-PR traceability
 
 1. reference issue in commit/PR body (`closes #123`)
 2. comment on issue with PR link using `gh issue comment`
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### Not authenticated
+### 🔹 Not authenticated
 
 ```bash
 gh auth login
 gh auth status
 ```
 
-### Wrong repo context
+### 🔹 Wrong repo context
 
 ```bash
 gh repo view

@@ -1,14 +1,16 @@
-# bat Cheatsheet
+# 🧭 bat Cheatsheet
 
-Readable file viewing with syntax highlighting and git-aware output.
+Friendly, readable file viewing with syntax highlighting and git-aware output.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 bat README.md
 ```
 
-## Core commands
+## ✨ Core commands
 
 ```bash
 bat README.md
@@ -21,45 +23,45 @@ bat --paging=never README.md
 - `--style=plain` disables decorations
 - `--paging=never` prints directly to stdout
 
-## Practical workflows
+## ✨ Practical workflows
 
-### Flow 1: inspect config files quickly
+### 🔹 Flow 1: inspect config files quickly
 
 ```bash
 bat run_commands/my_tmux.conf
 bat run_commands/my_starship.toml
 ```
 
-### Flow 2: review scripts with line numbers
+### 🔹 Flow 2: review scripts with line numbers
 
 ```bash
 bat -n install_my_programs_unix
 bat -n verify_post_install_unix
 ```
 
-### Flow 3: combine with search tools
+### 🔹 Flow 3: combine with search tools
 
 ```bash
 rg -n "leader-pack" README.md | bat --language=log
 fd -e md docs/cheatsheets | xargs bat --paging=never
 ```
 
-## Git and diff-friendly usage
+## ✨ Git and diff-friendly usage
 
 ```bash
 git show --stat | bat --language=diff
 git diff | bat --language=diff
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### command not found
+### 🔹 command not found
 
 ```bash
 command -v bat
 make verify
 ```
 
-### no colors in output
+### 🔹 no colors in output
 
 Ensure terminal supports color and avoid forcing plain style.
