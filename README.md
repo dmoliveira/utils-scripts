@@ -267,7 +267,7 @@ Run the smoke test script after installation to validate your terminal stack:
 It checks:
 - required CLI tools (`zsh`, `tmux`, `nvim`, `fzf`, `zoxide`, `starship`, `direnv`, `atuin`)
 - monitoring tools (`btop` plus `btm` on macOS, `nvtop` on Linux with detected GPU)
-- advanced productivity tools (`lazygit`, `hyperfine`, `dua`, `dust`, `procs`, `xh`, `doggo`, `watchexec`, `kubectl`, `k9s`, `trivy`, `zellij`) as optional checks
+- advanced productivity tools (`lazygit`, `glow`, `hyperfine`, `dua`, `dust`, `procs`, `xh`, `doggo`, `watchexec`, `kubectl`, `k9s`, `trivy`, `zellij`) as optional checks
 - expected config files (`~/.zshrc`, `~/.tmux.conf`, `~/.config/nvim/init.lua`)
 - syntax/startup checks for Zsh, tmux, and Neovim
 - Ghostty config validation on macOS when installed
@@ -393,6 +393,7 @@ set -g @continuum-restore 'on'
 
 ### Productivity tools quick guide
 - `lazygit`: fast interactive Git UI; start with `lazygit`, stage with `space`, commit with `c`
+- `glow`: render Markdown beautifully in terminal; use `glow README.md` or `fd -e md docs | fzf --preview 'glow -p {}'`
 - `hyperfine`: benchmark commands reliably; use `hyperfine 'python script.py' 'uv run python script.py'`
 - `dua` and `dust`: inspect disk usage quickly; run `dua i` for interactive mode and `dust -d 3` for top folders
 - `procs`: modern process viewer; try `procs --sortd cpu` or `procs python`

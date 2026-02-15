@@ -105,6 +105,7 @@ fi
 
 echo "Installing advanced productivity CLI tools..."
 install_apt_first_available lazygit lazygit
+install_apt_first_available glow glow
 install_apt_first_available hyperfine hyperfine
 install_apt_first_available "dua-cli (dua)" dua-cli
 install_apt_first_available dust du-dust dust

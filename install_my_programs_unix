@@ -261,6 +261,7 @@ install_productivity_cli_stack() {
 
   if [[ "$OS" == "Darwin" ]]; then
     install_optional_brew_formula lazygit
+    install_optional_brew_formula glow
     install_optional_brew_formula hyperfine
     install_optional_brew_formula dua-cli "dua-cli (dua)"
     install_optional_brew_formula dust
@@ -276,6 +277,7 @@ install_productivity_cli_stack() {
   fi
 
   install_apt_first_available lazygit lazygit
+  install_apt_first_available glow glow
   install_apt_first_available hyperfine hyperfine
   install_apt_first_available "dua-cli (dua)" dua-cli
   install_apt_first_available dust du-dust dust

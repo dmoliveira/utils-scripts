@@ -80,6 +80,7 @@ install_monitoring_stack() {
 install_productivity_cli_stack() {
   echo "Installing advanced productivity CLI tools..."
   install_optional_brew_formula lazygit
+  install_optional_brew_formula glow
   install_optional_brew_formula hyperfine
   install_optional_brew_formula dua-cli "dua-cli (dua)"
   install_optional_brew_formula dust
@@ -113,7 +114,7 @@ run_cmd brew upgrade
 run_cmd brew install \
   wget htop btop tmux neovim curl git jq tree \
   fzf zoxide ripgrep bat fd gh \
-  direnv atuin \
+  direnv atuin glow \
   python uv
 
 install_monitoring_stack
