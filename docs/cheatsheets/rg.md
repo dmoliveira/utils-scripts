@@ -1,14 +1,16 @@
-# rg Cheatsheet
+# 🧭 rg Cheatsheet
 
-Fast code/content search with practical filters for large repositories.
+Friendly, fast code/content search with practical filters for large repositories.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 rg "TODO"
 ```
 
-## Core patterns
+## ✨ Core patterns
 
 ```bash
 rg "function\s+init"
@@ -18,7 +20,7 @@ rg "TODO" -g "*.md"
 rg "install_my_programs" -g "*.sh"
 ```
 
-## Useful flags
+## ✨ Useful flags
 
 ```text
 -n              show line numbers
@@ -38,34 +40,34 @@ rg -i "starship" run_commands
 rg --count "TODO" -g "*.md"
 ```
 
-## Practical workflows
+## ✨ Practical workflows
 
-### Flow 1: find config references quickly
+### 🔹 Flow 1: find config references quickly
 
 ```bash
 rg -n "tmux-research|tmux-delivery|tmux-incident"
 ```
 
-### Flow 2: locate legacy wording before cleanup
+### 🔹 Flow 2: locate legacy wording before cleanup
 
 ```bash
 rg -n "bd\b|beads" -g "*.md"
 ```
 
-### Flow 3: scoped docs update pass
+### 🔹 Flow 3: scoped docs update pass
 
 ```bash
 rg -n "cheatsheets" README.md TERMINAL_PLAYBOOK.md docs/cheatsheets
 ```
 
-## Regex workflows
+## ✨ Regex workflows
 
 ```bash
 rg -n "<leader>[a-z]{2}"
 rg -n "^## " docs/cheatsheets
 ```
 
-## Companion commands
+## ✨ Companion commands
 
 ```bash
 fd -e md
@@ -74,15 +76,15 @@ rg -n "pattern" -g "*.md"
 
 Use `fd` to narrow files, then `rg` for content.
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### Too many results
+### 🔹 Too many results
 
 - scope to directory/path
 - add `-g` glob filters
 - use more specific regex
 
-### Need hidden files
+### 🔹 Need hidden files
 
 ```bash
 rg --hidden --glob '!.git' "pattern"

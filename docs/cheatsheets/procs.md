@@ -1,14 +1,16 @@
-# procs Cheatsheet
+# 🧭 procs Cheatsheet
 
-Fast process inspection with readable defaults for development and incident response.
+Friendly, fast process inspection with readable defaults for development and incident response.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 procs
 ```
 
-## Core commands
+## ✨ Core commands
 
 ```bash
 procs --sortd cpu
@@ -18,7 +20,7 @@ procs --tree
 procs --watch 2
 ```
 
-## Most useful filters
+## ✨ Most useful filters
 
 ```bash
 procs nvim
@@ -28,9 +30,9 @@ procs docker
 
 Use command-name filters to quickly isolate suspicious workloads.
 
-## Practical incident workflows
+## ✨ Practical incident workflows
 
-### Flow 1: CPU spike triage
+### 🔹 Flow 1: CPU spike triage
 
 ```bash
 procs --sortd cpu
@@ -41,7 +43,7 @@ btop
 2. identify top processes
 3. cross-check with `btop` before killing anything
 
-### Flow 2: memory leak suspicion
+### 🔹 Flow 2: memory leak suspicion
 
 ```bash
 procs --sortd mem
@@ -50,7 +52,7 @@ procs --watch 2
 
 Watch process memory growth over time; confirm trend before taking action.
 
-### Flow 3: language-specific job cleanup
+### 🔹 Flow 3: language-specific job cleanup
 
 ```bash
 procs python
@@ -59,7 +61,7 @@ procs node
 
 Quickly find stale training/inference scripts or dev servers.
 
-## Combined engineering loop
+## ✨ Combined engineering loop
 
 ```bash
 tmux-incident
@@ -68,21 +70,21 @@ kubectl get pods -A
 doggo your-service.internal A
 ```
 
-## Safety notes
+## ✨ Safety notes
 
 - Prefer verifying process identity and parent process before kill actions.
 - Use graceful shutdown first when possible.
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### `procs` not found
+### 🔹 `procs` not found
 
 ```bash
 command -v procs
 make verify
 ```
 
-### Need POSIX fallback
+### 🔹 Need POSIX fallback
 
 ```bash
 ps aux | sort -rk 3,3 | head

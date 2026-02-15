@@ -1,14 +1,16 @@
-# jq Cheatsheet
+# 🧭 jq Cheatsheet
 
-High-value JSON filtering and transformation patterns for daily engineering work.
+Friendly, high-value JSON filtering and transformation patterns for daily engineering work.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 echo '{"ok":true,"items":[1,2,3]}' | jq
 ```
 
-## Core selectors
+## ✨ Core selectors
 
 ```bash
 jq '.status'
@@ -18,7 +20,7 @@ jq '.data.name'
 jq '.[0].id'
 ```
 
-## Common filters
+## ✨ Common filters
 
 ```bash
 jq '.items | length'
@@ -29,41 +31,41 @@ jq -r '.items[].name'
 
 `-r` prints raw strings (without JSON quotes), useful in shell pipelines.
 
-## API + jq workflow
+## ✨ API + jq workflow
 
 ```bash
 xh GET https://api.github.com/repos/dmoliveira/utils-scripts | jq '{name, stargazers_count, default_branch}'
 ```
 
-## Practical transformations
+## ✨ Practical transformations
 
-### Flow 1: extract IDs
+### 🔹 Flow 1: extract IDs
 
 ```bash
 jq -r '.items[].id' response.json
 ```
 
-### Flow 2: filter by condition
+### 🔹 Flow 2: filter by condition
 
 ```bash
 jq '.items[] | select(.severity == "high")' report.json
 ```
 
-### Flow 3: aggregate counts
+### 🔹 Flow 3: aggregate counts
 
 ```bash
 jq '[.items[] | select(.state == "open")] | length' issues.json
 ```
 
-## Build JSON payloads safely
+## ✨ Build JSON payloads safely
 
 ```bash
 jq -n --arg name "widget" --argjson qty 3 '{name: $name, qty: $qty}'
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### Invalid JSON input
+### 🔹 Invalid JSON input
 
 Validate first:
 
@@ -71,7 +73,7 @@ Validate first:
 jq . data.json
 ```
 
-### Missing key errors
+### 🔹 Missing key errors
 
 Use optional operator:
 

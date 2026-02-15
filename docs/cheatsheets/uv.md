@@ -1,14 +1,16 @@
-# uv Cheatsheet
+# 🧭 uv Cheatsheet
 
-Fast Python environment and package workflows with `uv`.
+Friendly, fast Python environment and package workflows with `uv`.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 uv --version
 ```
 
-## Core environment commands
+## ✨ Core environment commands
 
 ```bash
 uv venv
@@ -18,7 +20,7 @@ source .venv/bin/activate
 
 Use explicit env paths when managing multiple projects.
 
-## Package management
+## ✨ Package management
 
 ```bash
 uv pip install -r requirements.txt
@@ -27,7 +29,7 @@ uv pip freeze
 uv pip uninstall <package>
 ```
 
-## Run commands without activating env
+## ✨ Run commands without activating env
 
 ```bash
 uv run python script.py
@@ -37,9 +39,9 @@ uv run ruff check .
 
 Great for CI-like reproducible local runs.
 
-## Tooling workflows
+## ✨ Tooling workflows
 
-### Flow 1: quick project bootstrap
+### 🔹 Flow 1: quick project bootstrap
 
 ```bash
 uv venv .venv
@@ -47,7 +49,7 @@ uv pip install -r requirements.txt
 uv run pytest -q
 ```
 
-### Flow 2: lint + test loop
+### 🔹 Flow 2: lint + test loop
 
 ```bash
 uv run ruff check .
@@ -55,28 +57,28 @@ uv run ruff format .
 uv run pytest -q
 ```
 
-### Flow 3: one-off script execution
+### 🔹 Flow 3: one-off script execution
 
 ```bash
 uv run python scripts/sync_data.py
 ```
 
-## Requirements maintenance
+## ✨ Requirements maintenance
 
 ```bash
 uv pip install -r requirements.txt
 uv pip freeze > requirements.lock.txt
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### command not found
+### 🔹 command not found
 
 ```bash
 command -v uv
 make verify
 ```
 
-### wrong interpreter/environment
+### 🔹 wrong interpreter/environment
 
 Check active environment and run with `uv run` for deterministic behavior.

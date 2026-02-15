@@ -1,14 +1,16 @@
-# dust Cheatsheet
+# 🧭 dust Cheatsheet
 
-Quick disk-usage summaries for fast cleanup decisions.
+Friendly, quick disk-usage summaries for fast cleanup decisions.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 dust
 ```
 
-## Core commands
+## ✨ Core commands
 
 ```bash
 dust -d 2
@@ -20,9 +22,9 @@ dust .
 - `-d` controls directory depth.
 - lower depth gives faster high-level overview.
 
-## Practical workflows
+## ✨ Practical workflows
 
-### Flow 1: fast repo size check
+### 🔹 Flow 1: fast repo size check
 
 ```bash
 dust -d 2 .
@@ -30,7 +32,7 @@ dust -d 2 .
 
 Spot large directories like `node_modules`, artifacts, datasets, and caches.
 
-### Flow 2: home cleanup pass
+### 🔹 Flow 2: home cleanup pass
 
 ```bash
 dust -d 3 ~
@@ -38,7 +40,7 @@ dust -d 3 ~
 
 Identify heavy folders in `Downloads`, old project caches, and virtualenvs.
 
-### Flow 3: before/after cleanup
+### 🔹 Flow 3: before/after cleanup
 
 ```bash
 dust -d 3 .
@@ -46,7 +48,7 @@ dust -d 3 .
 dust -d 3 .
 ```
 
-## Companion tools
+## ✨ Companion tools
 
 ```bash
 dua i
@@ -55,16 +57,16 @@ du -sh *
 
 Use `dust` first for quick summary, then `dua i` for interactive deep drill.
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### command not found
+### 🔹 command not found
 
 ```bash
 command -v dust
 make verify
 ```
 
-### need more detailed breakdown
+### 🔹 need more detailed breakdown
 
 Increase depth:
 

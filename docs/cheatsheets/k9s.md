@@ -1,14 +1,16 @@
-# k9s Cheatsheet
+# 🧭 k9s Cheatsheet
 
-Interactive Kubernetes triage with fast keyboard workflows.
+Friendly, interactive Kubernetes triage with fast keyboard workflows.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 k9s
 ```
 
-## Core navigation keys
+## ✨ Core navigation keys
 
 ```text
 ?            show key help
@@ -21,7 +23,7 @@ q            quit / back
 Ctrl-a       show all namespaces
 ```
 
-## Most useful actions
+## ✨ Most useful actions
 
 ```text
 l            view logs for selected resource
@@ -32,7 +34,7 @@ Shift-f      port-forward selected service/pod
 Ctrl-d       delete selected resource (dangerous)
 ```
 
-## Safe triage workflow
+## ✨ Safe triage workflow
 
 1. confirm context/namespace at top bar
 2. open `:pods`
@@ -40,9 +42,9 @@ Ctrl-d       delete selected resource (dangerous)
 4. inspect logs (`l`) and describe (`d`)
 5. switch to `:deploy` for rollout status
 
-## Incident workflows
+## ✨ Incident workflows
 
-### Flow 1: crashloop diagnosis
+### 🔹 Flow 1: crashloop diagnosis
 
 ```text
 :pods -> /<app-name> -> select pod -> l -> d
@@ -55,7 +57,7 @@ kubectl logs <pod> -n <ns> --previous
 kubectl describe pod <pod> -n <ns>
 ```
 
-### Flow 2: rollout verification
+### 🔹 Flow 2: rollout verification
 
 ```text
 :deploy -> /<service> -> select deploy -> d
@@ -67,7 +69,7 @@ Then:
 kubectl rollout status deploy/<name> -n <ns>
 ```
 
-### Flow 3: service exposure check
+### 🔹 Flow 3: service exposure check
 
 ```text
 :svc -> /<service>
@@ -75,7 +77,7 @@ kubectl rollout status deploy/<name> -n <ns>
 
 Use port-forward action (`Shift-f`) for local health checks.
 
-## Companion commands
+## ✨ Companion commands
 
 ```bash
 kubectl config current-context
@@ -83,9 +85,9 @@ kubectl get pods -A
 doggo service.internal A
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### Wrong cluster/context
+### 🔹 Wrong cluster/context
 
 Exit and switch context first:
 
@@ -94,6 +96,6 @@ kubectl config use-context <context>
 k9s
 ```
 
-### Missing permissions
+### 🔹 Missing permissions
 
 RBAC restrictions will show forbidden errors in views/actions; verify role bindings before retrying.

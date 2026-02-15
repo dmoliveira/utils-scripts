@@ -1,14 +1,16 @@
-# doggo Cheatsheet
+# 🧭 doggo Cheatsheet
 
-Fast DNS debugging for development, incidents, and network sanity checks.
+Friendly, fast DNS debugging for development, incidents, and network sanity checks.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 doggo github.com A
 ```
 
-## Core query patterns
+## ✨ Core query patterns
 
 ```bash
 doggo openai.com A
@@ -18,7 +20,7 @@ doggo example.com TXT
 doggo your-service.internal CNAME
 ```
 
-## Query specific resolver
+## ✨ Query specific resolver
 
 ```bash
 doggo openai.com A @1.1.1.1
@@ -27,9 +29,9 @@ doggo openai.com A @8.8.8.8
 
 Use this to compare resolver behavior when local DNS seems inconsistent.
 
-## Incident workflow
+## ✨ Incident workflow
 
-### Flow 1: service unreachable check
+### 🔹 Flow 1: service unreachable check
 
 ```bash
 doggo api.yourdomain.com A
@@ -39,7 +41,7 @@ doggo api.yourdomain.com CNAME
 
 Confirm records exist and match expected targets.
 
-### Flow 2: mail delivery diagnosis
+### 🔹 Flow 2: mail delivery diagnosis
 
 ```bash
 doggo yourdomain.com MX
@@ -47,14 +49,14 @@ doggo selector._domainkey.yourdomain.com TXT
 doggo _dmarc.yourdomain.com TXT
 ```
 
-### Flow 3: compare split-horizon DNS
+### 🔹 Flow 3: compare split-horizon DNS
 
 ```bash
 doggo service.internal A @10.0.0.2
 doggo service.internal A @1.1.1.1
 ```
 
-## Useful companion checks
+## ✨ Useful companion checks
 
 ```bash
 xh GET https://api.yourdomain.com/health
@@ -63,16 +65,16 @@ kubectl get svc -A
 
 Use DNS answers plus API/service health for faster root-cause isolation.
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### `doggo` not found
+### 🔹 `doggo` not found
 
 ```bash
 command -v doggo
 make verify
 ```
 
-### fallback command
+### 🔹 fallback command
 
 ```bash
 nslookup github.com

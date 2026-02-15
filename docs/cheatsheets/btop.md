@@ -1,14 +1,16 @@
-# btop Cheatsheet
+# 🧭 btop Cheatsheet
 
-High-value `btop` commands and workflows for day-to-day engineering monitoring.
+Friendly, high-value `btop` commands and workflows for day-to-day engineering monitoring.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 btop
 ```
 
-## Core keys
+## ✨ Core keys
 
 ```text
 Esc / q      quit
@@ -22,7 +24,7 @@ n            toggle network panel
 d            toggle disk panel
 ```
 
-## Fast process triage
+## ✨ Fast process triage
 
 1. Open `btop`
 2. Focus process panel
@@ -30,9 +32,9 @@ d            toggle disk panel
 4. Press `f` and filter by process name (e.g. `python`, `node`, `nvim`)
 5. Use `k` only when you are sure about the target process
 
-## Engineering workflows
+## ✨ Engineering workflows
 
-### Flow 1: slow test/build investigation
+### 🔹 Flow 1: slow test/build investigation
 
 ```bash
 make verify
@@ -41,7 +43,7 @@ btop
 
 Watch CPU saturation, memory spikes, and process fan-out while checks run.
 
-### Flow 2: model training sanity check
+### 🔹 Flow 2: model training sanity check
 
 ```bash
 python train.py
@@ -50,7 +52,7 @@ btop
 
 Use process + memory panels to verify expected resource behavior and detect runaway jobs.
 
-### Flow 3: incident response companion
+### 🔹 Flow 3: incident response companion
 
 ```bash
 tmux-incident
@@ -59,7 +61,7 @@ btop
 
 Combine with `procs --sortd cpu` and `k9s` for system + cluster triage.
 
-## Useful companion commands
+## ✨ Useful companion commands
 
 ```bash
 procs --sortd cpu
@@ -67,9 +69,9 @@ procs python
 dust -d 3
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### `btop` not found
+### 🔹 `btop` not found
 
 Run installer or verify path:
 
@@ -78,7 +80,7 @@ command -v btop
 make verify
 ```
 
-### Need lightweight fallback
+### 🔹 Need lightweight fallback
 
 ```bash
 htop

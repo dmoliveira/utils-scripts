@@ -1,8 +1,10 @@
-# Ghostty Cheatsheet
+# 🧭 Ghostty Cheatsheet
 
-Fast configuration, validation, and workflow tips for Ghostty on macOS.
+Friendly, fast configuration, validation, and workflow tips for Ghostty on macOS.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 ghostty --version
@@ -14,20 +16,20 @@ If `ghostty` is not on `PATH`, use:
 /Applications/Ghostty.app/Contents/MacOS/ghostty --version
 ```
 
-## Core config paths
+## ✨ Core config paths
 
 ```text
 ~/.config/ghostty/config
 run_commands/my_ghostty_config
 ```
 
-## Validate config before reload
+## ✨ Validate config before reload
 
 ```bash
 /Applications/Ghostty.app/Contents/MacOS/ghostty +validate-config --config-file "$HOME/.config/ghostty/config"
 ```
 
-## Fast edit workflow
+## ✨ Fast edit workflow
 
 This repo template provides:
 
@@ -37,7 +39,7 @@ ghostty-reload
 
 It validates config then opens it in `$EDITOR`.
 
-## Practical tuning examples
+## 🎛 Friendly tuning examples
 
 ```conf
 font-family = CaskaydiaCove Nerd Font
@@ -45,16 +47,16 @@ font-size = 12.5
 theme = Tokyo Night
 ```
 
-## Apply template from repo
+## ✨ Apply template from repo
 
 ```bash
 mkdir -p ~/.config/ghostty
 cp ./run_commands/my_ghostty_config ~/.config/ghostty/config
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### `ghostty: command not found`
+### 🔹 `ghostty: command not found`
 
 Create symlink:
 
@@ -63,12 +65,12 @@ mkdir -p ~/.local/bin
 ln -sf "/Applications/Ghostty.app/Contents/MacOS/ghostty" ~/.local/bin/ghostty
 ```
 
-### config changes not visible
+### 🔹 config changes not visible
 
 - run `ghostty-reload`
 - open a new Ghostty tab/window if needed
 
-### font name not recognized
+### 🔹 font name not recognized
 
 - use installed Nerd Font family name exactly
 - validate with `+validate-config` before reopening
