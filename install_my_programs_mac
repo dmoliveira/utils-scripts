@@ -5,6 +5,7 @@ timestamp=$(date +"%Y%m%d%H%M%S")
 ARCH=$(uname -m)
 DRY_RUN=false
 BEADS_INSTALL_REF="dd01a655b9602ba20d0c666515467e064a815609"
+BR_INSTALL_FAILED=false
 
 usage() {
   cat <<'EOF'
@@ -115,11 +116,13 @@ install_br_tracker() {
   install_script="$(mktemp)"
   if ! curl -fsSL "$install_url" -o "$install_script"; then
     echo "⚠️ Failed to download br installer from pinned source. Continuing setup." >&2
+    BR_INSTALL_FAILED=true
     rm -f "$install_script"
     return
   fi
   if ! bash "$install_script"; then
     echo "⚠️ br installer failed. Continuing setup." >&2
+    BR_INSTALL_FAILED=true
     rm -f "$install_script"
     return
   fi
@@ -127,6 +130,14 @@ install_br_tracker() {
 }
 
 parse_args "$@"
+
+if ! command -v brew &>/dev/null; then
+  if [[ -x "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+fi
 
 # 🧩 Install Homebrew if not already installed
 if ! command -v brew &>/dev/null; then
@@ -174,8 +185,10 @@ fi
 
 # 🧠 AI/ML environment (optional)
 run_cmd brew install \
-  cmake openblas lapack gfortran \
+  cmake openblas lapack \
   protobuf rust
+
+install_optional_brew_formula gcc
 
 # 🐚 Zsh terminal enhancements
 run_cmd brew install starship zsh zsh-autosuggestions zsh-syntax-highlighting
@@ -216,3 +229,6 @@ run_cmd brew install luarocks
 echo "✅ Setup complete! Recommended next steps:"
 echo "- Run: 'chsh -s $(which zsh)' to make Zsh your default shell"
 echo "- Run: 'eval \"\$(starship init zsh)\"' to enable Starship prompt"
+if [[ "$BR_INSTALL_FAILED" == "true" ]]; then
+  echo "⚠️ Setup completed with warnings: br could not be installed automatically."
+fi
