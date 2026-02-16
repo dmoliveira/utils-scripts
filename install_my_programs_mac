@@ -4,6 +4,8 @@ set -euo pipefail
 timestamp=$(date +"%Y%m%d%H%M%S")
 ARCH=$(uname -m)
 DRY_RUN=false
+BEADS_INSTALL_REF="dd01a655b9602ba20d0c666515467e064a815609"
+BR_INSTALL_FAILED=false
 
 usage() {
   cat <<'EOF'
@@ -93,16 +95,71 @@ install_productivity_cli_stack() {
   install_optional_brew_formula zellij
 }
 
+install_br_tracker() {
+  echo "📿 Installing Beads tracker (br)..."
+  if command -v br &>/dev/null; then
+    echo "✅ br already installed. Skipping."
+    return
+  fi
+  if command -v bd &>/dev/null; then
+    echo "ℹ️ Found legacy bd command. Installing br alongside it."
+  fi
+
+  local install_url="https://raw.githubusercontent.com/steveyegge/beads/${BEADS_INSTALL_REF}/scripts/install.sh"
+
+  if [[ "$DRY_RUN" == "true" ]]; then
+    printf "[dry-run] %s\n" "curl -fsSL ${install_url} -o /tmp/beads-install.sh && bash /tmp/beads-install.sh"
+    return
+  fi
+
+  local install_script
+  install_script="$(mktemp)"
+  if ! curl -fsSL "$install_url" -o "$install_script"; then
+    echo "⚠️ Failed to download br installer from pinned source. Continuing setup." >&2
+    BR_INSTALL_FAILED=true
+    rm -f "$install_script"
+    return
+  fi
+  if ! bash "$install_script"; then
+    echo "⚠️ br installer failed. Continuing setup." >&2
+    BR_INSTALL_FAILED=true
+    rm -f "$install_script"
+    return
+  fi
+  rm -f "$install_script"
+}
+
 parse_args "$@"
+
+if ! command -v brew &>/dev/null; then
+  if [[ -x "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+fi
 
 # 🧩 Install Homebrew if not already installed
 if ! command -v brew &>/dev/null; then
   echo "Installing Homebrew..."
   if [[ "$DRY_RUN" == "true" ]]; then
-    printf '[dry-run] /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"\n'
+    printf "[dry-run] /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n"
   else
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
+fi
+
+if [[ "$DRY_RUN" != "true" ]] && ! command -v brew &>/dev/null; then
+  if [[ -x "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+fi
+
+if [[ "$DRY_RUN" != "true" ]] && ! command -v brew &>/dev/null; then
+  echo "❌ Homebrew is not available on PATH after install. Reopen your shell and retry." >&2
+  exit 1
 fi
 
 echo "Updating Homebrew..."
@@ -118,15 +175,20 @@ run_cmd brew install \
 
 install_monitoring_stack
 install_productivity_cli_stack
+install_br_tracker
 
-if ! brew list --cask ghostty &>/dev/null; then
+if [[ "$DRY_RUN" == "true" ]]; then
+  run_cmd brew install --cask ghostty
+elif ! brew list --cask ghostty &>/dev/null; then
   run_cmd brew install --cask ghostty
 fi
 
 # 🧠 AI/ML environment (optional)
 run_cmd brew install \
-  cmake openblas lapack gfortran \
+  cmake openblas lapack \
   protobuf rust
+
+install_optional_brew_formula gcc
 
 # 🐚 Zsh terminal enhancements
 run_cmd brew install starship zsh zsh-autosuggestions zsh-syntax-highlighting
@@ -167,3 +229,6 @@ run_cmd brew install luarocks
 echo "✅ Setup complete! Recommended next steps:"
 echo "- Run: 'chsh -s $(which zsh)' to make Zsh your default shell"
 echo "- Run: 'eval \"\$(starship init zsh)\"' to enable Starship prompt"
+if [[ "$BR_INSTALL_FAILED" == "true" ]]; then
+  echo "⚠️ Setup completed with warnings: br could not be installed automatically."
+fi
