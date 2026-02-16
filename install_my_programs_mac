@@ -93,6 +93,24 @@ install_productivity_cli_stack() {
   install_optional_brew_formula zellij
 }
 
+install_br_tracker() {
+  echo "📿 Installing Beads tracker (br)..."
+  if command -v br &>/dev/null; then
+    echo "✅ br already installed. Skipping."
+    return
+  fi
+  if command -v bd &>/dev/null; then
+    echo "ℹ️ Found legacy bd command. Installing br alongside it."
+  fi
+
+  if [[ "$DRY_RUN" == "true" ]]; then
+    printf '[dry-run] %s\n' "curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash"
+    return
+  fi
+
+  curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+}
+
 parse_args "$@"
 
 # 🧩 Install Homebrew if not already installed
@@ -118,6 +136,7 @@ run_cmd brew install \
 
 install_monitoring_stack
 install_productivity_cli_stack
+install_br_tracker
 
 if ! brew list --cask ghostty &>/dev/null; then
   run_cmd brew install --cask ghostty
