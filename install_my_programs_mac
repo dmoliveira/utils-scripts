@@ -4,6 +4,7 @@ set -euo pipefail
 timestamp=$(date +"%Y%m%d%H%M%S")
 ARCH=$(uname -m)
 DRY_RUN=false
+BEADS_INSTALL_REF="dd01a655b9602ba20d0c666515467e064a815609"
 
 usage() {
   cat <<'EOF'
@@ -103,12 +104,18 @@ install_br_tracker() {
     echo "ℹ️ Found legacy bd command. Installing br alongside it."
   fi
 
+  local install_url="https://raw.githubusercontent.com/steveyegge/beads/${BEADS_INSTALL_REF}/scripts/install.sh"
+
   if [[ "$DRY_RUN" == "true" ]]; then
-    printf '[dry-run] %s\n' "curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash"
+    printf '[dry-run] %s\n' "curl -fsSL ${install_url} -o /tmp/beads-install.sh && bash /tmp/beads-install.sh"
     return
   fi
 
-  curl -fsSL https://raw.githubusercontent.com/steveyegge/beads/main/scripts/install.sh | bash
+  local install_script
+  install_script="$(mktemp)"
+  curl -fsSL "$install_url" -o "$install_script"
+  bash "$install_script"
+  rm -f "$install_script"
 }
 
 parse_args "$@"
@@ -121,6 +128,19 @@ if ! command -v brew &>/dev/null; then
   else
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
+fi
+
+if [[ "$DRY_RUN" != "true" ]] && ! command -v brew &>/dev/null; then
+  if [[ -x "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+fi
+
+if [[ "$DRY_RUN" != "true" ]] && ! command -v brew &>/dev/null; then
+  echo "❌ Homebrew is not available on PATH after install. Reopen your shell and retry." >&2
+  exit 1
 fi
 
 echo "Updating Homebrew..."
@@ -138,7 +158,9 @@ install_monitoring_stack
 install_productivity_cli_stack
 install_br_tracker
 
-if ! brew list --cask ghostty &>/dev/null; then
+if [[ "$DRY_RUN" == "true" ]]; then
+  run_cmd brew install --cask ghostty
+elif ! brew list --cask ghostty &>/dev/null; then
   run_cmd brew install --cask ghostty
 fi
 
