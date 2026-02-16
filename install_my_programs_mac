@@ -107,14 +107,22 @@ install_br_tracker() {
   local install_url="https://raw.githubusercontent.com/steveyegge/beads/${BEADS_INSTALL_REF}/scripts/install.sh"
 
   if [[ "$DRY_RUN" == "true" ]]; then
-    printf '[dry-run] %s\n' "curl -fsSL ${install_url} -o /tmp/beads-install.sh && bash /tmp/beads-install.sh"
+    printf "[dry-run] %s\n" "curl -fsSL ${install_url} -o /tmp/beads-install.sh && bash /tmp/beads-install.sh"
     return
   fi
 
   local install_script
   install_script="$(mktemp)"
-  curl -fsSL "$install_url" -o "$install_script"
-  bash "$install_script"
+  if ! curl -fsSL "$install_url" -o "$install_script"; then
+    echo "⚠️ Failed to download br installer from pinned source. Continuing setup." >&2
+    rm -f "$install_script"
+    return
+  fi
+  if ! bash "$install_script"; then
+    echo "⚠️ br installer failed. Continuing setup." >&2
+    rm -f "$install_script"
+    return
+  fi
   rm -f "$install_script"
 }
 
@@ -124,7 +132,7 @@ parse_args "$@"
 if ! command -v brew &>/dev/null; then
   echo "Installing Homebrew..."
   if [[ "$DRY_RUN" == "true" ]]; then
-    printf '[dry-run] /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"\n'
+    printf "[dry-run] /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\"\n"
   else
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   fi
