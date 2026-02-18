@@ -1,0 +1,24 @@
+# Team-ready direnv template (copy to .envrc and run: direnv allow)
+
+# Local scripts first
+PATH_add ./bin
+
+# Python virtualenv (existing)
+if [ -f .venv/bin/activate ]; then
+  source .venv/bin/activate
+fi
+
+# Alternative (commented): have direnv manage .venv automatically
+# layout python3
+
+# Non-secret defaults
+export APP_ENV=dev
+export LOG_LEVEL=info
+
+# Repo-local non-secret env files (gitignored)
+dotenv_if_exists .env
+dotenv_if_exists .env.local
+
+# Machine-local secret reference file (outside repo)
+# chmod 600 ~/.config/secrets/my-project.env
+source_env_if_exists ~/.config/secrets/my-project.env

@@ -2,116 +2,89 @@
 
 Safe, repeatable per-project environment loading for shell workflows.
 
-## Start
-
-```bash
-direnv version
-direnv status
-```
-
 ## Core workflow
 
-1. create `.envrc` in project root
-2. add only project-specific exports
-3. run `direnv allow`
-4. verify vars load when entering directory
+1. Create `.envrc` in project root.
+2. Keep `.envrc` non-secret and deterministic.
+3. Run `direnv allow`.
+4. Re-run `direnv allow` every time `.envrc` changes.
 
-Example:
-
-```bash
-cat > .envrc <<'EOF'
-export APP_ENV=dev
-export PYTHONPATH=$PWD
-EOF
-
-direnv allow
-```
-
-## Useful commands
+## Top commands
 
 ```bash
 direnv allow
 direnv deny
 direnv reload
 direnv status
+direnv exec . env | rg APP_ENV
 ```
 
-## Python/venv patterns
-
-```bash
-echo 'layout python3' >> .envrc
-direnv allow
-```
-
-For existing virtualenv:
-
-```bash
-echo 'source .venv/bin/activate' >> .envrc
-direnv allow
-```
-
-## Secrets hygiene pattern
-
-Keep secrets outside repo and source them from a safe path:
-
-```bash
-echo 'source_env "$HOME/.config/secrets/shell.env"' >> .envrc
-direnv allow
-```
-
-Use with repo convention:
-
-```bash
-chmod 600 ~/.config/secrets/shell.env
-```
-
-## Practical workflows
-
-### Flow 1: project bootstrap
+## Team-ready template flow
 
 ```bash
 cp .envrc.example .envrc
+cp .env.local.example .env.local
 direnv allow
-make verify
 ```
 
-### Flow 2: fast context switching
+## Recommended `.envrc` pattern
 
 ```bash
-z project-a
-z project-b
+PATH_add ./bin
+
+if [ -f .venv/bin/activate ]; then
+  source .venv/bin/activate
+fi
+
+export APP_ENV=dev
+export LOG_LEVEL=info
+
+dotenv_if_exists .env
+dotenv_if_exists .env.local
+
+source_env_if_exists ~/.config/secrets/my-project.env
 ```
 
-`direnv` auto-loads each project environment on directory change.
+## Security reference file
 
-### Flow 3: temporary debug flags
+Use a machine-local file outside the repo for secrets:
 
 ```bash
-echo 'export DEBUG=true' >> .envrc
-direnv reload
+~/.config/secrets/my-project.env
+chmod 600 ~/.config/secrets/my-project.env
 ```
 
-Remove the line after debugging and reload again.
+Example:
+
+```bash
+export OPENAI_API_KEY=...
+export DATABASE_URL=...
+```
+
+## Can direnv be always allowed?
+
+Possible, but not recommended. Default `direnv allow` checks protect you from malicious `.envrc` files.
+
+Safer productivity helpers from this template:
+
+```bash
+da        # direnv allow .
+ddeny     # direnv deny .
+dstatus   # direnv status
+```
 
 ## Troubleshooting
+
+### Blocked `.envrc`
+
+```bash
+direnv allow
+```
 
 ### Changes not applied
 
 ```bash
 direnv reload
 direnv status
-```
-
-### "blocked" .envrc
-
-```bash
-direnv allow
-```
-
-### verify shell hook loaded
-
-This repo template includes:
-
-```zsh
-eval "$(direnv hook zsh)"
+exec zsh
 ```

@@ -3,3 +3,9 @@ run_commands/tmux/
 .DS_Store
 **/.nvimlog
 .beads/
+
+# direnv and local env files
+.direnv/
+.env
+.env.local
+.env.*.local

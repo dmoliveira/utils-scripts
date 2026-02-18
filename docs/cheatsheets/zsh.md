@@ -62,6 +62,14 @@ px      # procs
 tfscan  # trivy fs .
 ```
 
+Useful direnv helper functions in template:
+
+```bash
+da       # direnv allow .
+ddeny    # direnv deny .
+dstatus  # direnv status
+```
+
 Template function behavior:
 
 ```bash

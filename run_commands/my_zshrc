@@ -231,6 +231,18 @@ alias k='kubectl'
 alias kga='kubectl get all -A'
 alias tfscan='trivy fs .'
 
+da() {
+  direnv allow "${1:-.}"
+}
+
+ddeny() {
+  direnv deny "${1:-.}"
+}
+
+dstatus() {
+  direnv status
+}
+
 ngrok() {
   if [[ -n "${TMUX-}" ]]; then
     TERM=xterm-256color command ngrok "$@"
