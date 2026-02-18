@@ -218,6 +218,8 @@ bindkey '^I' menu-complete
 alias ll='ls -lah --color=auto'
 alias gs='git status'
 alias gl='git log --oneline --graph --decorate'
+alias gd='git -c core.pager=delta diff'
+alias gshow='git -c core.pager=delta show'
 alias tm='tmux new -A -s main'
 alias vim='nvim'  # comment out if not using neovim
 alias lg='lazygit'
@@ -241,6 +243,45 @@ ddeny() {
 
 dstatus() {
   direnv status
+}
+
+mdview() {
+  local file="${1:-README.md}"
+
+  if ! command -v glow >/dev/null 2>&1; then
+    echo "glow not installed"
+    return 1
+  fi
+
+  glow "$file"
+}
+
+mdfind() {
+  local scope="${1:-docs}"
+
+  if ! command -v fd >/dev/null 2>&1 || ! command -v fzf >/dev/null 2>&1 || ! command -v glow >/dev/null 2>&1; then
+    echo "requires fd, fzf, and glow"
+    return 1
+  fi
+
+  fd -e md . "$scope" | fzf --preview 'glow -p {}' --preview-window=right:70%
+}
+
+mdnext() {
+  local chosen
+  chosen="$(mdfind "${1:-docs}")" || return 1
+
+  if [[ -n "$chosen" ]]; then
+    mdview "$chosen"
+  fi
+}
+
+git-delta-help() {
+  cat <<'EOF'
+Use delta ad-hoc without global git config:
+  git -c core.pager=delta diff
+  git -c core.pager=delta show
+EOF
 }
 
 ngrok() {

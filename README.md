@@ -1,4 +1,4 @@
-# 🧰 utils-scripts  
+# 🧰 utils-scripts
 
 > Personal collection of setup scripts for building a high-performance AI/ML developer environment — terminal, shell, editor, and Python stack — optimised for Unix/Debian and macOS.
 >
@@ -10,33 +10,33 @@
 
 ---
 
-## 🧭 Table of Contents  
-1. [Motivation](#motivation)  
-2. [What’s Included](#whats-included)  
-3. [Supported Platforms](#supported-platforms)  
-4. [Installation](#installation)  
-5. [Usage](#usage)  
-6. [Terminal Playbook](#terminal-playbook)  
+## 🧭 Table of Contents
+1. [Motivation](#motivation)
+2. [What’s Included](#whats-included)
+3. [Supported Platforms](#supported-platforms)
+4. [Installation](#installation)
+5. [Usage](#usage)
+6. [Terminal Playbook](#terminal-playbook)
 7. [Tool Cheatsheets](#tool-cheatsheets)
-8. [Post-Install Verification](#post-install-verification)  
-9. [Configuration & Customisation](#configuration--customisation)  
-10. [Troubleshooting](#troubleshooting)  
-11. [Releases](#releases)  
-12. [Contributing](#contributing)  
-13. [Support](#support)  
-14. [License](#license)  
+8. [Post-Install Verification](#post-install-verification)
+9. [Configuration & Customisation](#configuration--customisation)
+10. [Troubleshooting](#troubleshooting)
+11. [Releases](#releases)
+12. [Contributing](#contributing)
+13. [Support](#support)
+14. [License](#license)
 
 ---
 
-## 💡 Motivation  
-As a Senior Engineering Manager and Principal in AI/ML, I often rebuild new environments for experiments, demos, or teaching.  
+## 💡 Motivation
+As a Senior Engineering Manager and Principal in AI/ML, I often rebuild new environments for experiments, demos, or teaching.
 This repo standardises and automates my setup for:
 
-- ⚙️ Configuring a **modern shell** (`zsh`, `starship`, `tmux`)  
-- 🧑‍💻 Installing a **Python + ML toolchain** with key libraries  
-- 🪄 Setting up **Neovim** for fast and extensible Python development  
-- 💻 Supporting **Debian/Ubuntu** and **macOS** systems  
-- 🚀 Maximising developer productivity and terminal performance  
+- ⚙️ Configuring a **modern shell** (`zsh`, `starship`, `tmux`)
+- 🧑‍💻 Installing a **Python + ML toolchain** with key libraries
+- 🪄 Setting up **Neovim** for fast and extensible Python development
+- 💻 Supporting **Debian/Ubuntu** and **macOS** systems
+- 🚀 Maximising developer productivity and terminal performance
 
 Everything is tuned to work well together — lightweight, consistent, fast, and friendly to daily use.
 
@@ -44,7 +44,7 @@ Quick win: run `make help`, pick your installer target, then run `make verify`. 
 
 ---
 
-## 📦 What’s Included  
+## 📦 What’s Included
 | File | Description |
 |------|--------------|
 | `install_my_programs_debian` | Installs core packages on Debian/Ubuntu |
@@ -61,6 +61,9 @@ Quick win: run `make help`, pick your installer target, then run `make verify`. 
 | `run_commands/my_ghostty_config` | Ghostty terminal baseline config |
 | `run_commands/my_starship.toml` | Starship prompt baseline config |
 | `run_commands/secrets_shell.env.example` | Secure shell secrets template |
+| `.pre-commit-config.yaml` | Local quality gates (shell, YAML, Markdown) |
+| `.githooks/` | Repo-managed git hooks templates |
+| `install_git_hooks` | Installs repo hook scripts into `.git/hooks` |
 | `verify_post_install_unix` | End-to-end setup smoke test script |
 | `rollback_installer_backups` | Restore latest installer backup files |
 | `.github/RELEASE_NOTES_TEMPLATE.md` | Structured release notes template used by release workflow |
@@ -70,30 +73,30 @@ Quick win: run `make help`, pick your installer target, then run `make verify`. 
 | `.gitignore` | Standard ignore patterns |
 | `LICENSE` | GPL-2.0 License file |
 
-Includes dependencies for:  
-- **Terminal:** tmux, zsh, starship, ghostty, atuin, direnv, htop, btop  
-- **Editor:** neovim (Lua config-ready)  
-- **Python:** numpy, pandas, torch, scikit-learn, transformers (editable)  
-- **Optional:** lazygit, glow, hyperfine, yq, shellcheck, shfmt, git-delta, tealdeer, gawk, entr, dua-cli, dust, procs, xh, doggo, watchexec, kubectl, k9s, trivy, zellij, git, curl, wget, build-essentials
+Includes dependencies for:
+- **Terminal:** tmux, zsh, starship, ghostty, atuin, direnv, htop, btop
+- **Editor:** neovim (Lua config-ready)
+- **Python:** numpy, pandas, torch, scikit-learn, transformers (editable)
+- **Optional:** pre-commit, lazygit, glow, hyperfine, yq, shellcheck, shfmt, git-delta, tealdeer, gawk, entr, dua-cli, dust, procs, xh, doggo, watchexec, kubectl, k9s, trivy, zellij, git, curl, wget, build-essentials
 
 ---
 
-## 🧩 Supported Platforms  
-✅ **Debian / Ubuntu**  
-✅ **macOS**  
+## 🧩 Supported Platforms
+✅ **Debian / Ubuntu**
+✅ **macOS**
 ⚠️ Other Unix flavours may work but aren’t officially tested.
 
 ---
 
-## ⚙️ Installation  
+## ⚙️ Installation
 
-### 1️⃣ Clone the Repository  
+### 1️⃣ Clone the Repository
 ```bash
 git clone https://github.com/dmoliveira/utils-scripts.git
 cd utils-scripts
 ```
 
-### 2️⃣ Choose and Run Your Installer  
+### 2️⃣ Choose and Run Your Installer
 
 **Using Make shortcuts (recommended):**
 ```bash
@@ -176,6 +179,9 @@ make leader-pack-check
 make rollback
 make rollback-dry-run
 make shell-lint
+make hooks-install
+make pre-commit-install
+make pre-commit-run
 ```
 
 Rollback helper:
@@ -190,16 +196,17 @@ The installers also manage `~/.config/starship.toml` from `run_commands/my_stars
 Pull requests also run repository smoke checks in GitHub Actions (`.github/workflows/smoke-checks.yml`).
 Installer and verification changes also run a disposable Ubuntu golden-path bootstrap workflow (`.github/workflows/golden-path-bootstrap.yml`).
 Shell scripts are linted in CI with shellcheck + shfmt (`.github/workflows/shell-lint.yml`).
+Local quality gates use `.pre-commit-config.yaml` (shellcheck, shfmt, YAML checks, markdownlint).
 
 ---
 
-## 🧠 Usage  
-After installation you’ll have a clean, ready-to-work terminal stack:  
+## 🧠 Usage
+After installation you’ll have a clean, ready-to-work terminal stack:
 
-- **zsh + starship** prompt with Git & Python awareness  
-- **tmux** for persistent terminal sessions  
-- **neovim** configured for Python and AI workflows  
-- **Python environment** ready with key ML libraries  
+- **zsh + starship** prompt with Git & Python awareness
+- **tmux** for persistent terminal sessions
+- **neovim** configured for Python and AI workflows
+- **Python environment** ready with key ML libraries
 
 Example:
 ```bash
@@ -208,10 +215,10 @@ nvim my_script.py
 ```
 
 For Neovim productivity:
-- `:Ex` → File explorer  
-- `<leader>f` → Fuzzy search  
-- `gd` → Go to definition  
-- `K` → Hover docs  
+- `:Ex` → File explorer
+- `<leader>f` → Fuzzy search
+- `gd` → Go to definition
+- `K` → Hover docs
 
 ---
 
@@ -301,10 +308,10 @@ Doctor mode:
 
 ---
 
-## 🔧 Configuration & Customisation  
+## 🔧 Configuration & Customisation
 
 ### Shell
-Edit your `~/.zshrc` or add functions in `~/.zsh.d/` for modularity.  
+Edit your `~/.zshrc` or add functions in `~/.zsh.d/` for modularity.
 Example alias:
 ```bash
 alias gs='git status'
@@ -365,7 +372,7 @@ symbol = " "
 ```
 
 ### tmux
-Edit `~/.tmux.conf` for shortcuts, layouts and themes.  
+Edit `~/.tmux.conf` for shortcuts, layouts and themes.
 Example:
 ```
 set -g mouse on
@@ -416,6 +423,7 @@ set -g @continuum-restore 'on'
 - `yq`: query/edit YAML quickly; use `yq '.jobs.test.steps[].run' .github/workflows/smoke-checks.yml`
 - `shellcheck` + `shfmt`: lint and format shell scripts; use `shellcheck install_my_programs_unix` and `shfmt -w install_my_programs_unix`
 - `delta`: readable diffs in terminal; use `git -c core.pager=delta diff`
+- `pre-commit`: run local quality gates quickly; use `pre-commit run --all-files`
 - `tealdeer` (`tldr`): fast command examples; use `tldr tmux`, `tldr yq`, `tldr direnv`
 - `awk`/`gawk`: text processing; use `gawk '/direnv/ {print NR ":" $0}' run_commands/my_zshrc`
 - `entr`: rerun commands on file changes; use `fd -e md docs | entr -c glow -p README.md`
@@ -429,14 +437,14 @@ set -g @continuum-restore 'on'
 - `zellij`: terminal workspace manager; start with `zellij` and split panes from built-in help (`Ctrl-g` + `?`)
 
 ### WezTerm
-Config file: `~/.wezterm.lua`  
+Config file: `~/.wezterm.lua`
 Base config in this repo: `run_commands/my_wezterm.lua`
 ```
 cp ./run_commands/my_wezterm.lua ~/.wezterm.lua
 ```
 
 ### Ghostty
-Config file: `~/.config/ghostty/config`  
+Config file: `~/.config/ghostty/config`
 Base config in this repo: `run_commands/my_ghostty_config`
 ```
 mkdir -p ~/.config/ghostty
@@ -444,16 +452,16 @@ cp ./run_commands/my_ghostty_config ~/.config/ghostty/config
 ```
 
 ### Neovim
-Modify `~/.config/nvim/init.lua` to adjust plugins or keymaps.  
+Modify `~/.config/nvim/init.lua` to adjust plugins or keymaps.
 Power-user reference: `docs/cheatsheets/nvim.md`
 
 Template defaults include:
-- LSP support (`pyright`, `lua_ls`)  
-- Formatter orchestration (`conform.nvim`)  
-- AI workflow (`CopilotChat.nvim`)  
-- Code navigation (`aerial.nvim`)  
-- Test workflow (`neotest`, `neotest-python`)  
-- SQL workflow (`vim-dadbod`, `vim-dadbod-ui`)  
+- LSP support (`pyright`, `lua_ls`)
+- Formatter orchestration (`conform.nvim`)
+- AI workflow (`CopilotChat.nvim`)
+- Code navigation (`aerial.nvim`)
+- Test workflow (`neotest`, `neotest-python`)
+- SQL workflow (`vim-dadbod`, `vim-dadbod-ui`)
 - Core UI/search (`nvim-treesitter`, `telescope.nvim`, `lualine.nvim`)
 
 Template defaults now include Mason bootstrap for language servers:
@@ -487,7 +495,7 @@ Useful default keymaps:
 - `<leader>db` toggle Dadbod UI
 
 ### Python
-Keep `requirements.txt` up to date with your preferred ML stack.  
+Keep `requirements.txt` up to date with your preferred ML stack.
 Recommended additions:
 ```
 xgboost
@@ -515,6 +523,16 @@ The template now falls back to a built-in tmux status line automatically when Po
 ### ngrok says it cannot render dynamic color UI on solaris
 The zsh template wraps `ngrok` and forces `TERM=xterm-256color` when running inside tmux.
 Run `exec zsh` to load the wrapper in current shells.
+
+### Hook prints `bd command not found`
+Install repo-managed hooks and pre-commit hooks:
+
+```bash
+make hooks-install
+make pre-commit-install
+```
+
+The repo hook templates are silent when neither `br` nor legacy `bd` exists.
 
 ### `--strict` mode fails on warnings
 `./verify_post_install_unix --strict` intentionally converts warnings into failures.
@@ -589,19 +607,19 @@ git push origin v1.2.0
 
 ---
 
-## 🤝 Contributing  
+## 🤝 Contributing
 Contributions, feedback, and improvements are always welcome. 🙌
-1. Fork this repo  
-2. Create a new branch (`git checkout -b feature/your-feature`)  
-3. Commit and push your changes  
-4. Open a pull request  
+1. Fork this repo
+2. Create a new branch (`git checkout -b feature/your-feature`)
+3. Commit and push your changes
+4. Open a pull request
 
 Please keep scripts portable and dependencies minimal so the setup stays approachable for everyone.
 
 ---
 
-## ❤️ Support  
-If this project helped you save time or setup headaches, consider supporting:  
+## ❤️ Support
+If this project helped you save time or setup headaches, consider supporting:
 
 [![Donate via Stripe](https://img.shields.io/badge/Donate-Stripe-blue?logo=stripe&logoColor=white)](https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00)
 
@@ -609,11 +627,11 @@ Your contribution helps keep these utilities maintained and up to date.
 
 ---
 
-## 📜 License  
-This project is licensed under the [GNU GPL-2.0 License](LICENSE).  
+## 📜 License
+This project is licensed under the [GNU GPL-2.0 License](LICENSE).
 
 ---
 
-**Author:** [Diego Marinho](https://github.com/dmoliveira)  
-**Repository:** [github.com/dmoliveira/utils-scripts](https://github.com/dmoliveira/utils-scripts)  
+**Author:** [Diego Marinho](https://github.com/dmoliveira)
+**Repository:** [github.com/dmoliveira/utils-scripts](https://github.com/dmoliveira/utils-scripts)
 **Last Updated:** 2026-02-13

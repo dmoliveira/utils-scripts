@@ -73,6 +73,28 @@ install_apt_first_available() {
   done
 
   echo "ℹ️ $label unavailable in apt repositories; skipping"
+  return 1
+}
+
+install_with_fallback() {
+  local label="$1"
+  local apt_pkg="$2"
+  local cargo_pkg="${3:-}"
+
+  if install_apt_first_available "$label" "$apt_pkg"; then
+    return
+  fi
+
+  if [[ -n "$cargo_pkg" ]] && command -v cargo >/dev/null 2>&1; then
+    if [[ "$DRY_RUN" == "true" ]]; then
+      run_cmd cargo install "$cargo_pkg" --locked
+    else
+      cargo install "$cargo_pkg" --locked || true
+    fi
+    return
+  fi
+
+  echo "ℹ️ $label fallback unavailable; skipping"
 }
 
 parse_args "$@"
@@ -86,7 +108,7 @@ echo "Installing essential tools..."
 run_cmd sudo apt install -y \
   curl wget git build-essential g++ make cmake pkg-config \
   neovim tmux zsh htop btop tree jq ripgrep fzf bat fd-find zoxide \
-  openssl xclip parallel
+  openssl xclip parallel pre-commit
 
 echo "Configuring monitoring stack..."
 if command -v nvidia-smi >/dev/null 2>&1 || [[ -e "/dev/dri" ]]; then
@@ -110,8 +132,8 @@ install_apt_first_available hyperfine hyperfine
 install_apt_first_available yq yq
 install_apt_first_available shellcheck shellcheck
 install_apt_first_available shfmt shfmt
-install_apt_first_available "git-delta (delta)" git-delta
-install_apt_first_available "tealdeer (tldr)" tealdeer tldr
+install_with_fallback "git-delta (delta)" git-delta git-delta
+install_with_fallback "tealdeer (tldr)" tealdeer tealdeer
 install_apt_first_available gawk gawk
 install_apt_first_available entr entr
 install_apt_first_available "dua-cli (dua)" dua-cli
@@ -123,7 +145,7 @@ install_apt_first_available watchexec watchexec
 install_apt_first_available kubectl kubectl kubernetes-client
 install_apt_first_available k9s k9s
 install_apt_first_available trivy trivy
-install_apt_first_available zellij zellij
+install_with_fallback zellij zellij zellij
 install_apt_first_available starship starship
 
 echo "Installing Python & ML dependencies..."
