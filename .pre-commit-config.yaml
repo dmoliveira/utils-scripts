@@ -1,0 +1,32 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+        exclude: ^\.beads/
+      - id: check-merge-conflict
+        exclude: ^\.beads/
+      - id: end-of-file-fixer
+        exclude: ^\.beads/
+      - id: trailing-whitespace
+        exclude: ^\.beads/
+
+  - repo: local
+    hooks:
+      - id: shellcheck-local
+        name: shellcheck-local
+        entry: bash -lc 'set -euo pipefail; mapfile -t files < <(git ls-files | while IFS= read -r f; do [[ -f "$f" ]] || continue; first="$(head -n 1 "$f" 2>/dev/null || true)"; if [[ "$first" =~ ^#!/usr/bin/env\ (bash|sh)$ || "$first" =~ ^#!/bin/(bash|sh)$ ]]; then printf "%s\n" "$f"; fi; done); [[ ${#files[@]} -eq 0 ]] && exit 0; shellcheck -S warning "${files[@]}"'
+        language: system
+        pass_filenames: false
+      - id: shfmt-local
+        name: shfmt-local
+        entry: bash -lc 'set -euo pipefail; mapfile -t files < <(git ls-files | while IFS= read -r f; do [[ -f "$f" ]] || continue; first="$(head -n 1 "$f" 2>/dev/null || true)"; if [[ "$first" =~ ^#!/usr/bin/env\ (bash|sh)$ || "$first" =~ ^#!/bin/(bash|sh)$ ]]; then printf "%s\n" "$f"; fi; done); [[ ${#files[@]} -eq 0 ]] && exit 0; shfmt -w -i 2 -ci "${files[@]}"'
+        language: system
+        pass_filenames: false
+
+  - repo: https://github.com/DavidAnson/markdownlint-cli2
+    rev: v0.16.0
+    hooks:
+      - id: markdownlint-cli2
+        files: ^(README\.md|docs/.*\.md)$
+        args: ["--config", ".markdownlint-cli2.yaml"]

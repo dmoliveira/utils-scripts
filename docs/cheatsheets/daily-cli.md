@@ -15,6 +15,7 @@ jq '.[] | {name, private}' repos.json
 ```bash
 shellcheck install_my_programs_unix
 shfmt -w install_my_programs_unix install_my_programs_mac install_my_programs_debian
+pre-commit run --all-files
 ```
 
 ## Git readability
@@ -30,6 +31,14 @@ git -c core.pager=delta diff
 tldr tmux
 tldr yq
 tldr direnv
+```
+
+## Markdown workflow
+
+```bash
+mdview README.md
+mdfind docs
+mdnext docs
 ```
 
 ## Text processing and watch loops

@@ -182,6 +182,7 @@ fi
 
 say "==> Checking advanced productivity tools"
 check_optional_command lazygit "command 'lazygit' available"
+check_optional_command pre-commit "command 'pre-commit' available"
 check_optional_command glow "command 'glow' available"
 check_optional_command hyperfine "command 'hyperfine' available"
 check_optional_command yq "command 'yq' available"

@@ -22,3 +22,11 @@ fd -e md . | fzf --preview 'glow -p {}'
 ```
 
 Use this to move quickly across repository docs while keeping context.
+
+## zsh helper wrappers from template
+
+```bash
+mdview README.md
+mdfind docs
+mdnext docs
+```

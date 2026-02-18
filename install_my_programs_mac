@@ -178,7 +178,7 @@ run_cmd brew upgrade
 run_cmd brew install \
   wget htop btop tmux neovim curl git jq tree \
   fzf zoxide ripgrep bat fd gh \
-  direnv atuin glow yq shellcheck shfmt git-delta tealdeer gawk entr \
+  direnv atuin pre-commit glow yq shellcheck shfmt git-delta tealdeer gawk entr \
   python uv
 
 install_monitoring_stack

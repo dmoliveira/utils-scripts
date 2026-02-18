@@ -6,19 +6,19 @@
 
 ## ✨ Adds
 
-- 
+-
 
 ## 🔄 Changes
 
-- 
+-
 
 ## 🛠 Fixes
 
-- 
+-
 
 ## 🧹 Removals
 
-- 
+-
 
 ## ⬆️ Upgrade Notes
 

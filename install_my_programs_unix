@@ -148,6 +148,51 @@ install_apt_first_available() {
   echo "ℹ️ ${label} unavailable in configured apt repositories; skipping"
 }
 
+install_with_fallback() {
+  local label="$1"
+  local apt_pkg="$2"
+  local cargo_pkg="${3:-}"
+  local brew_formula="${4:-}"
+
+  if [[ "$OS" == "Darwin" ]]; then
+    if [[ -n "$brew_formula" ]]; then
+      install_optional_brew_formula "$brew_formula" "$label"
+    fi
+    return
+  fi
+
+  if [[ "$DRY_RUN" == "true" ]]; then
+    run_cmd sudo apt install -y "$apt_pkg"
+    return
+  fi
+
+  if dpkg -s "$apt_pkg" >/dev/null 2>&1; then
+    echo "✅ ${label} already installed (${apt_pkg})"
+    return
+  fi
+
+  if sudo apt install -y "$apt_pkg" >/dev/null 2>&1; then
+    echo "✅ Installed ${label} (${apt_pkg})"
+    return
+  fi
+
+  if [[ -n "$cargo_pkg" ]] && command -v cargo >/dev/null 2>&1; then
+    if [[ "$DRY_RUN" == "true" ]]; then
+      run_cmd cargo install "$cargo_pkg" --locked
+    else
+      cargo install "$cargo_pkg" --locked || true
+    fi
+    return
+  fi
+
+  if [[ -n "$brew_formula" ]] && command -v brew >/dev/null 2>&1; then
+    install_optional_brew_formula "$brew_formula" "$label"
+    return
+  fi
+
+  echo "ℹ️ ${label} fallback unavailable; skipping"
+}
+
 has_linux_gpu() {
   if command -v nvidia-smi >/dev/null 2>&1; then
     return 0
@@ -224,11 +269,11 @@ setup_system() {
     install_brew
     run_cmd brew update
     run_cmd brew upgrade
-    run_cmd brew install git curl wget neovim tmux htop btop bottom tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin
+    run_cmd brew install git curl wget neovim tmux htop btop bottom tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin pre-commit
   else
     run_cmd sudo apt update -y
     run_cmd sudo apt upgrade -y
-    run_cmd sudo apt install -y curl wget git neovim tmux zsh htop btop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv
+    run_cmd sudo apt install -y curl wget git neovim tmux zsh htop btop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv pre-commit
   fi
 }
 
@@ -289,8 +334,8 @@ install_productivity_cli_stack() {
   install_apt_first_available yq yq
   install_apt_first_available shellcheck shellcheck
   install_apt_first_available shfmt shfmt
-  install_apt_first_available "git-delta (delta)" git-delta
-  install_apt_first_available "tealdeer (tldr)" tealdeer tldr
+  install_with_fallback "git-delta (delta)" git-delta git-delta git-delta
+  install_with_fallback "tealdeer (tldr)" tealdeer tealdeer tealdeer
   install_apt_first_available gawk gawk
   install_apt_first_available entr entr
   install_apt_first_available "dua-cli (dua)" dua-cli
@@ -302,7 +347,7 @@ install_productivity_cli_stack() {
   install_apt_first_available kubectl kubectl kubernetes-client
   install_apt_first_available k9s k9s
   install_apt_first_available trivy trivy
-  install_apt_first_available zellij zellij
+  install_with_fallback zellij zellij zellij zellij
 }
 
 # ------------------------------------------------------------------------------

@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor verify-linux playbook leader-pack-check rollback rollback-dry-run shell-lint
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor verify-linux playbook leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -50,3 +50,13 @@ shell-lint: ## Run shellcheck and shfmt on shell scripts
 	if [[ "$${#files[@]}" -eq 0 ]]; then echo "No shell files found to lint."; exit 0; fi; \
 	shellcheck -S warning "$${files[@]}"; \
 	shfmt -d -i 2 -ci "$${files[@]}"'
+
+hooks-install: ## Install repo git hooks into .git/hooks
+	./install_git_hooks
+
+pre-commit-install: ## Install and activate pre-commit hooks for this repo
+	pre-commit install
+	pre-commit install --hook-type pre-push
+
+pre-commit-run: ## Run all pre-commit checks on repository files
+	pre-commit run --all-files

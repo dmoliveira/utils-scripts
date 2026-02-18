@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v pre-commit >/dev/null 2>&1; then
+  exit 0
+fi
+
+pre-commit run --hook-stage pre-commit
