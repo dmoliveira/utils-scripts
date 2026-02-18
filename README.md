@@ -64,6 +64,7 @@ Quick win: run `make help`, pick your installer target, then run `make verify`. 
 | `.pre-commit-config.yaml` | Local quality gates (shell, YAML, Markdown) |
 | `.githooks/` | Repo-managed git hooks templates |
 | `install_git_hooks` | Installs repo hook scripts into `.git/hooks` |
+| `configure_git_delta` | Applies global delta-friendly git settings |
 | `verify_post_install_unix` | End-to-end setup smoke test script |
 | `rollback_installer_backups` | Restore latest installer backup files |
 | `.github/RELEASE_NOTES_TEMPLATE.md` | Structured release notes template used by release workflow |
@@ -77,7 +78,7 @@ Includes dependencies for:
 - **Terminal:** tmux, zsh, starship, ghostty, atuin, direnv, htop, btop
 - **Editor:** neovim (Lua config-ready)
 - **Python:** numpy, pandas, torch, scikit-learn, transformers (editable)
-- **Optional:** pre-commit, lazygit, glow, hyperfine, yq, shellcheck, shfmt, git-delta, tealdeer, gawk, entr, dua-cli, dust, procs, xh, doggo, watchexec, kubectl, k9s, trivy, zellij, git, curl, wget, build-essentials
+- **Optional:** pre-commit, lazygit, glow, hyperfine, yq, shellcheck, shfmt, git-delta, tealdeer, gawk, entr, parallel, dua-cli, dust, procs, xh, doggo, watchexec, kubectl, k9s, trivy, zellij, git, curl, wget, build-essentials
 
 ---
 
@@ -183,6 +184,7 @@ make docs-browse
 make hooks-install
 make pre-commit-install
 make pre-commit-run
+make git-delta-config
 ```
 
 Rollback helper:
@@ -260,6 +262,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/watchexec.md`
 - `docs/cheatsheets/direnv.md`
 - `docs/cheatsheets/daily-cli.md`
+- `docs/cheatsheets/parallel.md`
 - `docs/cheatsheets/atuin.md`
 
 Quick docs navigation:
@@ -299,7 +302,7 @@ Run the smoke test script after installation to validate your terminal stack:
 It checks:
 - required CLI tools (`zsh`, `tmux`, `nvim`, `fzf`, `zoxide`, `starship`, `direnv`, `atuin`)
 - monitoring tools (`btop` plus `btm` on macOS, `nvtop` on Linux with detected GPU)
-- advanced productivity tools (`lazygit`, `glow`, `hyperfine`, `dua`, `dust`, `procs`, `xh`, `doggo`, `watchexec`, `kubectl`, `k9s`, `trivy`, `zellij`) as optional checks
+- advanced productivity tools (`lazygit`, `glow`, `hyperfine`, `parallel`, `dua`, `dust`, `procs`, `xh`, `doggo`, `watchexec`, `kubectl`, `k9s`, `trivy`, `zellij`) as optional checks
 - expected config files (`~/.zshrc`, `~/.tmux.conf`, `~/.config/nvim/init.lua`)
 - syntax/startup checks for Zsh, tmux, and Neovim
 - Ghostty config validation on macOS when installed
@@ -434,6 +437,7 @@ set -g @continuum-restore 'on'
 - `tealdeer` (`tldr`): fast command examples; use `tldr tmux`, `tldr yq`, `tldr direnv`
 - `awk`/`gawk`: text processing; use `gawk '/direnv/ {print NR ":" $0}' run_commands/my_zshrc`
 - `entr`: rerun commands on file changes; use `fd -e md docs | entr -c glow -p README.md`
+- `parallel`: run command batches concurrently; use `parallel -j 4 "python {}" ::: scripts/*.py`
 - `dua` and `dust`: inspect disk usage quickly; run `dua i` for interactive mode and `dust -d 3` for top folders
 - `procs`: modern process viewer; try `procs --sortd cpu` or `procs python`
 - `xh`: readable HTTP client; use `xh GET https://api.github.com/repos/dmoliveira/utils-scripts`
@@ -540,6 +544,14 @@ make pre-commit-install
 ```
 
 The repo hook templates are silent when neither `br` nor legacy `bd` exists.
+
+### Enable delta globally for git diff/show
+
+```bash
+make git-delta-config
+```
+
+This keeps `git diff` and `git show` readable without command-level flags.
 
 ### `--strict` mode fails on warnings
 `./verify_post_install_unix --strict` intentionally converts warnings into failures.

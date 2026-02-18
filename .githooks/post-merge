@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Prefer br if available, fallback to legacy bd, otherwise stay quiet.
+if command -v br >/dev/null 2>&1; then
+  br hook post-merge "$@" >/dev/null 2>&1 || true
+  exit 0
+fi
+
+if command -v bd >/dev/null 2>&1; then
+  bd hook post-merge "$@" >/dev/null 2>&1 || true
+  exit 0
+fi
+
+exit 0

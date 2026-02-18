@@ -48,4 +48,5 @@ mdnext docs
 awk -F: '{print $1}' ~/.zshrc
 gawk '/direnv/ {print NR ":" $0}' run_commands/my_zshrc
 fd -e md docs | entr -c glow -p README.md
+parallel -j 4 "python {}" ::: scripts/*.py
 ```
