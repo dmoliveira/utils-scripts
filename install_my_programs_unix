@@ -146,7 +146,6 @@ install_apt_first_available() {
   done
 
   echo "ℹ️ ${label} unavailable in configured apt repositories; skipping"
-  return 1
 }
 
 install_with_fallback() {
@@ -162,7 +161,18 @@ install_with_fallback() {
     return
   fi
 
-  if install_apt_first_available "$label" "$apt_pkg"; then
+  if [[ "$DRY_RUN" == "true" ]]; then
+    run_cmd sudo apt install -y "$apt_pkg"
+    return
+  fi
+
+  if dpkg -s "$apt_pkg" >/dev/null 2>&1; then
+    echo "✅ ${label} already installed (${apt_pkg})"
+    return
+  fi
+
+  if sudo apt install -y "$apt_pkg" >/dev/null 2>&1; then
+    echo "✅ Installed ${label} (${apt_pkg})"
     return
   fi
 
