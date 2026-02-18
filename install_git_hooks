@@ -12,6 +12,7 @@ mkdir -p "$hooks_dir"
 cp -f "${repo_root}/.githooks/pre-commit" "$hooks_dir/pre-commit"
 cp -f "${repo_root}/.githooks/prepare-commit-msg" "$hooks_dir/prepare-commit-msg"
 cp -f "${repo_root}/.githooks/pre-push" "$hooks_dir/pre-push"
-chmod +x "$hooks_dir/pre-commit" "$hooks_dir/prepare-commit-msg" "$hooks_dir/pre-push"
+cp -f "${repo_root}/.githooks/post-merge" "$hooks_dir/post-merge"
+chmod +x "$hooks_dir/pre-commit" "$hooks_dir/prepare-commit-msg" "$hooks_dir/pre-push" "$hooks_dir/post-merge"
 
 echo "Installed repo hooks to ${hooks_dir}"

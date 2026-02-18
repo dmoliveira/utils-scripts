@@ -269,11 +269,11 @@ setup_system() {
     install_brew
     run_cmd brew update
     run_cmd brew upgrade
-    run_cmd brew install git curl wget neovim tmux htop btop bottom tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin pre-commit
+    run_cmd brew install git curl wget neovim tmux htop btop bottom tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin pre-commit parallel
   else
     run_cmd sudo apt update -y
     run_cmd sudo apt upgrade -y
-    run_cmd sudo apt install -y curl wget git neovim tmux zsh htop btop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv pre-commit
+    run_cmd sudo apt install -y curl wget git neovim tmux zsh htop btop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv pre-commit parallel
   fi
 }
 
@@ -315,6 +315,7 @@ install_productivity_cli_stack() {
     install_optional_brew_formula tealdeer "tealdeer (tldr)"
     install_optional_brew_formula gawk
     install_optional_brew_formula entr
+    install_optional_brew_formula parallel "gnu parallel"
     install_optional_brew_formula dua-cli "dua-cli (dua)"
     install_optional_brew_formula dust
     install_optional_brew_formula procs
@@ -338,6 +339,7 @@ install_productivity_cli_stack() {
   install_with_fallback "tealdeer (tldr)" tealdeer tealdeer tealdeer
   install_apt_first_available gawk gawk
   install_apt_first_available entr entr
+  install_apt_first_available "gnu parallel" parallel
   install_apt_first_available "dua-cli (dua)" dua-cli
   install_apt_first_available dust du-dust dust
   install_apt_first_available procs procs

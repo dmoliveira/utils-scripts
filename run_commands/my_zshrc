@@ -233,6 +233,10 @@ alias k='kubectl'
 alias kga='kubectl get all -A'
 alias tfscan='trivy fs .'
 
+if ! command -v parallel >/dev/null 2>&1 && command -v gparallel >/dev/null 2>&1; then
+  alias parallel='gparallel'
+fi
+
 da() {
   direnv allow "${1:-.}"
 }

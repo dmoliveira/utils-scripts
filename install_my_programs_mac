@@ -91,6 +91,7 @@ install_productivity_cli_stack() {
   install_optional_brew_formula tealdeer "tealdeer (tldr)"
   install_optional_brew_formula gawk
   install_optional_brew_formula entr
+  install_optional_brew_formula parallel "gnu parallel"
   install_optional_brew_formula dua-cli "dua-cli (dua)"
   install_optional_brew_formula dust
   install_optional_brew_formula procs
@@ -178,7 +179,7 @@ run_cmd brew upgrade
 run_cmd brew install \
   wget htop btop tmux neovim curl git jq tree \
   fzf zoxide ripgrep bat fd gh \
-  direnv atuin pre-commit glow yq shellcheck shfmt git-delta tealdeer gawk entr \
+  direnv atuin pre-commit glow yq shellcheck shfmt git-delta tealdeer gawk entr parallel \
   python uv
 
 install_monitoring_stack
