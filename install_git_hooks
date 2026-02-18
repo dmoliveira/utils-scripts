@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root=$(git rev-parse --show-toplevel)
+common_git_dir=$(git rev-parse --git-common-dir)
+if [[ "$common_git_dir" != /* ]]; then
+  common_git_dir="${repo_root}/${common_git_dir}"
+fi
+hooks_dir="${common_git_dir}/hooks"
+
+mkdir -p "$hooks_dir"
+cp -f "${repo_root}/.githooks/pre-commit" "$hooks_dir/pre-commit"
+cp -f "${repo_root}/.githooks/prepare-commit-msg" "$hooks_dir/prepare-commit-msg"
+cp -f "${repo_root}/.githooks/pre-push" "$hooks_dir/pre-push"
+chmod +x "$hooks_dir/pre-commit" "$hooks_dir/prepare-commit-msg" "$hooks_dir/pre-push"
+
+echo "Installed repo hooks to ${hooks_dir}"

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Keep hook quiet if neither tracker CLI exists.
+if command -v br >/dev/null 2>&1; then
+  exit 0
+fi
+
+if command -v bd >/dev/null 2>&1; then
+  exit 0
+fi
+
+exit 0

@@ -177,4 +177,3 @@ let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
 set background=dark
 let g:CSApprox_loaded = 1
-
