@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor verify-linux playbook leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -32,6 +32,9 @@ verify-linux: ## Run Linux edge-case command checks
 
 playbook: ## Show terminal playbook path
 	@printf "Open: TERMINAL_PLAYBOOK.md\n"
+
+docs-browse: ## Browse markdown docs with fzf + glow preview
+	@bash -lc 'if ! command -v fd >/dev/null 2>&1 || ! command -v fzf >/dev/null 2>&1 || ! command -v glow >/dev/null 2>&1; then echo "requires fd, fzf, and glow"; exit 1; fi; fd -e md docs | fzf --preview "glow -p {}" --preview-window=right:70%'
 
 leader-pack-check: ## Validate leader-pack docs and zsh template
 	@test -f TERMINAL_PLAYBOOK.md

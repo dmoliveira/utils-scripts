@@ -36,6 +36,7 @@ tldr direnv
 ## Markdown workflow
 
 ```bash
+make docs-browse
 mdview README.md
 mdfind docs
 mdnext docs
