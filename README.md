@@ -180,12 +180,26 @@ make leader-pack-check
 make rollback
 make rollback-dry-run
 make shell-lint
+make doctor-full
 make docs-browse
 make hooks-install
 make pre-commit-install
 make pre-commit-run
 make git-delta-config
 ```
+
+### ✅ First 5 Minutes After Install
+
+```bash
+exec zsh
+make verify
+make hooks-install
+make pre-commit-install
+make git-delta-config
+make docs-browse
+```
+
+Use `make doctor-full` whenever you want one command to run lint + pre-commit + strict verification.
 
 Rollback helper:
 ```bash
@@ -198,7 +212,7 @@ The installers also manage `~/.config/starship.toml` from `run_commands/my_stars
 
 Pull requests also run repository smoke checks in GitHub Actions (`.github/workflows/smoke-checks.yml`).
 Installer and verification changes also run a disposable Ubuntu golden-path bootstrap workflow (`.github/workflows/golden-path-bootstrap.yml`).
-Shell scripts are linted in CI with shellcheck + shfmt (`.github/workflows/shell-lint.yml`).
+Shell scripts are linted in CI with pre-commit (shellcheck + shfmt + YAML + markdown checks) and cached pre-commit environments (`.github/workflows/shell-lint.yml`).
 Local quality gates use `.pre-commit-config.yaml` (shellcheck, shfmt, YAML checks, markdownlint).
 
 ---

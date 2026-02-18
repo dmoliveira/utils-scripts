@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -26,6 +26,14 @@ bootstrap-secrets: ## Interactive setup for shell secrets file
 
 doctor: ## Run strict verification with guided hints
 	./doctor_post_install_unix
+
+doctor-full: ## Run full local quality + verification suite
+	@bash -lc 'set -euo pipefail; \
+	make shell-lint; \
+	pre-commit run --all-files; \
+	bash -n install_my_programs_unix install_my_programs_mac install_my_programs_debian verify_post_install_unix install_git_hooks configure_git_delta; \
+	zsh -n run_commands/my_zshrc; \
+	./verify_post_install_unix --strict'
 
 verify-linux: ## Run Linux edge-case command checks
 	./verify_linux_edge_cases

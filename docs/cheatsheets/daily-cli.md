@@ -16,6 +16,7 @@ jq '.[] | {name, private}' repos.json
 shellcheck install_my_programs_unix
 shfmt -w install_my_programs_unix install_my_programs_mac install_my_programs_debian
 pre-commit run --all-files
+make doctor-full
 ```
 
 ## Git readability
