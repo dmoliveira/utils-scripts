@@ -179,6 +179,7 @@ make leader-pack-check
 make rollback
 make rollback-dry-run
 make shell-lint
+make docs-browse
 make hooks-install
 make pre-commit-install
 make pre-commit-run
@@ -260,6 +261,12 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/direnv.md`
 - `docs/cheatsheets/daily-cli.md`
 - `docs/cheatsheets/atuin.md`
+
+Quick docs navigation:
+
+```bash
+make docs-browse
+```
 - `docs/cheatsheets/dua.md`
 - `docs/cheatsheets/dust.md`
 - `docs/cheatsheets/gh.md`
