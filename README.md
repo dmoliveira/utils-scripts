@@ -70,7 +70,7 @@ Includes dependencies for:
 - **Terminal:** tmux, zsh, starship, ghostty, atuin, direnv, htop, btop  
 - **Editor:** neovim (Lua config-ready)  
 - **Python:** numpy, pandas, torch, scikit-learn, transformers (editable)  
-- **Optional:** lazygit, hyperfine, dua-cli, dust, procs, xh, doggo, watchexec, kubectl, k9s, trivy, zellij, git, curl, wget, build-essentials  
+- **Optional:** lazygit, glow, hyperfine, yq, shellcheck, shfmt, git-delta, tealdeer, gawk, entr, dua-cli, dust, procs, xh, doggo, watchexec, kubectl, k9s, trivy, zellij, git, curl, wget, build-essentials
 
 ---
 
@@ -247,6 +247,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/k9s.md`
 - `docs/cheatsheets/watchexec.md`
 - `docs/cheatsheets/direnv.md`
+- `docs/cheatsheets/daily-cli.md`
 - `docs/cheatsheets/atuin.md`
 
 Each cheatsheet includes:
@@ -395,6 +396,12 @@ set -g @continuum-restore 'on'
 - `lazygit`: fast interactive Git UI; start with `lazygit`, stage with `space`, commit with `c`
 - `glow`: render Markdown beautifully in terminal; use `glow README.md` or `fd -e md docs | fzf --preview 'glow -p {}'`
 - `hyperfine`: benchmark commands reliably; use `hyperfine 'python script.py' 'uv run python script.py'`
+- `yq`: query/edit YAML quickly; use `yq '.jobs.test.steps[].run' .github/workflows/smoke-checks.yml`
+- `shellcheck` + `shfmt`: lint and format shell scripts; use `shellcheck install_my_programs_unix` and `shfmt -w install_my_programs_unix`
+- `delta`: readable diffs in terminal; use `git -c core.pager=delta diff`
+- `tealdeer` (`tldr`): fast command examples; use `tldr tmux`, `tldr yq`, `tldr direnv`
+- `awk`/`gawk`: text processing; use `gawk '/direnv/ {print NR ":" $0}' run_commands/my_zshrc`
+- `entr`: rerun commands on file changes; use `fd -e md docs | entr -c glow -p README.md`
 - `dua` and `dust`: inspect disk usage quickly; run `dua i` for interactive mode and `dust -d 3` for top folders
 - `procs`: modern process viewer; try `procs --sortd cpu` or `procs python`
 - `xh`: readable HTTP client; use `xh GET https://api.github.com/repos/dmoliveira/utils-scripts`
