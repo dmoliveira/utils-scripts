@@ -1,14 +1,16 @@
-# trivy Cheatsheet
+# 🧭 trivy Cheatsheet
 
-Practical vulnerability scanning workflows for repos, containers, and CI checks.
+Friendly, practical vulnerability scanning workflows for repos, containers, and CI checks.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 trivy fs .
 ```
 
-## Core scan modes
+## ✨ Core scan modes
 
 ```bash
 trivy fs .
@@ -20,7 +22,7 @@ trivy config .
 - `image`: scan container image layers and packages
 - `config`: scan IaC misconfigurations (Dockerfile/Kubernetes/Terraform)
 
-## High-value flags
+## ✨ High-value flags
 
 ```text
 --severity HIGH,CRITICAL     show only important findings
@@ -38,9 +40,9 @@ trivy image --severity HIGH,CRITICAL --exit-code 1 python:3.12
 trivy fs --format json --output /tmp/trivy-report.json .
 ```
 
-## Engineering workflows
+## ✨ Engineering workflows
 
-### Flow 1: pre-PR local gate
+### 🔹 Flow 1: pre-PR local gate
 
 ```bash
 trivy fs --severity HIGH,CRITICAL --exit-code 1 .
@@ -48,7 +50,7 @@ make verify
 lazygit
 ```
 
-### Flow 2: base image review
+### 🔹 Flow 2: base image review
 
 ```bash
 trivy image python:3.12
@@ -57,14 +59,14 @@ trivy image node:20
 
 Compare risk profile before choosing base image updates.
 
-### Flow 3: triage and remediation
+### 🔹 Flow 3: triage and remediation
 
 1. run `trivy fs --format json --output /tmp/trivy.json .`
 2. inspect top HIGH/CRITICAL findings
 3. update dependencies or base image
 4. rerun scan and attach results in PR notes
 
-## Useful companion commands
+## ✨ Useful companion commands
 
 ```bash
 make shell-lint
@@ -72,19 +74,19 @@ make verify
 trivy fs .
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### Slow first run
+### 🔹 Slow first run
 
 - first run downloads vulnerability DB; subsequent runs are faster.
 
-### Want fewer noisy findings
+### 🔹 Want fewer noisy findings
 
 ```bash
 trivy fs --severity HIGH,CRITICAL --ignore-unfixed .
 ```
 
-### Validate only one path
+### 🔹 Validate only one path
 
 ```bash
 trivy fs path/to/subproject

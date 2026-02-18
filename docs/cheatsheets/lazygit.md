@@ -1,14 +1,16 @@
-# lazygit Cheatsheet
+# 🧭 lazygit Cheatsheet
 
-High-signal lazygit shortcuts and workflows for rapid review, staging, and PR prep.
+Friendly, high-signal lazygit shortcuts and workflows for rapid review, staging, and PR prep.
 
-## Start
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start
 
 ```bash
 lazygit
 ```
 
-## Core navigation
+## ✨ Core navigation
 
 ```text
 Tab / Shift-Tab   switch panel
@@ -18,7 +20,7 @@ q                 close panel/back
 ?                 open key help
 ```
 
-## Daily commit workflow
+## ✨ Daily commit workflow
 
 ```text
 space             stage/unstage file or hunk
@@ -33,7 +35,7 @@ Suggested sequence:
 3. commit (`c`) with clear message
 4. push (`P`)
 
-## Branch and PR prep
+## ✨ Branch and PR prep
 
 ```text
 b                 open branches panel
@@ -48,7 +50,7 @@ PR preparation flow:
 3. push branch (`P`)
 4. open PR with `gh pr create` in terminal
 
-## Review and diff workflow
+## ✨ Review and diff workflow
 
 ```text
 e                 open file in editor
@@ -64,9 +66,9 @@ make shell-lint
 lazygit
 ```
 
-## Useful combined flows
+## ✨ Useful combined flows
 
-### Flow 1: fast fix and ship
+### 🔹 Flow 1: fast fix and ship
 
 ```bash
 make verify
@@ -75,7 +77,7 @@ lazygit
 gh pr create
 ```
 
-### Flow 2: cleanup before merge
+### 🔹 Flow 2: cleanup before merge
 
 ```bash
 lazygit
@@ -83,16 +85,16 @@ lazygit
 # switch/delete safely
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### Push rejected
+### 🔹 Push rejected
 
 ```bash
 git pull --rebase
 lazygit
 ```
 
-### Wrong files staged
+### 🔹 Wrong files staged
 
 - unstage with `space` in Files panel
 - recommit after verification

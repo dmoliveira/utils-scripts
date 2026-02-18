@@ -1,14 +1,16 @@
-# hyperfine Cheatsheet
+# 🧭 hyperfine Cheatsheet
 
-Reliable command benchmarking with practical defaults for engineering workflows.
+Friendly, reliable command benchmarking with practical defaults for engineering workflows.
 
-## Start here
+Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+
+## 🚀 Start here
 
 ```bash
 hyperfine 'python -V' 'uv run python -V'
 ```
 
-## Most useful flags
+## ✨ Most useful flags
 
 ```text
 --warmup N        run N warmup executions before timing
@@ -20,27 +22,27 @@ hyperfine 'python -V' 'uv run python -V'
 --export-json FILE
 ```
 
-## Practical comparisons
+## ✨ Practical comparisons
 
-### Python execution path
+### 🔹 Python execution path
 
 ```bash
 hyperfine --warmup 2 'python script.py' 'uv run python script.py'
 ```
 
-### Formatter speed
+### 🔹 Formatter speed
 
 ```bash
 hyperfine --warmup 1 'ruff check .' 'ruff check --fix .'
 ```
 
-### Build command variants
+### 🔹 Build command variants
 
 ```bash
 hyperfine --warmup 1 'make verify' './verify_post_install_unix'
 ```
 
-## Reproducible benchmark flow
+## ✨ Reproducible benchmark flow
 
 1. close noisy background apps
 2. add `--warmup` for cached/runtime stabilization
@@ -55,7 +57,7 @@ hyperfine --warmup 2 --runs 10 \
   'python train_old.py' 'python train_new.py'
 ```
 
-## Benchmarking with setup and cleanup
+## ✨ Benchmarking with setup and cleanup
 
 Use when command output or cache state affects fairness.
 
@@ -66,9 +68,9 @@ hyperfine \
   'pytest -q'
 ```
 
-## Engineering workflows
+## ✨ Engineering workflows
 
-### Flow 1: defend a performance claim in PR
+### 🔹 Flow 1: defend a performance claim in PR
 
 ```bash
 hyperfine --warmup 2 --runs 10 'cmd_old' 'cmd_new'
@@ -76,26 +78,26 @@ hyperfine --warmup 2 --runs 10 'cmd_old' 'cmd_new'
 
 Then include exported markdown in the PR summary.
 
-### Flow 2: profile local verify loops
+### 🔹 Flow 2: profile local verify loops
 
 ```bash
 hyperfine --warmup 1 'make verify' 'make leader-pack-check'
 ```
 
-### Flow 3: compare shell aliases/tools
+### 🔹 Flow 3: compare shell aliases/tools
 
 ```bash
 hyperfine --warmup 3 'rg TODO .' 'grep -R TODO .'
 ```
 
-## Troubleshooting
+## 🧯 Troubleshooting
 
-### Results look unstable
+### 🔹 Results look unstable
 
 - increase runs (`--runs 20`)
 - isolate machine load
 - use `--prepare` to reset state
 
-### Command fails in benchmark
+### 🔹 Command fails in benchmark
 
 Check command manually first, then benchmark only passing commands.

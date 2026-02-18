@@ -1,6 +1,8 @@
 # 🧰 utils-scripts  
 
 > Personal collection of setup scripts for building a high-performance AI/ML developer environment — terminal, shell, editor, and Python stack — optimised for Unix/Debian and macOS.
+>
+> Built to feel practical and approachable: copy, run, verify, and ship with confidence. 🚀
 
 [![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](LICENSE)
 [![Platform](https://img.shields.io/badge/Platform-Debian%20%7C%20macOS-lightgrey.svg)]()
@@ -36,7 +38,9 @@ This repo standardises and automates my setup for:
 - 💻 Supporting **Debian/Ubuntu** and **macOS** systems  
 - 🚀 Maximising developer productivity and terminal performance  
 
-Everything is tuned to work well together — lightweight, consistent, and fast.
+Everything is tuned to work well together — lightweight, consistent, fast, and friendly to daily use.
+
+Quick win: run `make help`, pick your installer target, then run `make verify`. ✅
 
 ---
 
@@ -190,7 +194,7 @@ Shell scripts are linted in CI with shellcheck + shfmt (`.github/workflows/shell
 ---
 
 ## 🧠 Usage  
-After installation you’ll have:  
+After installation you’ll have a clean, ready-to-work terminal stack:  
 
 - **zsh + starship** prompt with Git & Python awareness  
 - **tmux** for persistent terminal sessions  
@@ -249,6 +253,19 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/direnv.md`
 - `docs/cheatsheets/daily-cli.md`
 - `docs/cheatsheets/atuin.md`
+- `docs/cheatsheets/dua.md`
+- `docs/cheatsheets/dust.md`
+- `docs/cheatsheets/gh.md`
+- `docs/cheatsheets/zoxide.md`
+- `docs/cheatsheets/fd.md`
+- `docs/cheatsheets/rg.md`
+- `docs/cheatsheets/jq.md`
+- `docs/cheatsheets/bat.md`
+- `docs/cheatsheets/br.md`
+- `docs/cheatsheets/uv.md`
+- `docs/cheatsheets/make.md`
+- `docs/cheatsheets/zellij.md`
+- `docs/cheatsheets/ghostty.md`
 
 Each cheatsheet includes:
 - top commands to memorize
@@ -573,13 +590,13 @@ git push origin v1.2.0
 ---
 
 ## 🤝 Contributing  
-Contributions, feedback and improvements are welcome!  
+Contributions, feedback, and improvements are always welcome. 🙌
 1. Fork this repo  
 2. Create a new branch (`git checkout -b feature/your-feature`)  
 3. Commit and push your changes  
 4. Open a pull request  
 
-Please make sure your scripts are portable and keep dependencies minimal.
+Please keep scripts portable and dependencies minimal so the setup stays approachable for everyone.
 
 ---
 
