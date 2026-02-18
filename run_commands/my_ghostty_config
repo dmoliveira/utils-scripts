@@ -2,15 +2,15 @@ command = /bin/zsh -l
 font-family = FiraCode Nerd Font Mono Ret
 font-size = 12.5
 term = xterm-256color
-theme = iTerm2 Solarized Dark
-background-opacity = 0.94
-background-blur = true
+theme = Catppuccin Macchiato
+background-opacity = 1.0
+background-blur = false
 window-padding-x = 10
 window-padding-y = 8
 working-directory = /Users/diego/Codes
 scrollback-limit = 20000
 copy-on-select = true
-macos-option-as-alt = both
+macos-option-as-alt = true
 keybind = super+c=copy_to_clipboard
 keybind = super+v=paste_from_clipboard
 keybind = ctrl+shift+c=copy_to_clipboard

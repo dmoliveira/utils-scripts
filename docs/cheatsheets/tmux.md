@@ -1,10 +1,8 @@
-# 🧭 tmux Cheatsheet
+# tmux Cheatsheet
 
-Friendly, practical tmux commands and flows tuned for the `utils-scripts` setup.
+Practical tmux commands and flows tuned for this repo.
 
-Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
-
-## 🚀 Start and attach
+## Start and attach
 
 ```bash
 tmux new -s main
@@ -13,13 +11,7 @@ tmux ls
 tmux kill-session -t main
 ```
 
-Template shortcut from `~/.zshrc`:
-
-```bash
-tm
-```
-
-## ✨ Core keybindings (default prefix `Ctrl-b`)
+## Core keys (prefix `Ctrl-b`)
 
 ```text
 Ctrl-b c      new window
@@ -33,9 +25,16 @@ Ctrl-b d      detach session
 Ctrl-b r      reload ~/.tmux.conf
 ```
 
-## ✨ Copy and clipboard flow
+## Activity highlighting
 
-This repo config includes clipboard-aware copy-mode mappings.
+```text
+●   window has new activity/output
+!   bell/urgent event
+```
+
+Idle windows show no marker; activity markers only appear when there is new output.
+
+## Copy/clipboard flow
 
 ```text
 Ctrl-b [      enter copy mode
@@ -44,63 +43,7 @@ y             copy selection to system clipboard
 Enter         copy selection to system clipboard
 ```
 
-## ✨ Session persistence
-
-The template enables `tmux-resurrect` + `tmux-continuum`.
-
-```text
-Ctrl-b I      install TPM plugins (first run)
-Ctrl-b U      update TPM plugins
-Ctrl-b M-s    save tmux environment (resurrect)
-Ctrl-b M-r    restore tmux environment (resurrect)
-```
-
-## ✨ High-value leadership flows
-
-### 🔹 Research mode
-
-```bash
-tmux-research
-```
-
-Great when you want to benchmarking and exploring code:
-- editor in first window
-- git review window (`lazygit`)
-- benchmark window (`hyperfine`)
-- monitor window (`btop`)
-
-### 🔹 Delivery mode
-
-```bash
-tmux-delivery
-```
-
-Great when you want to finalizing changes:
-- editor + live verify split
-- git review window
-- security scan window (`trivy`)
-
-### 🔹 Incident mode
-
-```bash
-tmux-incident
-```
-
-Great when you want to troubleshooting production issues:
-- system monitor + process view
-- k8s window (`k9s`/`kubectl`)
-- network diagnostics (`doggo`)
-
-## 🗓 Daily command sequence
-
-```bash
-tmux new -A -s main
-nvim .
-make verify
-lazygit
-```
-
-## ✨ Validate tmux config quickly
+## Validate config quickly
 
 ```bash
 tmux -L utils-scripts-smoke -f ~/.tmux.conf new-session -d -s smoke

@@ -261,7 +261,15 @@ install_productivity_cli_stack() {
 
   if [[ "$OS" == "Darwin" ]]; then
     install_optional_brew_formula lazygit
+    install_optional_brew_formula glow
     install_optional_brew_formula hyperfine
+    install_optional_brew_formula yq
+    install_optional_brew_formula shellcheck
+    install_optional_brew_formula shfmt
+    install_optional_brew_formula git-delta "git-delta (delta)"
+    install_optional_brew_formula tealdeer "tealdeer (tldr)"
+    install_optional_brew_formula gawk
+    install_optional_brew_formula entr
     install_optional_brew_formula dua-cli "dua-cli (dua)"
     install_optional_brew_formula dust
     install_optional_brew_formula procs
@@ -276,7 +284,15 @@ install_productivity_cli_stack() {
   fi
 
   install_apt_first_available lazygit lazygit
+  install_apt_first_available glow glow
   install_apt_first_available hyperfine hyperfine
+  install_apt_first_available yq yq
+  install_apt_first_available shellcheck shellcheck
+  install_apt_first_available shfmt shfmt
+  install_apt_first_available "git-delta (delta)" git-delta
+  install_apt_first_available "tealdeer (tldr)" tealdeer tldr
+  install_apt_first_available gawk gawk
+  install_apt_first_available entr entr
   install_apt_first_available "dua-cli (dua)" dua-cli
   install_apt_first_available dust du-dust dust
   install_apt_first_available procs procs

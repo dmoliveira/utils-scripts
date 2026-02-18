@@ -74,7 +74,7 @@ Includes dependencies for:
 - **Terminal:** tmux, zsh, starship, ghostty, atuin, direnv, htop, btop  
 - **Editor:** neovim (Lua config-ready)  
 - **Python:** numpy, pandas, torch, scikit-learn, transformers (editable)  
-- **Optional:** lazygit, hyperfine, dua-cli, dust, procs, xh, doggo, watchexec, kubectl, k9s, trivy, zellij, git, curl, wget, build-essentials  
+- **Optional:** lazygit, glow, hyperfine, yq, shellcheck, shfmt, git-delta, tealdeer, gawk, entr, dua-cli, dust, procs, xh, doggo, watchexec, kubectl, k9s, trivy, zellij, git, curl, wget, build-essentials
 
 ---
 
@@ -251,6 +251,7 @@ Per-tool, power-user guides live in:
 - `docs/cheatsheets/k9s.md`
 - `docs/cheatsheets/watchexec.md`
 - `docs/cheatsheets/direnv.md`
+- `docs/cheatsheets/daily-cli.md`
 - `docs/cheatsheets/atuin.md`
 - `docs/cheatsheets/dua.md`
 - `docs/cheatsheets/dust.md`
@@ -284,7 +285,7 @@ Run the smoke test script after installation to validate your terminal stack:
 It checks:
 - required CLI tools (`zsh`, `tmux`, `nvim`, `fzf`, `zoxide`, `starship`, `direnv`, `atuin`)
 - monitoring tools (`btop` plus `btm` on macOS, `nvtop` on Linux with detected GPU)
-- advanced productivity tools (`lazygit`, `hyperfine`, `dua`, `dust`, `procs`, `xh`, `doggo`, `watchexec`, `kubectl`, `k9s`, `trivy`, `zellij`) as optional checks
+- advanced productivity tools (`lazygit`, `glow`, `hyperfine`, `dua`, `dust`, `procs`, `xh`, `doggo`, `watchexec`, `kubectl`, `k9s`, `trivy`, `zellij`) as optional checks
 - expected config files (`~/.zshrc`, `~/.tmux.conf`, `~/.config/nvim/init.lua`)
 - syntax/startup checks for Zsh, tmux, and Neovim
 - Ghostty config validation on macOS when installed
@@ -347,7 +348,13 @@ Keep personal prompt tweaks in a clearly marked block so they are easy to remove
 
 Template defaults include:
 - compact git dirtiness counts only when dirty (example: `+2 !1 ?3`)
-- command-duration tiers: show after 2s, notify after 15s
+- adaptive command duration shown after 2s in prompt only (desktop notifications disabled)
+
+Adaptive duration uses two units:
+- `d+h` for multi-day commands
+- `h+m` for multi-hour commands
+- `m+s` for multi-minute commands
+- `s+ms` for multi-second commands
 
 ```toml
 [git_branch]
@@ -365,10 +372,29 @@ set -g mouse on
 bind r source-file ~/.tmux.conf \; display "Reloaded!"
 ```
 
-Template defaults also include `tmux-sensible` and an opt-in switch for status plugins:
+Template defaults also include `tmux-sensible` and status plugins for richer metrics:
 ```
-set -g @qol_status_plugins 'off'   # change to 'on' for battery/network status plugins
+set -g @qol_status_plugins 'on'    # CPU + memory (+ battery when available)
 ```
+In this mode the config keeps the native tmux status line (instead of Powerline) so the metrics stay visible.
+Status-right shows CPU and memory, and only shows battery when a battery value exists.
+
+Window status highlighting is enabled by default so background activity is easier to spot:
+```
+setw -g monitor-activity on
+setw -g monitor-bell on
+# window badges: * = activity, ! = bell
+# visual popup/bell overlays are disabled to reduce distraction
+```
+
+By default, tmux labels use a single marker per window for stronger visual cues:
+```
+set -g @status_use_nerd_fonts 'on'
+```
+Activity/bell markers are rendered in a dedicated prefix block before each background window label.
+Idle windows keep the marker slot empty; activity/bell markers appear only when there is something to check.
+
+If icons render badly in your terminal, set `@status_use_nerd_fonts` to `off` for pure ASCII markers.
 
 Session persistence defaults are also enabled via TPM plugins:
 ```
@@ -385,7 +411,14 @@ set -g @continuum-restore 'on'
 
 ### Productivity tools quick guide
 - `lazygit`: fast interactive Git UI; start with `lazygit`, stage with `space`, commit with `c`
+- `glow`: render Markdown beautifully in terminal; use `glow README.md` or `fd -e md docs | fzf --preview 'glow -p {}'`
 - `hyperfine`: benchmark commands reliably; use `hyperfine 'python script.py' 'uv run python script.py'`
+- `yq`: query/edit YAML quickly; use `yq '.jobs.test.steps[].run' .github/workflows/smoke-checks.yml`
+- `shellcheck` + `shfmt`: lint and format shell scripts; use `shellcheck install_my_programs_unix` and `shfmt -w install_my_programs_unix`
+- `delta`: readable diffs in terminal; use `git -c core.pager=delta diff`
+- `tealdeer` (`tldr`): fast command examples; use `tldr tmux`, `tldr yq`, `tldr direnv`
+- `awk`/`gawk`: text processing; use `gawk '/direnv/ {print NR ":" $0}' run_commands/my_zshrc`
+- `entr`: rerun commands on file changes; use `fd -e md docs | entr -c glow -p README.md`
 - `dua` and `dust`: inspect disk usage quickly; run `dua i` for interactive mode and `dust -d 3` for top folders
 - `procs`: modern process viewer; try `procs --sortd cpu` or `procs python`
 - `xh`: readable HTTP client; use `xh GET https://api.github.com/repos/dmoliveira/utils-scripts`
@@ -474,6 +507,14 @@ If you see `Ghostty config validation failed`, run:
 /Applications/Ghostty.app/Contents/MacOS/ghostty +validate-config --config-file ~/.config/ghostty/config
 ```
 Fix the reported key/value and rerun `make verify`.
+
+### tmux reload shows `powerline-config ... returned 127`
+This means Powerline is not installed in your tmux runtime path.
+The template now falls back to a built-in tmux status line automatically when Powerline is unavailable.
+
+### ngrok says it cannot render dynamic color UI on solaris
+The zsh template wraps `ngrok` and forces `TERM=xterm-256color` when running inside tmux.
+Run `exec zsh` to load the wrapper in current shells.
 
 ### `--strict` mode fails on warnings
 `./verify_post_install_unix --strict` intentionally converts warnings into failures.

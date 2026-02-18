@@ -1,119 +1,51 @@
-# 🧭 direnv Cheatsheet
+# direnv Cheatsheet
 
-Friendly, safe, repeatable per-project environment loading for shell workflows.
+Safe, repeatable per-project environment loading.
 
-Quick win: run one command from `Start`, then jump to a flow section that matches your task. 🙌
+## Core workflow
 
-## 🚀 Start
+1. Copy `.envrc.example` to `.envrc`.
+2. Keep `.envrc` non-secret.
+3. Run `direnv allow`.
+4. Re-run `direnv allow` after each `.envrc` edit.
 
-```bash
-direnv version
-direnv status
-```
-
-## ✨ Core workflow
-
-1. create `.envrc` in project root
-2. add only project-specific exports
-3. run `direnv allow`
-4. verify vars load when entering directory
-
-Example:
-
-```bash
-cat > .envrc <<'EOF'
-export APP_ENV=dev
-export PYTHONPATH=$PWD
-EOF
-
-direnv allow
-```
-
-## ✨ Useful commands
+## Top commands
 
 ```bash
 direnv allow
 direnv deny
 direnv reload
 direnv status
+direnv exec . env | rg APP_ENV
 ```
 
-## ✨ Python/venv patterns
-
-```bash
-echo 'layout python3' >> .envrc
-direnv allow
-```
-
-For existing virtualenv:
-
-```bash
-echo 'source .venv/bin/activate' >> .envrc
-direnv allow
-```
-
-## ✨ Secrets hygiene pattern
-
-Keep secrets outside repo and source them from a safe path:
-
-```bash
-echo 'source_env "$HOME/.config/secrets/shell.env"' >> .envrc
-direnv allow
-```
-
-Use with repo convention:
-
-```bash
-chmod 600 ~/.config/secrets/shell.env
-```
-
-## ✨ Practical workflows
-
-### 🔹 Flow 1: project bootstrap
+## Team template flow
 
 ```bash
 cp .envrc.example .envrc
-direnv allow
-make verify
-```
-
-### 🔹 Flow 2: fast context switching
-
-```bash
-z project-a
-z project-b
-```
-
-`direnv` auto-loads each project environment on directory change.
-
-### 🔹 Flow 3: temporary debug flags
-
-```bash
-echo 'export DEBUG=true' >> .envrc
-direnv reload
-```
-
-Remove the line after debugging and reload again.
-
-## 🧯 Troubleshooting
-
-### 🔹 Changes not applied
-
-```bash
-direnv reload
-direnv status
-```
-
-### 🔹 "blocked" .envrc
-
-```bash
+cp .env.local.example .env.local
 direnv allow
 ```
 
-### 🔹 verify shell hook loaded
+## Secrets pattern
 
-This repo template includes:
+Use a machine-local file outside the repo:
 
-```zsh
-eval "$(direnv hook zsh)"
+```bash
+~/.config/secrets/my-project.env
+chmod 600 ~/.config/secrets/my-project.env
+```
+
+Load it from `.envrc`:
+
+```bash
+source_env_if_exists ~/.config/secrets/my-project.env
+```
+
+## Helper functions from template
+
+```bash
+da       # direnv allow .
+ddeny    # direnv deny .
+dstatus  # direnv status
 ```
