@@ -11,17 +11,18 @@ repos:
       - id: trailing-whitespace
         exclude: ^\.beads/
 
-  - repo: https://github.com/koalaman/shellcheck-precommit
-    rev: v0.10.0
+  - repo: local
     hooks:
-      - id: shellcheck
-        args: [--severity=warning]
-
-  - repo: https://github.com/scop/pre-commit-shfmt
-    rev: v3.12.0-2
-    hooks:
-      - id: shfmt
-        args: [-w, -i, "2", -ci]
+      - id: shellcheck-local
+        name: shellcheck-local
+        entry: bash -lc 'set -euo pipefail; mapfile -t files < <(git ls-files | while IFS= read -r f; do [[ -f "$f" ]] || continue; first="$(head -n 1 "$f" 2>/dev/null || true)"; if [[ "$first" =~ ^#!/usr/bin/env\ (bash|sh)$ || "$first" =~ ^#!/bin/(bash|sh)$ ]]; then printf "%s\n" "$f"; fi; done); [[ ${#files[@]} -eq 0 ]] && exit 0; shellcheck -S warning "${files[@]}"'
+        language: system
+        pass_filenames: false
+      - id: shfmt-local
+        name: shfmt-local
+        entry: bash -lc 'set -euo pipefail; mapfile -t files < <(git ls-files | while IFS= read -r f; do [[ -f "$f" ]] || continue; first="$(head -n 1 "$f" 2>/dev/null || true)"; if [[ "$first" =~ ^#!/usr/bin/env\ (bash|sh)$ || "$first" =~ ^#!/bin/(bash|sh)$ ]]; then printf "%s\n" "$f"; fi; done); [[ ${#files[@]} -eq 0 ]] && exit 0; shfmt -w -i 2 -ci "${files[@]}"'
+        language: system
+        pass_filenames: false
 
   - repo: https://github.com/DavidAnson/markdownlint-cli2
     rev: v0.16.0
