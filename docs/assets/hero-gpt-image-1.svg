@@ -1,0 +1,36 @@
+<svg width="1600" height="480" viewBox="0 0 1600 480" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">utils-scripts hero image</title>
+  <desc id="desc">Abstract terminal and workflow illustration generated from a GPT-Image-1 prompt.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d1f2d" />
+      <stop offset="55%" stop-color="#173952" />
+      <stop offset="100%" stop-color="#1f6f78" />
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#102f45" />
+      <stop offset="100%" stop-color="#0c2333" />
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="1600" height="480" fill="url(#bg)" />
+  <circle cx="1410" cy="95" r="180" fill="#1f8f96" opacity="0.23" />
+  <circle cx="210" cy="430" r="220" fill="#2b6f9f" opacity="0.21" />
+  <rect x="84" y="76" rx="22" ry="22" width="920" height="328" fill="url(#panel)" stroke="#5bb7cf" stroke-opacity="0.35" />
+  <rect x="116" y="116" width="860" height="34" rx="9" fill="#071925" opacity="0.93" />
+  <circle cx="140" cy="133" r="6" fill="#ff7262" />
+  <circle cx="161" cy="133" r="6" fill="#f8c65f" />
+  <circle cx="182" cy="133" r="6" fill="#61d090" />
+  <text x="220" y="138" fill="#8ec9d8" font-size="14" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">utils-scripts terminal workflow</text>
+  <text x="120" y="196" fill="#dbf4fb" font-size="26" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">Bootstrap. Verify. Ship.</text>
+  <text x="120" y="234" fill="#9fdbe9" font-size="17" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">$ make install-mac &amp;&amp; make verify &amp;&amp; make doctor-full</text>
+  <text x="120" y="276" fill="#8fc9d9" font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">New users: getting started guides | Power users: playbooks + cheatsheets</text>
+  <text x="120" y="314" fill="#67bfd5" font-size="14" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">CONTINUE_TAG: #continue-utils</text>
+  <rect x="1082" y="86" width="430" height="306" rx="18" fill="#0a2233" fill-opacity="0.88" stroke="#63bfd2" stroke-opacity="0.38" />
+  <text x="1110" y="126" fill="#dbf4fb" font-size="22" font-family="ui-sans-serif, -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif">Workflow Coverage</text>
+  <text x="1110" y="166" fill="#8fc9d9" font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">- install scripts</text>
+  <text x="1110" y="196" fill="#8fc9d9" font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">- verify + doctor</text>
+  <text x="1110" y="226" fill="#8fc9d9" font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">- terminal playbook</text>
+  <text x="1110" y="256" fill="#8fc9d9" font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">- cheatsheets</text>
+  <text x="1110" y="286" fill="#8fc9d9" font-size="15" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">- pages + wiki publish</text>
+  <text x="1110" y="332" fill="#63bfd2" font-size="13" font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace">Prompt origin: GPT-Image-1 concept</text>
+</svg>

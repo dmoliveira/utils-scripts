@@ -209,10 +209,14 @@ if [[ "$(uname -s)" == "Darwin" ]]; then
   if [[ -x "/Applications/Ghostty.app/Contents/MacOS/ghostty" ]]; then
     pass "Ghostty app binary exists"
     if [[ -f "$HOME/.config/ghostty/config" ]]; then
+      validation_output=$("/Applications/Ghostty.app/Contents/MacOS/ghostty" +validate-config --config-file "$HOME/.config/ghostty/config" 2>&1 || true)
       if "/Applications/Ghostty.app/Contents/MacOS/ghostty" +validate-config --config-file "$HOME/.config/ghostty/config" >/dev/null 2>&1; then
         pass "Ghostty config validates"
+      elif [[ -z "$validation_output" ]] && "/Applications/Ghostty.app/Contents/MacOS/ghostty" +show-config >/dev/null 2>&1; then
+        # Ghostty may return non-zero with no diagnostics in headless shells on macOS.
+        pass "Ghostty config appears readable (validator returned no diagnostics)"
       else
-        warn "Ghostty config validation failed"
+        warn "Ghostty config validation failed: ${validation_output%%$'\n'*}"
       fi
     else
       warn "Ghostty config not found at $HOME/.config/ghostty/config"

@@ -1,0 +1,31 @@
+name: Release Flow Check
+
+on:
+  pull_request:
+    paths:
+      - ".github/RELEASE_NOTES_TEMPLATE.md"
+      - ".github/workflows/release-on-tag.yml"
+      - ".github/workflows/release-e2e-check.yml"
+      - "docs/release-flow.md"
+  push:
+    branches:
+      - master
+    paths:
+      - ".github/RELEASE_NOTES_TEMPLATE.md"
+      - ".github/workflows/release-on-tag.yml"
+      - "docs/release-flow.md"
+
+jobs:
+  render-release-template:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Render release notes example
+        run: |
+          set -euo pipefail
+          VERSION="v0.0.0-test"
+          DATE_UTC="$(date -u +%Y-%m-%d)"
+          sed "s/{{VERSION}}/${VERSION}/g; s/{{DATE}}/${DATE_UTC}/g" .github/RELEASE_NOTES_TEMPLATE.md > /tmp/release-notes.md
+          test -s /tmp/release-notes.md

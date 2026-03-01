@@ -7,7 +7,6 @@ background-opacity = 1.0
 background-blur = false
 window-padding-x = 10
 window-padding-y = 8
-working-directory = /Users/diego/Codes
 scrollback-limit = 20000
 copy-on-select = true
 macos-option-as-alt = true
