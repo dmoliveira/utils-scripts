@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+plugin_script="$HOME/.tmux/plugins/tmux-network-bandwidth/scripts/network-bandwidth.sh"
+
+fallback_output() {
+  printf "down:- up:-"
+}
+
+run_plugin() {
+  "$plugin_script" 2>/dev/null || fallback_output
+}
+
+if [[ ! -x "$plugin_script" ]]; then
+  fallback_output
+  exit 0
+fi
+
+if command -v numfmt >/dev/null 2>&1; then
+  run_plugin
+  exit 0
+fi
+
+if command -v gnumfmt >/dev/null 2>&1; then
+  tmp_dir="${TMPDIR:-/tmp}/tmux-net-numfmt-$$"
+  mkdir -p "$tmp_dir"
+  trap 'rm -rf "$tmp_dir"' EXIT
+  ln -sf "$(command -v gnumfmt)" "$tmp_dir/numfmt"
+  PATH="$tmp_dir:$PATH" run_plugin
+  exit 0
+fi
+
+for coreutils_bin in "/opt/homebrew/opt/coreutils/libexec/gnubin" "/usr/local/opt/coreutils/libexec/gnubin"; do
+  if [[ -x "$coreutils_bin/numfmt" ]]; then
+    PATH="$coreutils_bin:$PATH" run_plugin
+    exit 0
+  fi
+done
+
+fallback_output
