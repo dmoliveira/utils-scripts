@@ -6,6 +6,7 @@ on:
       - ".github/RELEASE_NOTES_TEMPLATE.md"
       - ".github/workflows/release-on-tag.yml"
       - ".github/workflows/release-e2e-check.yml"
+      - "scripts/check_release_template.sh"
       - "docs/release-flow.md"
   push:
     branches:
@@ -13,6 +14,7 @@ on:
     paths:
       - ".github/RELEASE_NOTES_TEMPLATE.md"
       - ".github/workflows/release-on-tag.yml"
+      - "scripts/check_release_template.sh"
       - "docs/release-flow.md"
 
 jobs:
@@ -29,3 +31,6 @@ jobs:
           DATE_UTC="$(date -u +%Y-%m-%d)"
           sed "s/{{VERSION}}/${VERSION}/g; s/{{DATE}}/${DATE_UTC}/g" .github/RELEASE_NOTES_TEMPLATE.md > /tmp/release-notes.md
           test -s /tmp/release-notes.md
+
+      - name: Validate release template structure
+        run: make release-template-check
