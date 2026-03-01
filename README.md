@@ -106,6 +106,7 @@ make ci-quick
 make doctor-full
 make release-precheck
 make release-template-check
+make release-docs-check
 make verify-linux
 make docs-browse
 make wiki-build

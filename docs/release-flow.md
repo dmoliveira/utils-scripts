@@ -22,6 +22,7 @@ git push origin "${VERSION}"
 ```
 
 `make release-precheck` runs `make ci-quick` first, then `make doctor-full`.
+`make ci-quick` includes `make release-docs-check` to keep release command docs aligned.
 
 ## Automation references
 

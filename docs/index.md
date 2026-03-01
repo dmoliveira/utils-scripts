@@ -43,6 +43,7 @@ make ci-quick
 make doctor
 make docs-browse
 make release-precheck
+make release-docs-check
 make docs-hub-check
 ```
 
