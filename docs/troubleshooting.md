@@ -35,6 +35,10 @@ make hooks-install
 make pre-commit-install
 ```
 
+## `make shell-lint` fails with `mapfile: command not found`
+
+Update to the latest release. The shell lint pipeline now supports Bash 3.x environments (for example, default macOS `/bin/bash`).
+
 ## Need to revert installer changes
 
 Run:

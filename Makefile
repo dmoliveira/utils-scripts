@@ -57,7 +57,8 @@ rollback-dry-run: ## Preview rollback actions without file changes
 
 shell-lint: ## Run shellcheck and shfmt on shell scripts
 	@bash -lc 'set -euo pipefail; \
-	mapfile -t files < <(git ls-files | while IFS= read -r f; do [[ -f "$$f" ]] || continue; first="$$(head -n 1 "$$f" 2>/dev/null || true)"; if [[ "$$first" =~ ^#!/usr/bin/env\ (bash|sh)$$ || "$$first" =~ ^#!/bin/(bash|sh)$$ ]]; then printf "%s\n" "$$f"; fi; done); \
+	files=(); \
+	while IFS= read -r f; do files+=("$$f"); done < <(./scripts/list_shell_files.sh); \
 	if [[ "$${#files[@]}" -eq 0 ]]; then echo "No shell files found to lint."; exit 0; fi; \
 	shellcheck -S warning "$${files[@]}"; \
 	shfmt -d -i 2 -ci "$${files[@]}"'

@@ -152,6 +152,7 @@ make rollback
 - if command variants differ on Linux (`fd` vs `fdfind`, `bat` vs `batcat`), run `make verify-linux`
 - if shell secrets are not loaded, run `make bootstrap-secrets` and ensure `chmod 600 ~/.config/secrets/shell.env`
 - if you need rollback, run `make rollback-dry-run` first
+- if `make shell-lint` fails with `mapfile: command not found`, update to latest release
 
 Full troubleshooting guide: `docs/troubleshooting.md`
 
