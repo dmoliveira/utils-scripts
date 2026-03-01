@@ -21,7 +21,20 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      - name: Check wiki enablement
+        id: wiki
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          has_wiki="$(gh api repos/${{ github.repository }} --jq .has_wiki)"
+          echo "enabled=${has_wiki}" >> "$GITHUB_OUTPUT"
+          if [ "${has_wiki}" != "true" ]; then
+            echo "Repository wiki is disabled; skipping wiki sync."
+          fi
+
       - name: Clone wiki repo
+        if: steps.wiki.outputs.enabled == 'true'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -29,11 +42,13 @@ jobs:
           git clone "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.wiki.git" /tmp/wiki
 
       - name: Sync wiki content
+        if: steps.wiki.outputs.enabled == 'true'
         run: |
           set -euo pipefail
           rsync -av --delete --exclude '.git' wiki/ /tmp/wiki/
 
       - name: Commit and push wiki changes
+        if: steps.wiki.outputs.enabled == 'true'
         env:
           GH_ACTOR: ${{ github.actor }}
         run: |
