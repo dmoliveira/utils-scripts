@@ -39,6 +39,7 @@ Use this matrix to pick the shortest path for your goal.
 | Guard workflow inventory | `make workflow-inventory-check` | Keep required CI workflows discoverable and referenced |
 | Guard core command docs | `make core-commands-check` | Keep README and docs index command lists aligned |
 | Guard docs assets | `make docs-assets-check` | Keep hero asset and key references consistent |
+| Guard cheatsheet index | `make cheatsheet-index-check` | Keep cheatsheet index synchronized with file set |
 | Fast CI-equivalent pass | `make ci-quick` | Run lint/docs/wiki/release template guards quickly |
 | Memorize essentials | Read `top-10-release-maintainer-commands.md` | Safer repeatable releases |
 

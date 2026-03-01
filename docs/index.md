@@ -47,6 +47,7 @@ make release-docs-check
 make workflow-inventory-check
 make core-commands-check
 make docs-assets-check
+make cheatsheet-index-check
 make docs-hub-check
 ```
 
