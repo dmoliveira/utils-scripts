@@ -28,16 +28,46 @@ jobs:
 
     steps:
       - name: Install checkout dependencies
-        run: apt-get update && apt-get install -y git ca-certificates
+        run: |
+          set -euo pipefail
+          for i in 1 2 3; do
+            if apt-get update && apt-get install -y git ca-certificates; then
+              exit 0
+            fi
+            echo "Retrying checkout dependency install (${i}/3)"
+            sleep 5
+          done
+          echo "Failed to install checkout dependencies after retries"
+          exit 1
 
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Install base bootstrap prerequisites
-        run: apt-get update && apt-get install -y sudo curl unzip python3 python3-pip
+        run: |
+          set -euo pipefail
+          for i in 1 2 3; do
+            if apt-get update && apt-get install -y sudo curl unzip python3 python3-pip; then
+              exit 0
+            fi
+            echo "Retrying base prerequisite install (${i}/3)"
+            sleep 5
+          done
+          echo "Failed to install base prerequisites after retries"
+          exit 1
 
       - name: Run installer (golden path)
-        run: ./install_my_programs_unix --skip-ml --skip-fonts
+        run: |
+          set -euo pipefail
+          for i in 1 2; do
+            if ./install_my_programs_unix --skip-ml --skip-fonts; then
+              exit 0
+            fi
+            echo "Retrying golden path installer (${i}/2)"
+            sleep 10
+          done
+          echo "Golden path installer failed after retries"
+          exit 1
 
       - name: Run verification
         run: ./verify_post_install_unix
