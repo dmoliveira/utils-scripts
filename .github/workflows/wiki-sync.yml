@@ -7,6 +7,7 @@ on:
     paths:
       - "wiki/**"
       - "docs/**"
+      - "scripts/build_wiki_payload.sh"
       - "README.md"
       - ".github/workflows/wiki-sync.yml"
   workflow_dispatch:
@@ -43,11 +44,17 @@ jobs:
           set -euo pipefail
           git clone "https://x-access-token:${GH_TOKEN}@github.com/${{ github.repository }}.wiki.git" /tmp/wiki
 
+      - name: Build wiki payload from docs and wiki source
+        if: steps.wiki.outputs.enabled == 'true' && steps.clone_wiki.outcome == 'success'
+        run: |
+          set -euo pipefail
+          ./scripts/build_wiki_payload.sh /tmp/wiki-source
+
       - name: Sync wiki content
         if: steps.wiki.outputs.enabled == 'true' && steps.clone_wiki.outcome == 'success'
         run: |
           set -euo pipefail
-          rsync -av --delete --exclude '.git' wiki/ /tmp/wiki/
+          rsync -av --delete --exclude '.git' /tmp/wiki-source/ /tmp/wiki/
 
       - name: Commit and push wiki changes
         if: steps.wiki.outputs.enabled == 'true' && steps.clone_wiki.outcome == 'success'

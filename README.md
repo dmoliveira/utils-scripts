@@ -24,6 +24,7 @@ If this project saves you setup time, your donation directly funds ongoing maint
 
 - GitHub Pages docs: `docs/index.md` (published site)
 - Wiki source for GitHub Wiki: `wiki/Home.md`
+- Wiki mirror payload builder: `scripts/build_wiki_payload.sh`
 - Terminal scenario playbook: `TERMINAL_PLAYBOOK.md`
 - Power-user cheatsheets index: `docs/cheatsheets/index.md`
 
@@ -99,6 +100,7 @@ make doctor
 make doctor-full
 make verify-linux
 make docs-browse
+make wiki-build
 make rollback-dry-run
 make rollback
 ```
