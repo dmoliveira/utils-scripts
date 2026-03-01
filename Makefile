@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check docs-assets-check cheatsheet-index-check quick-cards-check ci-quick release-precheck
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check wiki-sidebar-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check docs-assets-check cheatsheet-index-check quick-cards-check ci-quick release-precheck
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -85,6 +85,9 @@ wiki-build-check: ## Build wiki payload and verify expected links/files
 wiki-source-check: ## Validate links inside wiki source pages
 	./scripts/check_wiki_source.sh
 
+wiki-sidebar-check: ## Validate core links in wiki sidebar source
+	./scripts/check_wiki_sidebar_source.sh
+
 docs-hub-check: ## Validate docs hub files and core cross-links
 	./scripts/check_docs_hub.sh
 
@@ -122,6 +125,7 @@ ci-quick: ## Run fast CI-equivalent guards (no full doctor)
 	make docs-make-target-check; \
 	make continue-tag-check; \
 	make wiki-source-check; \
+	make wiki-sidebar-check; \
 	make wiki-build-check; \
 	make release-template-check; \
 	make release-docs-check; \
