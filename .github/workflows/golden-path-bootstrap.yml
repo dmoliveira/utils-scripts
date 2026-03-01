@@ -23,6 +23,7 @@ on:
 jobs:
   bootstrap-ubuntu:
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     container:
       image: ubuntu:24.04
 
@@ -60,7 +61,7 @@ jobs:
         run: |
           set -eu
           for i in 1 2; do
-            if ./install_my_programs_unix --skip-ml --skip-fonts; then
+            if timeout 45m ./install_my_programs_unix --skip-ml --skip-fonts; then
               exit 0
             fi
             echo "Retrying golden path installer (${i}/2)"
