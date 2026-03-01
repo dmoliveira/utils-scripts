@@ -175,6 +175,8 @@ If this repo made your setup calmer, faster, or easier to maintain, consider don
 
 [![Donate via Stripe](https://img.shields.io/badge/Donate-Stripe-blue?logo=stripe&logoColor=white)](https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00)
 
+Impact breakdown: `docs/donation-impact.md`
+
 You can also connect here:
 
 - CV: [dmoliveira.github.io/my-cv-public](https://dmoliveira.github.io/my-cv-public/)

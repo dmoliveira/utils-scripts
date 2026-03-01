@@ -13,6 +13,7 @@ If you are new, start with `getting-started.md`. If you already ship fast in ter
 1. [Getting Started](getting-started.md)
 2. [Troubleshooting](troubleshooting.md)
 3. [Support and Donate](support.md)
+4. [Donation Impact](donation-impact.md)
 
 ### Power users
 
