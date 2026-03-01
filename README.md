@@ -113,6 +113,7 @@ make docs-assets-check
 make cheatsheet-index-check
 make quick-cards-check
 make top10-cards-check
+make ci-quick-guards-check
 make verify-linux
 make docs-browse
 make wiki-build

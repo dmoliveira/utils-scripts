@@ -29,6 +29,7 @@ git push origin "${VERSION}"
 `make ci-quick` also includes `make quick-cards-check` to keep persona quick-card links aligned.
 `make ci-quick` also includes `make wiki-sidebar-check` to keep core wiki sidebar links aligned.
 `make ci-quick` also includes `make top10-cards-check` to enforce top-10 card item counts.
+`make release-precheck` also includes `make ci-quick-guards-check` to ensure ci-quick guard coverage remains complete.
 
 ## Automation references
 
