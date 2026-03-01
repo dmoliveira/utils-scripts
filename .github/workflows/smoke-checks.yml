@@ -44,5 +44,8 @@ jobs:
       - name: Validate docs hub integrity
         run: make docs-hub-check
 
+      - name: Validate wiki source links
+        run: make wiki-source-check
+
       - name: Validate Linux edge-case checks
         run: ./verify_linux_edge_cases
