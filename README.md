@@ -102,6 +102,7 @@ make docs-browse
 make verify
 make verify-strict
 make doctor
+make ci-quick
 make doctor-full
 make release-precheck
 make release-template-check

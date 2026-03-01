@@ -39,6 +39,7 @@ If you are new, start with `getting-started.md`. If you already ship fast in ter
 ```bash
 make help
 make verify
+make ci-quick
 make doctor
 make docs-browse
 make release-precheck
