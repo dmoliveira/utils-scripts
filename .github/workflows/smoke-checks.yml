@@ -44,6 +44,9 @@ jobs:
       - name: Validate docs hub integrity
         run: make docs-hub-check
 
+      - name: Validate docs make target references
+        run: make docs-make-target-check
+
       - name: Validate wiki source links
         run: make wiki-source-check
 

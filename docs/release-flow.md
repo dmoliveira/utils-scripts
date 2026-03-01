@@ -21,7 +21,7 @@ git tag "${VERSION}"
 git push origin "${VERSION}"
 ```
 
-`make release-precheck` runs `make doctor-full`, `make release-template-check`, `make docs-hub-check`, and `make wiki-build-check`.
+`make release-precheck` runs `make doctor-full`, `make release-template-check`, `make docs-hub-check`, `make docs-make-target-check`, `make wiki-source-check`, and `make wiki-build-check`.
 
 ## Automation references
 
