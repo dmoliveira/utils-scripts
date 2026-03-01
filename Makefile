@@ -92,4 +92,5 @@ release-precheck: ## Run release safety checks before tagging
 	@bash -lc 'set -euo pipefail; \
 	make doctor-full; \
 	make release-template-check; \
+	make docs-hub-check; \
 	make wiki-build-check'
