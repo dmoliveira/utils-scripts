@@ -107,6 +107,7 @@ make doctor-full
 make release-precheck
 make release-template-check
 make release-docs-check
+make workflow-inventory-check
 make verify-linux
 make docs-browse
 make wiki-build
@@ -146,6 +147,7 @@ make rollback
 - wiki source and payload link checks in smoke workflow
 - release-on-tag automation via `.github/workflows/release-on-tag.yml`
 - docs publication workflow for Pages and Wiki
+- workflow inventory: `.github/workflows/smoke-checks.yml`, `.github/workflows/link-check.yml`, `.github/workflows/docs-pages.yml`, `.github/workflows/wiki-sync.yml`, `.github/workflows/release-on-tag.yml`, `.github/workflows/release-e2e-check.yml`
 
 ## Configuration references
 

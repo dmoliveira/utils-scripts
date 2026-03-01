@@ -36,6 +36,7 @@ Use this matrix to pick the shortest path for your goal.
 | Guard make references in docs | `make docs-make-target-check` | Catch stale `make <target>` docs |
 | Guard continuation marker | `make continue-tag-check` | Keep roadmap marker consistent |
 | Guard release docs commands | `make release-docs-check` | Keep release docs and quick commands consistent |
+| Guard workflow inventory | `make workflow-inventory-check` | Keep required CI workflows discoverable and referenced |
 | Fast CI-equivalent pass | `make ci-quick` | Run lint/docs/wiki/release template guards quickly |
 | Memorize essentials | Read `top-10-release-maintainer-commands.md` | Safer repeatable releases |
 
