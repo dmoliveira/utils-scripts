@@ -38,5 +38,8 @@ jobs:
       - name: Validate wiki payload build
         run: make wiki-build
 
+      - name: Validate wiki payload rules
+        run: make wiki-build-check
+
       - name: Validate Linux edge-case checks
         run: ./verify_linux_edge_cases
