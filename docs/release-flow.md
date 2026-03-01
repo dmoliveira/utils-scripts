@@ -31,6 +31,7 @@ git push origin "${VERSION}"
 `make ci-quick` also includes `make top10-cards-check` to enforce top-10 card item counts.
 `make ci-quick` also includes `make golden-path-guards-check` to keep bootstrap safety guards intact.
 `make ci-quick` also includes `make quick-commands-sync-check` to keep README/docs quick command lists aligned.
+`make ci-quick` also includes `make smoke-guards-check` to keep smoke workflow guard coverage aligned.
 `make release-precheck` also includes `make ci-quick-guards-check` to ensure ci-quick guard coverage remains complete.
 
 ## Automation references

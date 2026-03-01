@@ -52,6 +52,7 @@ make quick-cards-check
 make top10-cards-check
 make golden-path-guards-check
 make quick-commands-sync-check
+make smoke-guards-check
 make ci-quick-guards-check
 make wiki-sidebar-check
 make docs-hub-check
