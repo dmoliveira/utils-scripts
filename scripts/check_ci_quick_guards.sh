@@ -30,6 +30,7 @@ required_ci_quick_steps=(
   'make cheatsheet-index-check'
   'make quick-cards-check'
   'make top10-cards-check'
+  'make golden-path-guards-check'
 )
 
 for step in "${required_ci_quick_steps[@]}"; do
