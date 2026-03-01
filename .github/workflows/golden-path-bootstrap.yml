@@ -21,7 +21,7 @@ on:
       - ".github/workflows/golden-path-bootstrap.yml"
 
 concurrency:
-  group: golden-path-bootstrap-${{ github.ref }}
+  group: golden-path-bootstrap-${{ github.repository }}
   cancel-in-progress: true
 
 jobs:
