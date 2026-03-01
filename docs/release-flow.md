@@ -26,4 +26,6 @@ git push origin "${VERSION}"
 - `.github/workflows/release-on-tag.yml`
 - `.github/RELEASE_NOTES_TEMPLATE.md`
 
+Release notes template now includes a `Supporters Changelog` section for transparent maintenance updates.
+
 Use `CONTINUE_TAG: #continue-utils` when a release is intentionally partial and has follow-up tasks.
