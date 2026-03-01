@@ -20,6 +20,10 @@ on:
       - "Makefile"
       - ".github/workflows/golden-path-bootstrap.yml"
 
+concurrency:
+  group: golden-path-bootstrap-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   bootstrap-ubuntu:
     runs-on: ubuntu-latest
