@@ -27,6 +27,7 @@ git push origin "${VERSION}"
 `make ci-quick` also includes `make docs-assets-check` to keep hero asset references aligned.
 `make ci-quick` also includes `make cheatsheet-index-check` to keep cheatsheet index coverage complete.
 `make ci-quick` also includes `make quick-cards-check` to keep persona quick-card links aligned.
+`make ci-quick` also includes `make wiki-sidebar-check` to keep core wiki sidebar links aligned.
 
 ## Automation references
 

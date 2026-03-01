@@ -117,6 +117,7 @@ make docs-browse
 make wiki-build
 make wiki-build-check
 make wiki-source-check
+make wiki-sidebar-check
 make docs-hub-check
 make docs-make-target-check
 make continue-tag-check

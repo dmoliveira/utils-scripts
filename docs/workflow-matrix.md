@@ -26,12 +26,13 @@ Use this matrix to pick the shortest path for your goal.
 
 | Goal | Command path | Outcome |
 | --- | --- | --- |
-| Release safety gate | `make release-precheck` | Combined release readiness checks (lint/template/docs/wiki) |
+| Release safety gate | `make release-precheck` | Combined release readiness checks (`ci-quick` + `doctor-full`) |
 | Pre-release gate | `make doctor-full` | Lint + verification confidence |
 | Tag and publish | `git tag vX.Y.Z && git push origin vX.Y.Z` | Automated release workflow |
 | Keep wiki in sync | `make wiki-build` | Preview mirrored wiki payload |
 | Guard wiki payload | `make wiki-build-check` | Catch sidebar/index regressions |
 | Guard wiki source links | `make wiki-source-check` | Catch broken links in `wiki/*.md` |
+| Guard wiki sidebar source | `make wiki-sidebar-check` | Keep core wiki sidebar links consistent |
 | Guard docs hub | `make docs-hub-check` | Catch docs entrypoint/link drift |
 | Guard make references in docs | `make docs-make-target-check` | Catch stale `make <target>` docs |
 | Guard continuation marker | `make continue-tag-check` | Keep roadmap marker consistent |
