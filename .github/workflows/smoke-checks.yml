@@ -35,5 +35,8 @@ jobs:
       - name: Validate Makefile targets
         run: make help
 
+      - name: Validate wiki payload build
+        run: make wiki-build
+
       - name: Validate Linux edge-case checks
         run: ./verify_linux_edge_cases
