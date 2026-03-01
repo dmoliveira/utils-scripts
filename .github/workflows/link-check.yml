@@ -24,5 +24,6 @@ jobs:
       - name: Check markdown links
         uses: lycheeverse/lychee-action@v2
         with:
+          lycheeVersion: 0.23.0
           fail: true
           args: --no-progress --verbose README.md docs/**/*.md
