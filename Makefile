@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check release-precheck
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check release-template-check release-precheck
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -82,7 +82,11 @@ wiki-build: ## Build wiki payload from docs and wiki source
 wiki-build-check: ## Build wiki payload and verify expected links/files
 	./scripts/check_wiki_payload.sh
 
+release-template-check: ## Validate release template headings/placeholders
+	./scripts/check_release_template.sh
+
 release-precheck: ## Run release safety checks before tagging
 	@bash -lc 'set -euo pipefail; \
 	make doctor-full; \
+	make release-template-check; \
 	make wiki-build-check'

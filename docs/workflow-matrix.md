@@ -26,7 +26,7 @@ Use this matrix to pick the shortest path for your goal.
 
 | Goal | Command path | Outcome |
 | --- | --- | --- |
-| Release safety gate | `make release-precheck` | Combined release readiness checks |
+| Release safety gate | `make release-precheck` | Combined release readiness checks (lint/template/wiki) |
 | Pre-release gate | `make doctor-full` | Lint + verification confidence |
 | Tag and publish | `git tag vX.Y.Z && git push origin vX.Y.Z` | Automated release workflow |
 | Keep wiki in sync | `make wiki-build` | Preview mirrored wiki payload |

@@ -104,6 +104,7 @@ make verify-strict
 make doctor
 make doctor-full
 make release-precheck
+make release-template-check
 make verify-linux
 make docs-browse
 make wiki-build
