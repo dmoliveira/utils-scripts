@@ -151,6 +151,7 @@ make rollback
 - markdown link checks for `README.md` and `docs/`
 - wiki source and payload link checks in smoke workflow
 - golden path bootstrap retries apt/install steps for transient CI network issues
+- golden path bootstrap has explicit job/install timeouts to prevent indefinite hangs
 - release-on-tag automation via `.github/workflows/release-on-tag.yml`
 - docs publication workflow for Pages and Wiki
 - workflow inventory: `.github/workflows/smoke-checks.yml`, `.github/workflows/link-check.yml`, `.github/workflows/docs-pages.yml`, `.github/workflows/wiki-sync.yml`, `.github/workflows/release-on-tag.yml`, `.github/workflows/release-e2e-check.yml`
