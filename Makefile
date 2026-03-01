@@ -109,10 +109,5 @@ ci-quick: ## Run fast CI-equivalent guards (no full doctor)
 
 release-precheck: ## Run release safety checks before tagging
 	@bash -lc 'set -euo pipefail; \
-	make doctor-full; \
-	make release-template-check; \
-	make continue-tag-check; \
-	make docs-hub-check; \
-	make docs-make-target-check; \
-	make wiki-source-check; \
-	make wiki-build-check'
+	make ci-quick; \
+	make doctor-full'
