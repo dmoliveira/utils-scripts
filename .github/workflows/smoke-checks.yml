@@ -47,6 +47,9 @@ jobs:
       - name: Validate docs make target references
         run: make docs-make-target-check
 
+      - name: Validate ci-quick guard coverage
+        run: make ci-quick-guards-check
+
       - name: Validate continue marker references
         run: make continue-tag-check
 
