@@ -109,6 +109,7 @@ make release-template-check
 make release-docs-check
 make workflow-inventory-check
 make core-commands-check
+make docs-assets-check
 make verify-linux
 make docs-browse
 make wiki-build

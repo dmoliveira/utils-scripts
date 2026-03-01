@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check ci-quick release-precheck
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check docs-assets-check ci-quick release-precheck
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -106,6 +106,9 @@ workflow-inventory-check: ## Validate required CI workflows and README reference
 core-commands-check: ## Validate core command docs alignment
 	./scripts/check_core_commands_docs.sh
 
+docs-assets-check: ## Validate docs hero asset and references
+	./scripts/check_docs_assets.sh
+
 ci-quick: ## Run fast CI-equivalent guards (no full doctor)
 	@bash -lc 'set -euo pipefail; \
 	pre-commit run --all-files; \
@@ -117,7 +120,8 @@ ci-quick: ## Run fast CI-equivalent guards (no full doctor)
 	make release-template-check; \
 	make release-docs-check; \
 	make workflow-inventory-check; \
-	make core-commands-check'
+	make core-commands-check; \
+	make docs-assets-check'
 
 release-precheck: ## Run release safety checks before tagging
 	@bash -lc 'set -euo pipefail; \
