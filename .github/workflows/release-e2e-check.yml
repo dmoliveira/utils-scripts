@@ -7,6 +7,7 @@ on:
       - ".github/workflows/release-on-tag.yml"
       - ".github/workflows/release-e2e-check.yml"
       - "scripts/check_release_template.sh"
+      - "scripts/check_release_docs_consistency.sh"
       - "docs/release-flow.md"
   push:
     branches:
@@ -15,6 +16,7 @@ on:
       - ".github/RELEASE_NOTES_TEMPLATE.md"
       - ".github/workflows/release-on-tag.yml"
       - "scripts/check_release_template.sh"
+      - "scripts/check_release_docs_consistency.sh"
       - "docs/release-flow.md"
 
 jobs:
@@ -34,3 +36,6 @@ jobs:
 
       - name: Validate release template structure
         run: make release-template-check
+
+      - name: Validate release docs consistency
+        run: make release-docs-check
