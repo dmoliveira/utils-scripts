@@ -6,14 +6,17 @@ These references are designed for copy/paste speed and practical command recall.
 
 - [tmux](tmux.md)
 - [starship](starship.md)
+- [zsh](zsh.md)
 - [ghostty](ghostty.md)
 - [zellij](zellij.md)
 - [nvim](nvim.md)
 - [make](make.md)
+- [btop](btop.md)
 
 ## Workflow accelerators
 
 - [lazygit](lazygit.md)
+- [glow](glow.md)
 - [watchexec](watchexec.md)
 - [hyperfine](hyperfine.md)
 - [parallel](parallel.md)
@@ -39,6 +42,7 @@ These references are designed for copy/paste speed and practical command recall.
 - [trivy](trivy.md)
 - [xh](xh.md)
 - [doggo](doggo.md)
+- [uv](uv.md)
 
 ## Task tracking
 
