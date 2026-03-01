@@ -43,7 +43,7 @@ battery (when available), and time:
 CPU 12.3% MEM 45.6% NET ↓120KiB/s • ↑90KiB/s BAT 89% 2026-03-01 23:40
 ```
 
-If `NET` is blank on macOS, install Homebrew `coreutils` so `numfmt` is available.
+If `NET` is blank, run `make verify` to check tmux plugin health and `numfmt` availability.
 
 ## Copy/clipboard flow
 
