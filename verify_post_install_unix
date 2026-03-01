@@ -97,6 +97,34 @@ check_file() {
   fi
 }
 
+check_dir() {
+  local dir="$1"
+  local label="${2:-directory '$1' exists}"
+  local missing_label="${3:-directory '$1' missing}"
+
+  if [[ -d "$dir" ]]; then
+    pass "$label"
+  else
+    warn "$missing_label"
+  fi
+}
+
+check_any_command() {
+  local label="$1"
+  shift
+
+  local cmd
+  for cmd in "$@"; do
+    if command -v "$cmd" >/dev/null 2>&1; then
+      pass "$label ($cmd)"
+      return 0
+    fi
+  done
+
+  warn "$label missing (tried: $*)"
+  return 1
+}
+
 run_check() {
   local label="$1"
   shift
@@ -157,6 +185,20 @@ else
   warn "command 'lua' missing; skipping standalone init.lua syntax parse"
 fi
 run_check "neovim headless start" nvim --headless +qa
+
+say "==> Checking tmux plugin health"
+check_file "$HOME/.tmux/plugins/tpm/tpm"
+check_dir "$HOME/.tmux/plugins/tmux-sensible" "tmux plugin directory '$HOME/.tmux/plugins/tmux-sensible' exists" "tmux plugin directory '$HOME/.tmux/plugins/tmux-sensible' missing"
+check_dir "$HOME/.tmux/plugins/tmux-cpu" "tmux plugin directory '$HOME/.tmux/plugins/tmux-cpu' exists" "tmux plugin directory '$HOME/.tmux/plugins/tmux-cpu' missing"
+
+if [[ -f "$HOME/.tmux.conf" ]] && grep -Eq "set -g @qol_status_plugins 'on'" "$HOME/.tmux.conf"; then
+  check_dir "$HOME/.tmux/plugins/tmux-battery" "tmux plugin directory '$HOME/.tmux/plugins/tmux-battery' exists" "tmux plugin directory '$HOME/.tmux/plugins/tmux-battery' missing"
+  check_dir "$HOME/.tmux/plugins/tmux-network-bandwidth" "tmux plugin directory '$HOME/.tmux/plugins/tmux-network-bandwidth' exists" "tmux plugin directory '$HOME/.tmux/plugins/tmux-network-bandwidth' missing"
+fi
+
+if [[ -f "$HOME/.tmux.conf" ]] && grep -Eq "tmux_network_bandwidth_safe|tmux-network-bandwidth" "$HOME/.tmux.conf"; then
+  check_any_command "numfmt for tmux network throughput formatting" numfmt gnumfmt
+fi
 
 say "==> Checking monitoring tools"
 if [[ "$(uname -s)" == "Darwin" ]]; then
