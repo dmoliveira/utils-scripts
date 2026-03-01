@@ -13,6 +13,20 @@ This wiki is sourced from the repository folder `wiki/` and intended to stay in 
 - [Troubleshooting](Troubleshooting)
 - [Support and Donation](Support-and-Donation)
 
+## Choose your path
+
+### New users
+
+1. [Getting Started](Getting-Started)
+2. [Troubleshooting](Troubleshooting)
+3. [Support and Donation](Support-and-Donation)
+
+### Power users
+
+1. [Power User Workflows](Power-User-Workflows)
+2. [Cheatsheets](Cheatsheets)
+3. [All Docs Mirror](All-Docs)
+
 ## Project goals
 
 - faster environment bootstrap for engineering and AI workflows

@@ -17,14 +17,21 @@ to_title() {
 	printf "%s" "${value}" | awk '{for (i=1;i<=NF;i++) {$i=toupper(substr($i,1,1)) substr($i,2)}; print}'
 }
 
+to_slug() {
+	local value="$1"
+	value="${value// /-}"
+	printf "%s" "${value}"
+}
+
 safe_copy_doc() {
 	local src="$1"
 	local prefix="$2"
-	local base name title target
+	local base name title slug target
 	base="$(basename "${src}")"
 	name="${base%.md}"
 	title="$(to_title "${name}")"
-	target="${out_dir}/${prefix}-${title}.md"
+	slug="$(to_slug "${title}")"
+	target="${out_dir}/${prefix}-${slug}.md"
 
 	{
 		printf "# %s\n\n" "${prefix}: ${title}"
@@ -54,6 +61,7 @@ index_file="${out_dir}/All-Docs.md"
 		[ -f "${page}" ] || continue
 		base="$(basename "${page}" .md)"
 		label="${base#Guide-}"
+		label="${label//-/ }"
 		printf -- "- [%s](%s)\n" "${label}" "${base}"
 	done
 	printf "\n## Cheatsheets\n\n"
@@ -61,15 +69,40 @@ index_file="${out_dir}/All-Docs.md"
 		[ -f "${page}" ] || continue
 		base="$(basename "${page}" .md)"
 		label="${base#Cheatsheet-}"
+		label="${label//-/ }"
 		printf -- "- [%s](%s)\n" "${label}" "${base}"
 	done
 	printf '\n\n`CONTINUE_TAG: #continue-utils`\n'
 } >"${index_file}"
 
-if [ -f "${out_dir}/_Sidebar.md" ]; then
-	if ! grep -q "All Docs" "${out_dir}/_Sidebar.md"; then
-		printf "\n- [All Docs](All-Docs)\n" >>"${out_dir}/_Sidebar.md"
-	fi
-fi
+sidebar_file="${out_dir}/_Sidebar.md"
+{
+	printf "### utils-scripts\n\n"
+	printf -- "- [Home](Home)\n"
+	printf -- "- [Getting Started](Getting-Started)\n"
+	printf -- "- [Power User Workflows](Power-User-Workflows)\n"
+	printf -- "- [Cheatsheets](Cheatsheets)\n"
+	printf -- "- [Troubleshooting](Troubleshooting)\n"
+	printf -- "- [Support and Donation](Support-and-Donation)\n"
+	printf -- "- [All Docs](All-Docs)\n\n"
+
+	printf "### Guides\n\n"
+	for page in "${out_dir}"/Guide-*.md; do
+		[ -f "${page}" ] || continue
+		base="$(basename "${page}" .md)"
+		label="${base#Guide-}"
+		label="${label//-/ }"
+		printf -- "- [%s](%s)\n" "${label}" "${base}"
+	done
+
+	printf "\n### Cheatsheets\n\n"
+	for page in "${out_dir}"/Cheatsheet-*.md; do
+		[ -f "${page}" ] || continue
+		base="$(basename "${page}" .md)"
+		label="${base#Cheatsheet-}"
+		label="${label//-/ }"
+		printf -- "- [%s](%s)\n" "${label}" "${base}"
+	done
+} >"${sidebar_file}"
 
 echo "Wiki payload ready at: ${out_dir}"
