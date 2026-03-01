@@ -26,6 +26,7 @@ If this project saves you setup time, your donation directly funds ongoing maint
 - Wiki source for GitHub Wiki: `wiki/Home.md`
 - Wiki mirror payload builder: `scripts/build_wiki_payload.sh`
 - Workflow matrix: `docs/workflow-matrix.md`
+- Quick command cards: `docs/top-10-new-user-commands.md`
 - Terminal scenario playbook: `TERMINAL_PLAYBOOK.md`
 - Power-user cheatsheets index: `docs/cheatsheets/index.md`
 
@@ -61,12 +62,15 @@ make docs-browse
 1. `docs/getting-started.md`
 2. `README.md` (this file)
 3. `TERMINAL_PLAYBOOK.md`
+4. `docs/top-10-new-user-commands.md`
 
 ### Power users
 
 1. `docs/power-user.md`
 2. `docs/cheatsheets/index.md`
 3. `docs/troubleshooting.md`
+4. `docs/top-10-power-user-commands.md`
+5. `docs/top-10-release-maintainer-commands.md`
 
 ## What is included
 

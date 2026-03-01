@@ -11,6 +11,7 @@ This wiki is sourced from the repository folder `wiki/` and intended to stay in 
 - [Cheatsheets](Cheatsheets)
 - [All Docs Mirror](All-Docs)
 - [Workflow Matrix](Workflow-Matrix)
+- [Quick Command Cards](Quick-Command-Cards)
 - [Troubleshooting](Troubleshooting)
 - [Support and Donation](Support-and-Donation)
 
@@ -20,8 +21,9 @@ This wiki is sourced from the repository folder `wiki/` and intended to stay in 
 
 1. [Getting Started](Getting-Started)
 2. [Workflow Matrix](Workflow-Matrix)
-3. [Troubleshooting](Troubleshooting)
-4. [Support and Donation](Support-and-Donation)
+3. [Quick Command Cards](Quick-Command-Cards)
+4. [Troubleshooting](Troubleshooting)
+5. [Support and Donation](Support-and-Donation)
 
 ### Power users
 
@@ -29,6 +31,7 @@ This wiki is sourced from the repository folder `wiki/` and intended to stay in 
 2. [Cheatsheets](Cheatsheets)
 3. [All Docs Mirror](All-Docs)
 4. [Workflow Matrix](Workflow-Matrix)
+5. [Quick Command Cards](Quick-Command-Cards)
 
 ## Project goals
 

@@ -10,6 +10,7 @@ required_files=(
 	"${payload_dir}/All-Docs.md"
 	"${payload_dir}/_Sidebar.md"
 	"${payload_dir}/Guide-Workflow-Matrix.md"
+	"${payload_dir}/Guide-Top-10-New-User-Commands.md"
 )
 
 for file in "${required_files[@]}"; do
@@ -26,6 +27,11 @@ fi
 
 if ! grep -q "\[Workflow Matrix\](Workflow-Matrix)" "${payload_dir}/_Sidebar.md"; then
 	echo "Sidebar missing Workflow Matrix link"
+	exit 1
+fi
+
+if ! grep -q "\[Quick Command Cards\](Quick-Command-Cards)" "${payload_dir}/_Sidebar.md"; then
+	echo "Sidebar missing Quick Command Cards link"
 	exit 1
 fi
 
