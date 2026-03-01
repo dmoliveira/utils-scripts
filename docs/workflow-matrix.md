@@ -35,6 +35,7 @@ Use this matrix to pick the shortest path for your goal.
 | Guard docs hub | `make docs-hub-check` | Catch docs entrypoint/link drift |
 | Guard make references in docs | `make docs-make-target-check` | Catch stale `make <target>` docs |
 | Guard continuation marker | `make continue-tag-check` | Keep roadmap marker consistent |
+| Fast CI-equivalent pass | `make ci-quick` | Run lint/docs/wiki/release template guards quickly |
 | Memorize essentials | Read `top-10-release-maintainer-commands.md` | Safer repeatable releases |
 
 `CONTINUE_TAG: #continue-utils`
