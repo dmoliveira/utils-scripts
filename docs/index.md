@@ -50,6 +50,7 @@ make docs-assets-check
 make cheatsheet-index-check
 make quick-cards-check
 make top10-cards-check
+make golden-path-guards-check
 make ci-quick-guards-check
 make wiki-sidebar-check
 make docs-hub-check
