@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check wiki-sidebar-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check docs-assets-check cheatsheet-index-check quick-cards-check top10-cards-check ci-quick-guards-check ci-quick release-precheck
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check wiki-sidebar-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check docs-assets-check cheatsheet-index-check quick-cards-check top10-cards-check golden-path-guards-check ci-quick-guards-check ci-quick release-precheck
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -121,6 +121,9 @@ quick-cards-check: ## Validate quick card docs and wiki links
 top10-cards-check: ## Validate top-10 cards contain ten numbered items
 	./scripts/check_top10_cards.sh
 
+golden-path-guards-check: ## Validate golden path workflow safety guards
+	./scripts/check_golden_path_guards.sh
+
 ci-quick-guards-check: ## Validate ci-quick includes required guard steps
 	./scripts/check_ci_quick_guards.sh
 
@@ -140,7 +143,8 @@ ci-quick: ## Run fast CI-equivalent guards (no full doctor)
 	make docs-assets-check; \
 	make cheatsheet-index-check; \
 	make quick-cards-check; \
-	make top10-cards-check'
+	make top10-cards-check; \
+	make golden-path-guards-check'
 
 release-precheck: ## Run release safety checks before tagging
 	@bash -lc 'set -euo pipefail; \
