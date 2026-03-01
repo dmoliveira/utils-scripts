@@ -103,6 +103,7 @@ make verify
 make verify-strict
 make doctor
 make doctor-full
+make release-precheck
 make verify-linux
 make docs-browse
 make wiki-build

@@ -13,13 +13,15 @@ This project ships releases from tags (`v*`) and generates structured notes.
 ## Commands
 
 ```bash
-make doctor-full
+make release-precheck
 VERSION=v1.2.0
 DATE_UTC="$(date -u +%Y-%m-%d)"
 sed "s/{{VERSION}}/${VERSION}/g; s/{{DATE}}/${DATE_UTC}/g" .github/RELEASE_NOTES_TEMPLATE.md
 git tag "${VERSION}"
 git push origin "${VERSION}"
 ```
+
+`make release-precheck` runs `make doctor-full` and `make wiki-build-check`.
 
 ## Automation references
 

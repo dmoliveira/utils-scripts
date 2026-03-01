@@ -41,6 +41,7 @@ make help
 make verify
 make doctor
 make docs-browse
+make release-precheck
 ```
 
 ## Continue keyword
