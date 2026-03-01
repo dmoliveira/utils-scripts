@@ -64,11 +64,11 @@ jobs:
       - name: Run installer (golden path)
         run: |
           set -eu
-          for i in 1 2; do
+          for i in 1; do
             if INSTALLER_SKIP_UPGRADE=1 timeout 25m ./install_my_programs_unix --skip-ml --skip-fonts; then
               exit 0
             fi
-            echo "Retrying golden path installer (${i}/2)"
+            echo "Retrying golden path installer (${i}/1)"
             sleep 10
           done
           echo "Golden path installer failed after retries"
