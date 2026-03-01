@@ -5,7 +5,6 @@ on:
     paths:
       - "README.md"
       - "docs/**/*.md"
-      - "wiki/**/*.md"
       - ".github/workflows/link-check.yml"
   push:
     branches:
@@ -13,7 +12,6 @@ on:
     paths:
       - "README.md"
       - "docs/**/*.md"
-      - "wiki/**/*.md"
       - ".github/workflows/link-check.yml"
 
 jobs:
@@ -30,4 +28,4 @@ jobs:
             -v "${PWD}:/work" \
             -w /work \
             lycheeverse/lychee:latest \
-            --no-progress --verbose README.md docs/**/*.md wiki/**/*.md
+            --no-progress --verbose README.md docs/**/*.md
