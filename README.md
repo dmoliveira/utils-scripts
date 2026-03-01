@@ -102,6 +102,7 @@ make doctor-full
 make verify-linux
 make docs-browse
 make wiki-build
+make wiki-build-check
 make rollback-dry-run
 make rollback
 ```

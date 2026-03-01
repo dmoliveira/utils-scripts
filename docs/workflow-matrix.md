@@ -27,5 +27,6 @@ Use this matrix to pick the shortest path for your goal.
 | Pre-release gate | `make doctor-full` | Lint + verification confidence |
 | Tag and publish | `git tag vX.Y.Z && git push origin vX.Y.Z` | Automated release workflow |
 | Keep wiki in sync | `make wiki-build` | Preview mirrored wiki payload |
+| Guard wiki payload | `make wiki-build-check` | Catch sidebar/index regressions |
 
 `CONTINUE_TAG: #continue-utils`
