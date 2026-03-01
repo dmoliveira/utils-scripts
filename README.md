@@ -112,6 +112,7 @@ make wiki-build-check
 make wiki-source-check
 make docs-hub-check
 make docs-make-target-check
+make continue-tag-check
 make rollback-dry-run
 make rollback
 ```
