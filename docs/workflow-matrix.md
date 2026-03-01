@@ -33,6 +33,7 @@ Use this matrix to pick the shortest path for your goal.
 | Guard wiki payload | `make wiki-build-check` | Catch sidebar/index regressions |
 | Guard wiki source links | `make wiki-source-check` | Catch broken links in `wiki/*.md` |
 | Guard docs hub | `make docs-hub-check` | Catch docs entrypoint/link drift |
+| Guard make references in docs | `make docs-make-target-check` | Catch stale `make <target>` docs |
 | Memorize essentials | Read `top-10-release-maintainer-commands.md` | Safer repeatable releases |
 
 `CONTINUE_TAG: #continue-utils`
