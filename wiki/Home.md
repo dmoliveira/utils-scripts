@@ -10,6 +10,7 @@ This wiki is sourced from the repository folder `wiki/` and intended to stay in 
 - [Power User Workflows](Power-User-Workflows)
 - [Cheatsheets](Cheatsheets)
 - [All Docs Mirror](All-Docs)
+- [Workflow Matrix](Workflow-Matrix)
 - [Troubleshooting](Troubleshooting)
 - [Support and Donation](Support-and-Donation)
 
@@ -18,14 +19,16 @@ This wiki is sourced from the repository folder `wiki/` and intended to stay in 
 ### New users
 
 1. [Getting Started](Getting-Started)
-2. [Troubleshooting](Troubleshooting)
-3. [Support and Donation](Support-and-Donation)
+2. [Workflow Matrix](Workflow-Matrix)
+3. [Troubleshooting](Troubleshooting)
+4. [Support and Donation](Support-and-Donation)
 
 ### Power users
 
 1. [Power User Workflows](Power-User-Workflows)
 2. [Cheatsheets](Cheatsheets)
 3. [All Docs Mirror](All-Docs)
+4. [Workflow Matrix](Workflow-Matrix)
 
 ## Project goals
 

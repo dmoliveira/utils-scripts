@@ -14,6 +14,7 @@ If you are new, start with `getting-started.md`. If you already ship fast in ter
 2. [Troubleshooting](troubleshooting.md)
 3. [Support and Donate](support.md)
 4. [Donation Impact](donation-impact.md)
+5. [Workflow Matrix](workflow-matrix.md)
 
 ### Power users
 
@@ -21,6 +22,7 @@ If you are new, start with `getting-started.md`. If you already ship fast in ter
 2. [Cheatsheets Index](cheatsheets/index.md)
 3. [Terminal Playbook](../TERMINAL_PLAYBOOK.md)
 4. [Release Flow](release-flow.md)
+5. [Workflow Matrix](workflow-matrix.md)
 
 ## Workflow map
 
