@@ -141,6 +141,7 @@ make rollback
 ### Maintain
 
 - lint and smoke workflows in GitHub Actions
+- markdown link checks for `README.md`, `docs/`, and `wiki/`
 - release-on-tag automation via `.github/workflows/release-on-tag.yml`
 - docs publication workflow for Pages and Wiki
 
