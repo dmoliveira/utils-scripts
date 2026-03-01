@@ -50,6 +50,12 @@ jobs:
       - name: Validate ci-quick guard coverage
         run: make ci-quick-guards-check
 
+      - name: Validate quick command list sync
+        run: make quick-commands-sync-check
+
+      - name: Validate golden path guard invariants
+        run: make golden-path-guards-check
+
       - name: Validate continue marker references
         run: make continue-tag-check
 
