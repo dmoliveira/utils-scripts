@@ -45,6 +45,7 @@ Use this matrix to pick the shortest path for your goal.
 | Guard top-10 card counts | `make top10-cards-check` | Keep each top-10 card at exactly 10 items |
 | Guard golden path workflow | `make golden-path-guards-check` | Keep bootstrap timeout/retry/concurrency protections in place |
 | Guard quick-command sync | `make quick-commands-sync-check` | Keep shared quick command lists aligned |
+| Guard smoke workflow coverage | `make smoke-guards-check` | Ensure smoke workflow runs required guard checks |
 | Guard ci-quick composition | `make ci-quick-guards-check` | Ensure ci-quick still includes required checks |
 | Fast CI-equivalent pass | `make ci-quick` | Run lint/docs/wiki/release template guards quickly |
 | Memorize essentials | Read `top-10-release-maintainer-commands.md` | Safer repeatable releases |
