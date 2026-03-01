@@ -31,6 +31,7 @@ Use this matrix to pick the shortest path for your goal.
 | Tag and publish | `git tag vX.Y.Z && git push origin vX.Y.Z` | Automated release workflow |
 | Keep wiki in sync | `make wiki-build` | Preview mirrored wiki payload |
 | Guard wiki payload | `make wiki-build-check` | Catch sidebar/index regressions |
+| Guard docs hub | `make docs-hub-check` | Catch docs entrypoint/link drift |
 | Memorize essentials | Read `top-10-release-maintainer-commands.md` | Safer repeatable releases |
 
 `CONTINUE_TAG: #continue-utils`
