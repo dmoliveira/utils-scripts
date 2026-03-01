@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -77,3 +77,6 @@ git-delta-config: ## Configure global git delta defaults
 
 wiki-build: ## Build wiki payload from docs and wiki source
 	./scripts/build_wiki_payload.sh
+
+wiki-build-check: ## Build wiki payload and verify expected links/files
+	./scripts/check_wiki_payload.sh
