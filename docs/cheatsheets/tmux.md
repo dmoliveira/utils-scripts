@@ -34,6 +34,17 @@ Ctrl-b r      reload ~/.tmux.conf
 
 Idle windows show no marker; activity markers only appear when there is new output.
 
+## Status line example
+
+When QoL status plugins are enabled, the right side can show CPU, memory, network,
+battery (when available), and time:
+
+```text
+CPU 12.3% MEM 45.6% NET ↓120KiB/s • ↑90KiB/s BAT 89% 2026-03-01 23:40
+```
+
+If `NET` is blank on macOS, install Homebrew `coreutils` so `numfmt` is available.
+
 ## Copy/clipboard flow
 
 ```text
