@@ -10,7 +10,7 @@ Use these to keep release flow consistent and low-risk.
 6. `make docs-hub-check` - ensure docs entrypoints and core links stay aligned.
 7. `make docs-make-target-check` - ensure docs reference real `make` targets.
 8. `make continue-tag-check` - enforce `CONTINUE_TAG` in key docs/wiki pages.
-9. `git tag vX.Y.Z` - create semantic version tag.
+9. `git tag vX.Y.Z && git push origin vX.Y.Z` - create and publish semantic version tag.
 10. `gh release view vX.Y.Z` - verify release publication.
 
 `CONTINUE_TAG: #continue-utils`
