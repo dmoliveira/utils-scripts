@@ -42,6 +42,7 @@ Use this matrix to pick the shortest path for your goal.
 | Guard docs assets | `make docs-assets-check` | Keep hero asset and key references consistent |
 | Guard cheatsheet index | `make cheatsheet-index-check` | Keep cheatsheet index synchronized with file set |
 | Guard quick-card docs | `make quick-cards-check` | Keep quick-card links aligned across docs and wiki |
+| Guard top-10 card counts | `make top10-cards-check` | Keep each top-10 card at exactly 10 items |
 | Fast CI-equivalent pass | `make ci-quick` | Run lint/docs/wiki/release template guards quickly |
 | Memorize essentials | Read `top-10-release-maintainer-commands.md` | Safer repeatable releases |
 

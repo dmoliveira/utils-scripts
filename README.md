@@ -112,6 +112,7 @@ make core-commands-check
 make docs-assets-check
 make cheatsheet-index-check
 make quick-cards-check
+make top10-cards-check
 make verify-linux
 make docs-browse
 make wiki-build
