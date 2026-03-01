@@ -3,7 +3,7 @@
 Use these to keep release flow consistent and low-risk.
 
 1. `git status -sb` - verify branch state quickly.
-2. `make release-precheck` - run release safety checks before tagging.
+2. `make release-precheck` - run release safety checks before tagging (doctor/template/docs/wiki).
 3. `make doctor-full` - run full local quality gate before tagging.
 4. `make wiki-build-check` - ensure wiki mirror payload is valid.
 5. `make docs-hub-check` - ensure docs entrypoints and core links stay aligned.
