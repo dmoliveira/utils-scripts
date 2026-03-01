@@ -24,3 +24,8 @@
 
 - Any migration step, manual action, or compatibility caveat.
 - Add copy/paste commands when possible so upgrades are low-friction. 🙌
+
+## ❤️ Supporters Changelog
+
+- Mention docs, reliability, or maintenance work funded by community support.
+- Link support page when relevant: `docs/donation-impact.md`.
