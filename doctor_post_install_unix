@@ -41,6 +41,14 @@ if grep -q "^FAIL: tmux config parse" <<<"$output"; then
   echo "- tmux parse: run tmux -L doctor -f ~/.tmux.conf new-session -d -s smoke to reproduce"
 fi
 
+if grep -q "^FAIL: tmux plugin directory '" <<<"$output"; then
+  echo "- tmux plugins missing: run ~/.tmux/plugins/tpm/bin/install_plugins then reload tmux config"
+fi
+
+if grep -q "^FAIL: numfmt for tmux network throughput formatting missing" <<<"$output"; then
+  echo "- numfmt missing for tmux NET status: install coreutils (macOS: brew install coreutils, Linux: sudo apt install -y coreutils)"
+fi
+
 if grep -q "^FAIL: nvim init.lua syntax" <<<"$output" || grep -q "^FAIL: neovim headless start" <<<"$output"; then
   echo "- Neovim config: run nvim --headless +qa and inspect plugin/config errors"
 fi

@@ -269,7 +269,7 @@ setup_system() {
     install_brew
     run_cmd brew update
     run_cmd brew upgrade
-    run_cmd brew install git curl wget neovim tmux htop btop bottom tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin pre-commit parallel
+    run_cmd brew install git curl wget neovim tmux htop btop bottom tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin pre-commit parallel coreutils
   else
     run_cmd sudo apt update -y
     run_cmd sudo apt upgrade -y
@@ -483,6 +483,13 @@ setup_tmux() {
   clone_if_missing "https://github.com/tmux-plugins/tpm" "$HOME/.tmux/plugins/tpm"
   backup_file "$HOME/.tmux.conf"
   safe_copy "./run_commands/my_tmux.conf" "$HOME/.tmux.conf"
+
+  if command -v tmux >/dev/null 2>&1 && [[ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]]; then
+    echo "🧩 Installing tmux plugins from ~/.tmux.conf..."
+    run_cmd tmux start-server
+    run_cmd tmux source-file "$HOME/.tmux.conf"
+    run_cmd "$HOME/.tmux/plugins/tpm/bin/install_plugins"
+  fi
 }
 
 # ------------------------------------------------------------------------------
@@ -525,6 +532,7 @@ install_local_scripts() {
   install_local_bin_script "./br_init_project"
   install_local_bin_script "./codex_apply_config"
   install_local_bin_script "./repomix_generate"
+  install_local_bin_script "./run_commands/tmux_network_bandwidth_safe"
 }
 
 # ------------------------------------------------------------------------------
