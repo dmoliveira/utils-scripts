@@ -272,7 +272,11 @@ setup_system() {
     run_cmd brew install git curl wget neovim tmux htop btop bottom tree jq fzf zoxide ripgrep bat fd gh cmake python uv direnv atuin pre-commit parallel coreutils
   else
     run_cmd sudo apt update -y
-    run_cmd sudo apt upgrade -y
+    if [[ "${INSTALLER_SKIP_UPGRADE:-0}" == "1" ]]; then
+      echo "ℹ️ Skipping apt upgrade (INSTALLER_SKIP_UPGRADE=1)"
+    else
+      run_cmd sudo apt upgrade -y
+    fi
     run_cmd sudo apt install -y curl wget git neovim tmux zsh htop btop tree jq fzf zoxide ripgrep bat fd-find cmake python3 python3-pip python3-venv python3-dev direnv pre-commit parallel
   fi
 }

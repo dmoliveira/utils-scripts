@@ -14,7 +14,7 @@ required_snippets=(
   'group: golden-path-bootstrap-${{ github.repository }}'
   "cancel-in-progress: true"
   "set -eu"
-  "timeout 25m ./install_my_programs_unix --skip-ml --skip-fonts"
+  "INSTALLER_SKIP_UPGRADE=1 timeout 25m ./install_my_programs_unix --skip-ml --skip-fonts"
 )
 
 for snippet in "${required_snippets[@]}"; do
