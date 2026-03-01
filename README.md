@@ -158,6 +158,7 @@ make rollback
 - golden path bootstrap retries apt/install steps for transient CI network issues
 - golden path bootstrap has explicit job/install timeouts (25m installer cap) to prevent indefinite hangs
 - golden path bootstrap uses single-flight concurrency cancellation to avoid stacked runs across refs
+- golden path bootstrap sets `INSTALLER_SKIP_UPGRADE=1` to reduce long apt upgrade delays in CI
 - release-on-tag automation via `.github/workflows/release-on-tag.yml`
 - docs publication workflow for Pages and Wiki
 - workflow inventory: `.github/workflows/smoke-checks.yml`, `.github/workflows/link-check.yml`, `.github/workflows/docs-pages.yml`, `.github/workflows/wiki-sync.yml`, `.github/workflows/release-on-tag.yml`, `.github/workflows/release-e2e-check.yml`
