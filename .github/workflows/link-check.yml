@@ -21,9 +21,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Check markdown links
-        uses: lycheeverse/lychee-action@v2
-        with:
-          lycheeVersion: latest
-          fail: true
-          args: --no-progress --verbose README.md docs/**/*.md
+      - name: Check markdown links with Dockerized lychee
+        run: |
+          set -euo pipefail
+          docker run --rm \
+            -v "${PWD}:/work" \
+            -w /work \
+            lycheeverse/lychee:latest \
+            --no-progress --verbose README.md docs/**/*.md
