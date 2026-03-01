@@ -32,6 +32,7 @@ required_ci_quick_steps=(
   'make top10-cards-check'
   'make golden-path-guards-check'
   'make quick-commands-sync-check'
+  'make smoke-guards-check'
 )
 
 for step in "${required_ci_quick_steps[@]}"; do
