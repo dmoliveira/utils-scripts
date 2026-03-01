@@ -15,6 +15,7 @@ If you are new, start with `getting-started.md`. If you already ship fast in ter
 3. [Support and Donate](support.md)
 4. [Donation Impact](donation-impact.md)
 5. [Workflow Matrix](workflow-matrix.md)
+6. [Top 10 New User Commands](top-10-new-user-commands.md)
 
 ### Power users
 
@@ -23,6 +24,8 @@ If you are new, start with `getting-started.md`. If you already ship fast in ter
 3. [Terminal Playbook](../TERMINAL_PLAYBOOK.md)
 4. [Release Flow](release-flow.md)
 5. [Workflow Matrix](workflow-matrix.md)
+6. [Top 10 Power User Commands](top-10-power-user-commands.md)
+7. [Top 10 Release Maintainer Commands](top-10-release-maintainer-commands.md)
 
 ## Workflow map
 
