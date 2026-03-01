@@ -26,6 +26,7 @@ git push origin "${VERSION}"
 `make ci-quick` also includes `make workflow-inventory-check` to verify key CI workflow files remain present and documented.
 `make ci-quick` also includes `make docs-assets-check` to keep hero asset references aligned.
 `make ci-quick` also includes `make cheatsheet-index-check` to keep cheatsheet index coverage complete.
+`make ci-quick` also includes `make quick-cards-check` to keep persona quick-card links aligned.
 
 ## Automation references
 

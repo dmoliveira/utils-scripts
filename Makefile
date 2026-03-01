@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check docs-assets-check cheatsheet-index-check ci-quick release-precheck
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check docs-assets-check cheatsheet-index-check quick-cards-check ci-quick release-precheck
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -112,6 +112,9 @@ docs-assets-check: ## Validate docs hero asset and references
 cheatsheet-index-check: ## Validate cheatsheets index references all cheatsheets
 	./scripts/check_cheatsheet_index.sh
 
+quick-cards-check: ## Validate quick card docs and wiki links
+	./scripts/check_quick_cards.sh
+
 ci-quick: ## Run fast CI-equivalent guards (no full doctor)
 	@bash -lc 'set -euo pipefail; \
 	pre-commit run --all-files; \
@@ -125,7 +128,8 @@ ci-quick: ## Run fast CI-equivalent guards (no full doctor)
 	make workflow-inventory-check; \
 	make core-commands-check; \
 	make docs-assets-check; \
-	make cheatsheet-index-check'
+	make cheatsheet-index-check; \
+	make quick-cards-check'
 
 release-precheck: ## Run release safety checks before tagging
 	@bash -lc 'set -euo pipefail; \
