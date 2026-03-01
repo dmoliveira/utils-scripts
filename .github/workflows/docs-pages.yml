@@ -22,6 +22,8 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    outputs:
+      pages_ready: ${{ steps.pages_ready.outputs.ready }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,13 +53,18 @@ jobs:
         run: |
           echo "Skipping Pages deployment: repository Pages is not enabled for this token or repo settings."
 
+      - name: Set pages-ready output
+        id: pages_ready
+        run: |
+          echo "ready=${{ steps.setup_pages.outcome == 'success' }}" >> "$GITHUB_OUTPUT"
+
   deploy:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
-    if: needs.build.result == 'success'
+    if: needs.build.result == 'success' && needs.build.outputs.pages_ready == 'true'
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
