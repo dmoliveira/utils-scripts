@@ -5,8 +5,8 @@ repo_root="$(cd "$(dirname "$0")/.." && pwd)"
 wiki_dir="${repo_root}/wiki"
 
 if [ ! -d "${wiki_dir}" ]; then
-	echo "Missing wiki directory: ${wiki_dir}"
-	exit 1
+  echo "Missing wiki directory: ${wiki_dir}"
+  exit 1
 fi
 
 WIKI_DIR="${wiki_dir}" python3 - <<'PY'

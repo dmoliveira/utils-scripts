@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check docs-hub-check release-template-check release-precheck
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check docs-hub-check docs-make-target-check release-template-check release-precheck
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -88,6 +88,9 @@ wiki-source-check: ## Validate links inside wiki source pages
 docs-hub-check: ## Validate docs hub files and core cross-links
 	./scripts/check_docs_hub.sh
 
+docs-make-target-check: ## Validate make targets referenced in docs
+	./scripts/check_docs_make_targets.sh
+
 release-template-check: ## Validate release template headings/placeholders
 	./scripts/check_release_template.sh
 
@@ -96,5 +99,6 @@ release-precheck: ## Run release safety checks before tagging
 	make doctor-full; \
 	make release-template-check; \
 	make docs-hub-check; \
+	make docs-make-target-check; \
 	make wiki-source-check; \
 	make wiki-build-check'
