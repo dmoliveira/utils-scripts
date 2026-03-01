@@ -156,7 +156,7 @@ make rollback
 - markdown link checks for `README.md` and `docs/`
 - wiki source and payload link checks in smoke workflow
 - golden path bootstrap retries apt/install steps for transient CI network issues
-- golden path bootstrap has explicit job/install timeouts to prevent indefinite hangs
+- golden path bootstrap has explicit job/install timeouts (25m installer cap) to prevent indefinite hangs
 - golden path bootstrap uses single-flight concurrency cancellation to avoid stacked runs across refs
 - release-on-tag automation via `.github/workflows/release-on-tag.yml`
 - docs publication workflow for Pages and Wiki
