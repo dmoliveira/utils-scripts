@@ -1,0 +1,122 @@
+---
+---
+
+@import "minima";
+
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+:root {
+  --bg-top: #f6f4ee;
+  --bg-bottom: #eef4ff;
+  --panel: #ffffff;
+  --ink: #1e2533;
+  --ink-soft: #4b5a73;
+  --brand: #0f6f9b;
+  --brand-strong: #084f71;
+  --line: #d9e2ef;
+  --accent: #f3b84f;
+}
+
+body {
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
+}
+
+.site-header {
+  border-top: 8px solid var(--brand);
+  border-bottom: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.86);
+  backdrop-filter: blur(6px);
+}
+
+.site-title,
+.site-title:visited {
+  font-family: "Space Grotesk", sans-serif;
+  font-weight: 700;
+  color: var(--brand-strong);
+  letter-spacing: 0.01em;
+}
+
+.page-content .wrapper {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 2rem 2.25rem;
+  box-shadow: 0 24px 50px rgba(12, 38, 71, 0.08);
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--brand-strong);
+}
+
+h1 {
+  font-size: 2.35rem;
+  line-height: 1.15;
+}
+
+a {
+  color: var(--brand);
+}
+
+a:hover {
+  color: var(--brand-strong);
+}
+
+blockquote {
+  background: #f4f8ff;
+  border-left: 5px solid var(--brand);
+  border-radius: 10px;
+  padding: 0.9rem 1rem;
+  color: var(--ink-soft);
+}
+
+table {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+table th {
+  background: #eaf2ff;
+  color: var(--brand-strong);
+  font-weight: 600;
+}
+
+code,
+pre,
+.highlight {
+  font-family: "IBM Plex Mono", "SFMono-Regular", monospace;
+}
+
+pre,
+.highlight {
+  border-radius: 12px;
+  border: 1px solid #e3ecfa;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 2rem 0;
+}
+
+img[alt*="hero"] {
+  border-radius: 14px;
+  border: 1px solid #d7e1ee;
+  box-shadow: 0 18px 30px rgba(12, 38, 71, 0.12);
+}
+
+@media (max-width: 720px) {
+  .page-content .wrapper {
+    padding: 1.25rem 1rem;
+    border-radius: 12px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+}

@@ -1,31 +1,30 @@
 # utils-scripts Documentation
 
-Welcome. This is the docs home for setup, workflows, and contribution paths.
-
 ![utils-scripts hero image](assets/hero-gpt-image-1.svg)
 
-If you are new, start with `getting-started.md`. If you already ship fast in terminal workflows, jump to `power-user.md` and `cheatsheets/index.md`.
+> Build a reliable terminal workstation in minutes, then keep it healthy with repeatable checks.
 
-## Read by audience
+[![Docs: GitHub Pages](https://img.shields.io/badge/Docs-GitHub%20Pages-2ea44f?logo=github)](https://dmoliveira.github.io/utils-scripts/)
+[![Platform](https://img.shields.io/badge/Platform-Debian%20%7C%20macOS-lightgrey.svg)](../README.md#supported-platforms)
+[![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](../LICENSE)
+[![Donate via Stripe](https://img.shields.io/badge/Donate-Stripe-blue?logo=stripe&logoColor=white)](https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00)
 
-### New users
+## Pick a path
 
-1. [Getting Started](getting-started.md)
-2. [Troubleshooting](troubleshooting.md)
-3. [Support and Donate](support.md)
-4. [Donation Impact](donation-impact.md)
-5. [Workflow Matrix](workflow-matrix.md)
-6. [Top 10 New User Commands](top-10-new-user-commands.md)
+| New here | Already fast in terminal workflows |
+| --- | --- |
+| [Getting Started](getting-started.md) | [Power User Workflows](power-user.md) |
+| [Top 10 New User Commands](top-10-new-user-commands.md) | [Cheatsheets Index](cheatsheets/index.md) |
+| [Troubleshooting](troubleshooting.md) | [Terminal Playbook](../TERMINAL_PLAYBOOK.md) |
+| [Support and Donate](support.md) | [Top 10 Power User Commands](top-10-power-user-commands.md) |
+| [Donation Impact](donation-impact.md) | [Top 10 Release Maintainer Commands](top-10-release-maintainer-commands.md) |
 
-### Power users
+## What this docs site gives you
 
-1. [Power User Workflows](power-user.md)
-2. [Cheatsheets Index](cheatsheets/index.md)
-3. [Terminal Playbook](../TERMINAL_PLAYBOOK.md)
-4. [Release Flow](release-flow.md)
-5. [Workflow Matrix](workflow-matrix.md)
-6. [Top 10 Power User Commands](top-10-power-user-commands.md)
-7. [Top 10 Release Maintainer Commands](top-10-release-maintainer-commands.md)
+- practical install + verify flow for macOS and Debian/Ubuntu
+- command-focused references for day-to-day delivery work
+- release and CI guardrails to keep docs and scripts in sync
+- a mirrored wiki source in `wiki/` for GitHub Wiki publishing
 
 ## Workflow map
 
@@ -34,14 +33,14 @@ If you are new, start with `getting-started.md`. If you already ship fast in ter
 - **Operate:** `run_commands/` templates + `TERMINAL_PLAYBOOK.md`
 - **Maintain:** CI workflows, tag-based releases, docs publishing
 
-## Quick commands
+## Quick command deck
 
 ```bash
 make help
 make verify
 make tmux-self-heal
-make ci-quick
 make doctor
+make ci-quick
 make docs-browse
 make release-precheck
 make release-docs-check
@@ -52,12 +51,12 @@ make cheatsheet-index-check
 make quick-cards-check
 make top10-cards-check
 make golden-path-guards-check
-make quick-commands-sync-check
-make smoke-guards-check
 make ci-quick-guards-check
 make wiki-sidebar-check
 make docs-hub-check
 ```
+
+For the full guard list, see [Release Flow](release-flow.md) and [Workflow Matrix](workflow-matrix.md).
 
 ## Continue keyword
 
