@@ -15,7 +15,7 @@ required_snippets=(
   "cancel-in-progress: true"
   "set -eu"
   "for i in 1; do"
-  "INSTALLER_SKIP_UPGRADE=1 timeout 25m ./install_my_programs_unix --skip-ml --skip-fonts"
+  "INSTALLER_SKIP_UPGRADE=1 INSTALLER_SKIP_BR=1 timeout 25m ./install_my_programs_unix --skip-ml --skip-fonts"
 )
 
 for snippet in "${required_snippets[@]}"; do

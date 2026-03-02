@@ -100,6 +100,7 @@ make docs-browse
 
 ```bash
 make verify
+make tmux-self-heal
 make verify-strict
 make doctor
 make ci-quick
@@ -158,7 +159,7 @@ make rollback
 - golden path bootstrap retries apt/install steps for transient CI network issues
 - golden path bootstrap has explicit job/install timeouts (25m installer cap) to prevent indefinite hangs
 - golden path bootstrap uses single-flight concurrency cancellation to avoid stacked runs across refs
-- golden path bootstrap sets `INSTALLER_SKIP_UPGRADE=1` to reduce long apt upgrade delays in CI
+- golden path bootstrap sets `INSTALLER_SKIP_UPGRADE=1` and `INSTALLER_SKIP_BR=1` to reduce CI flakiness and long apt upgrade delays
 - golden path bootstrap uses a single installer attempt in CI to keep runtime predictable
 - release-on-tag automation via `.github/workflows/release-on-tag.yml`
 - docs publication workflow for Pages and Wiki

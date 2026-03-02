@@ -65,7 +65,7 @@ jobs:
         run: |
           set -eu
           for i in 1; do
-            if INSTALLER_SKIP_UPGRADE=1 timeout 25m ./install_my_programs_unix --skip-ml --skip-fonts; then
+            if INSTALLER_SKIP_UPGRADE=1 INSTALLER_SKIP_BR=1 timeout 25m ./install_my_programs_unix --skip-ml --skip-fonts; then
               exit 0
             fi
             echo "Retrying golden path installer (${i}/1)"
