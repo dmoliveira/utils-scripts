@@ -545,6 +545,10 @@ install_local_scripts() {
 
 install_br_tracker() {
   echo "📿 Installing Beads tracker (br)..."
+  if [[ "${INSTALLER_SKIP_BR:-0}" == "1" ]]; then
+    echo "ℹ️ Skipping br install (INSTALLER_SKIP_BR=1)"
+    return
+  fi
   if command -v br &>/dev/null; then
     echo "✅ br already installed. Skipping."
     return
