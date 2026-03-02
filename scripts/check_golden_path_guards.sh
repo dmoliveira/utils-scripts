@@ -11,7 +11,7 @@ fi
 
 required_snippets=(
   "timeout-minutes: 60"
-  'group: golden-path-bootstrap-${{ github.repository }}'
+  'group: golden-path-bootstrap-${{ github.repository }}-${{ github.ref }}'
   "cancel-in-progress: true"
   "set -eu"
   "for i in 1; do"
