@@ -16,6 +16,7 @@ required_smoke_checks=(
   "make ci-quick-guards-check"
   "make quick-commands-sync-check"
   "make golden-path-guards-check"
+  "make installer-ci-flags-check"
   "make continue-tag-check"
   "make wiki-source-check"
 )

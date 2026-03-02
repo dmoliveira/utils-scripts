@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check wiki-sidebar-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check docs-assets-check cheatsheet-index-check quick-cards-check top10-cards-check golden-path-guards-check quick-commands-sync-check smoke-guards-check ci-quick-guards-check ci-quick release-precheck
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check wiki-sidebar-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check docs-assets-check cheatsheet-index-check quick-cards-check top10-cards-check golden-path-guards-check installer-ci-flags-check quick-commands-sync-check smoke-guards-check ci-quick-guards-check ci-quick release-precheck
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -124,6 +124,9 @@ top10-cards-check: ## Validate top-10 cards contain ten numbered items
 golden-path-guards-check: ## Validate golden path workflow safety guards
 	./scripts/check_golden_path_guards.sh
 
+installer-ci-flags-check: ## Validate installer CI skip-upgrade flag usage
+	./scripts/check_installer_ci_flags.sh
+
 quick-commands-sync-check: ## Validate shared quick commands across README/docs
 	./scripts/check_quick_commands_sync.sh
 
@@ -151,6 +154,7 @@ ci-quick: ## Run fast CI-equivalent guards (no full doctor)
 	make quick-cards-check; \
 	make top10-cards-check; \
 	make golden-path-guards-check; \
+	make installer-ci-flags-check; \
 	make quick-commands-sync-check; \
 	make smoke-guards-check'
 

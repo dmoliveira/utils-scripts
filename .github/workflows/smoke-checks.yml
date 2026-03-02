@@ -56,6 +56,9 @@ jobs:
       - name: Validate golden path guard invariants
         run: make golden-path-guards-check
 
+      - name: Validate installer CI flag safeguards
+        run: make installer-ci-flags-check
+
       - name: Validate continue marker references
         run: make continue-tag-check
 
