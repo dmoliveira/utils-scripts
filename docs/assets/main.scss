@@ -38,6 +38,21 @@ body {
   letter-spacing: 0.01em;
 }
 
+.site-nav .page-link {
+  margin-left: 0.7rem;
+  padding: 0.35rem 0.62rem;
+  border-radius: 999px;
+  font-size: 0.92rem;
+  color: var(--brand-strong);
+  border: 1px solid transparent;
+}
+
+.site-nav .page-link:hover {
+  border-color: #bfd1ea;
+  background: #f4f8ff;
+  text-decoration: none;
+}
+
 .page-content .wrapper {
   background: var(--panel);
   border: 1px solid var(--line);
@@ -110,7 +125,32 @@ img[alt*="hero"] {
   box-shadow: 0 18px 30px rgba(12, 38, 71, 0.12);
 }
 
+img[src*="img.shields.io"] {
+  margin: 0.1rem 0.38rem 0.45rem 0;
+  vertical-align: middle;
+}
+
+h3 {
+  margin-top: 1.6rem;
+  display: inline-block;
+  background: #edf5ff;
+  border: 1px solid #d3e3fa;
+  border-radius: 10px;
+  padding: 0.35rem 0.65rem;
+}
+
 @media (max-width: 720px) {
+  .site-nav {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 12px;
+  }
+
+  .site-nav .page-link {
+    margin: 0.2rem 0;
+    display: block;
+  }
+
   .page-content .wrapper {
     padding: 1.25rem 1rem;
     border-radius: 12px;

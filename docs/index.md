@@ -11,13 +11,32 @@
 
 ## Pick a path
 
-| New here | Already fast in terminal workflows |
-| --- | --- |
-| [Getting Started](getting-started.md) | [Power User Workflows](power-user.md) |
-| [Top 10 New User Commands](top-10-new-user-commands.md) | [Cheatsheets Index](cheatsheets/index.md) |
-| [Troubleshooting](troubleshooting.md) | [Terminal Playbook](../TERMINAL_PLAYBOOK.md) |
-| [Support and Donate](support.md) | [Top 10 Power User Commands](top-10-power-user-commands.md) |
-| [Donation Impact](donation-impact.md) | [Top 10 Release Maintainer Commands](top-10-release-maintainer-commands.md) |
+### 🚀 Start Fast
+
+New to this repo and want a clean baseline quickly.
+
+- [Getting Started](getting-started.md)
+- [Top 10 New User Commands](top-10-new-user-commands.md)
+- [Troubleshooting](troubleshooting.md)
+- [Support and Donate](support.md)
+
+### ⚡ Ship Daily
+
+Already productive and want tighter loops and better command muscle memory.
+
+- [Power User Workflows](power-user.md)
+- [Cheatsheets Index](cheatsheets/index.md)
+- [Terminal Playbook](../TERMINAL_PLAYBOOK.md)
+- [Top 10 Power User Commands](top-10-power-user-commands.md)
+
+### 🛠️ Maintain Releases
+
+Keeping docs, checks, and release flow aligned across the project.
+
+- [Release Flow](release-flow.md)
+- [Workflow Matrix](workflow-matrix.md)
+- [Top 10 Release Maintainer Commands](top-10-release-maintainer-commands.md)
+- [Donation Impact](donation-impact.md)
 
 ## What this docs site gives you
 
