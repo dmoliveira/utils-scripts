@@ -158,7 +158,7 @@ make rollback
 - wiki source and payload link checks in smoke workflow
 - golden path bootstrap retries apt/install steps for transient CI network issues
 - golden path bootstrap has explicit job/install timeouts (25m installer cap) to prevent indefinite hangs
-- golden path bootstrap uses single-flight concurrency cancellation to avoid stacked runs across refs
+- golden path bootstrap uses single-flight concurrency cancellation per ref to avoid stacked reruns on the same branch
 - golden path bootstrap sets `INSTALLER_SKIP_UPGRADE=1` and `INSTALLER_SKIP_BR=1` to reduce CI flakiness and long apt upgrade delays
 - golden path bootstrap uses a single installer attempt in CI to keep runtime predictable
 - release-on-tag automation via `.github/workflows/release-on-tag.yml`
