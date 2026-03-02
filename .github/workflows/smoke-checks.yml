@@ -67,3 +67,47 @@ jobs:
 
       - name: Validate Linux edge-case checks
         run: ./verify_linux_edge_cases
+
+  tmux-network-wrapper-smoke:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install macOS dependencies
+        if: runner.os == 'macOS'
+        run: |
+          brew install coreutils
+
+      - name: Install Linux dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y coreutils
+
+      - name: Prepare fake tmux network plugin script
+        run: |
+          mkdir -p "$HOME/.tmux/plugins/tmux-network-bandwidth/scripts"
+          cat > "$HOME/.tmux/plugins/tmux-network-bandwidth/scripts/network-bandwidth.sh" <<'EOF'
+          #!/usr/bin/env bash
+          set -euo pipefail
+          numfmt --to=iec-i --suffix "B/s" 1024 >/dev/null
+          printf "net-wrapper-ok"
+          EOF
+          chmod +x "$HOME/.tmux/plugins/tmux-network-bandwidth/scripts/network-bandwidth.sh"
+
+      - name: Validate tmux network wrapper output
+        run: |
+          output="$(./run_commands/tmux_network_bandwidth_safe)"
+          if [ -z "$output" ]; then
+            echo "tmux_network_bandwidth_safe produced empty output"
+            exit 1
+          fi
+          if [ "$output" != "net-wrapper-ok" ]; then
+            echo "unexpected wrapper output: $output"
+            exit 1
+          fi
