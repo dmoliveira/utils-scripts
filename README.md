@@ -100,6 +100,7 @@ make docs-browse
 
 ```bash
 make verify
+make tmux-self-heal
 make verify-strict
 make doctor
 make ci-quick

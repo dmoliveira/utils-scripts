@@ -1,4 +1,4 @@
-.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check wiki-sidebar-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check docs-assets-check cheatsheet-index-check quick-cards-check top10-cards-check golden-path-guards-check installer-ci-flags-check quick-commands-sync-check smoke-guards-check ci-quick-guards-check ci-quick release-precheck
+.PHONY: help install-mac install-unix install-debian verify verify-strict verify-json bootstrap-secrets doctor doctor-full verify-linux tmux-self-heal playbook docs-browse leader-pack-check rollback rollback-dry-run shell-lint hooks-install pre-commit-install pre-commit-run git-delta-config wiki-build wiki-build-check wiki-source-check wiki-sidebar-check docs-hub-check docs-make-target-check continue-tag-check release-template-check release-docs-check workflow-inventory-check core-commands-check docs-assets-check cheatsheet-index-check quick-cards-check top10-cards-check golden-path-guards-check installer-ci-flags-check quick-commands-sync-check smoke-guards-check ci-quick-guards-check ci-quick release-precheck
 
 help: ## Show available commands
 	@awk 'BEGIN {FS = ":.*## "} /^[a-zA-Z_-]+:.*## / {printf "%-16s %s\n", $$1, $$2}' $(MAKEFILE_LIST)
@@ -37,6 +37,9 @@ doctor-full: ## Run full local quality + verification suite
 
 verify-linux: ## Run Linux edge-case command checks
 	./verify_linux_edge_cases
+
+tmux-self-heal: ## Install/update tmux plugins and reload tmux config
+	./scripts/tmux_self_heal.sh
 
 playbook: ## Show terminal playbook path
 	@printf "Open: TERMINAL_PLAYBOOK.md\n"

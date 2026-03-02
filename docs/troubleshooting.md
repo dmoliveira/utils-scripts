@@ -40,9 +40,8 @@ make pre-commit-install
 Run:
 
 ```bash
+make tmux-self-heal
 make verify
-~/.tmux/plugins/tpm/bin/install_plugins
-brew install coreutils # macOS only
 ```
 
 Then reload tmux config with `Ctrl-b r`.
