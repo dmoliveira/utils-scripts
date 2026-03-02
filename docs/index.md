@@ -9,6 +9,18 @@
 [![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](../LICENSE)
 [![Donate via Stripe](https://img.shields.io/badge/Donate-Stripe-blue?logo=stripe&logoColor=white)](https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00)
 
+## Start in 60 seconds
+
+```bash
+git clone https://github.com/dmoliveira/utils-scripts.git
+cd utils-scripts
+make install-mac    # or: make install-debian / make install-unix
+exec zsh
+make verify
+```
+
+Want to support ongoing improvements? [Donate here](https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00) or share the project with your team.
+
 ## Pick a path
 
 ### 🚀 Start Fast
