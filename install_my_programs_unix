@@ -490,9 +490,16 @@ setup_tmux() {
 
   if command -v tmux >/dev/null 2>&1 && [[ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]]; then
     echo "🧩 Installing tmux plugins from ~/.tmux.conf..."
-    run_cmd tmux start-server
-    run_cmd tmux source-file "$HOME/.tmux.conf"
-    run_cmd "$HOME/.tmux/plugins/tpm/bin/install_plugins"
+    tmux start-server >/dev/null 2>&1 || true
+    tmux has-session -t installer-bootstrap >/dev/null 2>&1 || tmux new-session -d -s installer-bootstrap >/dev/null 2>&1 || true
+
+    if ! tmux source-file "$HOME/.tmux.conf"; then
+      echo "⚠️ tmux source-file failed; continuing without tmux plugin bootstrap"
+    elif ! "$HOME/.tmux/plugins/tpm/bin/install_plugins"; then
+      echo "⚠️ tmux plugin install failed; continuing"
+    fi
+
+    tmux kill-session -t installer-bootstrap >/dev/null 2>&1 || true
   fi
 }
 
