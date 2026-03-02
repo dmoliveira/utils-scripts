@@ -1,5 +1,12 @@
 # utils-scripts Wiki
 
+![utils-scripts hero image](https://raw.githubusercontent.com/dmoliveira/utils-scripts/master/docs/assets/hero-gpt-image-1.svg)
+
+[![License: GPL-2.0](https://img.shields.io/badge/License-GPL--2.0-blue.svg)](https://github.com/dmoliveira/utils-scripts/blob/master/LICENSE)
+[![Platform](https://img.shields.io/badge/Platform-Debian%20%7C%20macOS-lightgrey.svg)](https://github.com/dmoliveira/utils-scripts#supported-platforms)
+[![Docs: GitHub Pages](https://img.shields.io/badge/Docs-GitHub%20Pages-2ea44f?logo=github)](https://dmoliveira.github.io/utils-scripts/)
+[![Donate via Stripe](https://img.shields.io/badge/Donate-Stripe-blue?logo=stripe&logoColor=white)](https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00)
+
 Welcome to the project wiki.
 
 This wiki is sourced from the repository folder `wiki/` and intended to stay in sync through CI.
