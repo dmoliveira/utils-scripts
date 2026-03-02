@@ -20,7 +20,7 @@ repos:
         pass_filenames: false
       - id: shfmt-local
         name: shfmt-local
-        entry: bash -lc 'set -euo pipefail; files=(); while IFS= read -r f; do files+=("$f"); done < <(./scripts/list_shell_files.sh); [[ ${#files[@]} -eq 0 ]] && exit 0; shfmt -w -i 2 -ci "${files[@]}"'
+        entry: bash -lc 'set -euo pipefail; files=(); while IFS= read -r f; do files+=("$f"); done < <(./scripts/list_shell_files.sh); [[ ${#files[@]} -eq 0 ]] && exit 0; shfmt -d -i 2 -ci "${files[@]}"'
         language: system
         pass_filenames: false
 
