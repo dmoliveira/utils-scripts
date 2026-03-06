@@ -21,6 +21,12 @@ make verify
 
 Want to support ongoing improvements? [Donate here](https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00) or share the project with your team.
 
+### Choose your first action
+
+1. Need a clean environment now? Start with [Getting Started](getting-started.md).
+2. Want fast command recall? Jump to [Cheatsheets Index](cheatsheets/index.md).
+3. Maintaining quality and releases? Open [Release Flow](release-flow.md).
+
 ## Pick a path
 
 ### 🚀 Start Fast
@@ -56,6 +62,14 @@ Keeping docs, checks, and release flow aligned across the project.
 - command-focused references for day-to-day delivery work
 - release and CI guardrails to keep docs and scripts in sync
 - a mirrored wiki source in `wiki/` for GitHub Wiki publishing
+
+## Why teams keep this bookmarked
+
+| You get | Why it matters |
+| --- | --- |
+| Repeatable bootstrap steps | New machines become productive faster with less drift |
+| Practical command references | Onboarding and daily work stay consistent across contributors |
+| Guarded release checks | Docs, CI, and scripts remain aligned as the repo evolves |
 
 ## Workflow map
 
