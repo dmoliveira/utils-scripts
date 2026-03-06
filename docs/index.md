@@ -1,5 +1,3 @@
-# utils-scripts Documentation
-
 ![utils-scripts hero image](assets/hero-gpt-image-1.svg)
 
 > Build a reliable terminal workstation in minutes, then keep it sharp with repeatable checks.

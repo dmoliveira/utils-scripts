@@ -72,6 +72,7 @@ body::after {
   font-size: 0.92rem;
   color: var(--brand-strong);
   border: 1px solid transparent;
+  white-space: nowrap;
 }
 
 .site-nav .page-link:hover {
@@ -219,6 +220,7 @@ h3 {
   .site-nav .page-link {
     margin: 0.2rem 0;
     display: block;
+    white-space: normal;
   }
 
   .page-content .wrapper {
@@ -233,5 +235,19 @@ h3 {
 
   h2 {
     font-size: 1.32rem;
+  }
+}
+
+@media (min-width: 721px) {
+  .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 0.35rem 0.45rem;
+    max-width: 68%;
+  }
+
+  .site-nav .page-link {
+    margin-left: 0;
   }
 }

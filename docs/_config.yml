@@ -4,11 +4,10 @@ theme: minima
 markdown: kramdown
 show_downloads: false
 header_pages:
-  - index.md
   - getting-started.md
   - power-user.md
   - cheatsheets/index.md
   - workflow-matrix.md
-  - troubleshooting.md
   - release-flow.md
+  - troubleshooting.md
   - support.md
