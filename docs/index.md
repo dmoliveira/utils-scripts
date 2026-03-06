@@ -19,7 +19,7 @@ exec zsh
 make verify
 ```
 
-Want to support ongoing improvements? [Donate here](https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00) or share the project with your team.
+Like the toolkit? [Donate here](https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00) or share it with your team.
 
 ### Choose your first action
 
@@ -31,7 +31,7 @@ Want to support ongoing improvements? [Donate here](https://buy.stripe.com/8x200
 
 ### 🚀 Start Fast
 
-New to this repo and want a clean baseline quickly.
+Get a clean baseline quickly.
 
 - [Getting Started](getting-started.md)
 - [Top 10 New User Commands](top-10-new-user-commands.md)
@@ -40,7 +40,7 @@ New to this repo and want a clean baseline quickly.
 
 ### ⚡ Ship Daily
 
-Already productive and want tighter loops and better command muscle memory.
+Tighten loops and sharpen command muscle memory.
 
 - [Power User Workflows](power-user.md)
 - [Cheatsheets Index](cheatsheets/index.md)
@@ -49,7 +49,7 @@ Already productive and want tighter loops and better command muscle memory.
 
 ### 🛠️ Maintain Releases
 
-Keeping docs, checks, and release flow aligned across the project.
+Keep docs, checks, and release flow aligned.
 
 - [Release Flow](release-flow.md)
 - [Workflow Matrix](workflow-matrix.md)
@@ -58,18 +58,18 @@ Keeping docs, checks, and release flow aligned across the project.
 
 ## What this docs site gives you
 
-- practical install + verify flow for macOS and Debian/Ubuntu
-- command-focused references for day-to-day delivery work
-- release and CI guardrails to keep docs and scripts in sync
-- a mirrored wiki source in `wiki/` for GitHub Wiki publishing
+- install + verify flow for macOS and Debian/Ubuntu
+- command references for daily delivery work
+- release and CI guardrails that keep docs/scripts aligned
+- wiki source in `wiki/` for GitHub Wiki sync
 
 ## Why teams keep this bookmarked
 
 | You get | Why it matters |
 | --- | --- |
 | Repeatable bootstrap steps | New machines become productive faster with less drift |
-| Practical command references | Onboarding and daily work stay consistent across contributors |
-| Guarded release checks | Docs, CI, and scripts remain aligned as the repo evolves |
+| Practical command references | Onboarding and day-to-day work stay consistent |
+| Guarded release checks | Docs, CI, and scripts stay aligned as the repo evolves |
 
 ## Workflow map
 
@@ -105,8 +105,8 @@ For the full guard list, see [Release Flow](release-flow.md) and [Workflow Matri
 
 ## Continue keyword
 
-Use `CONTINUE_TAG: #continue-utils` to mark follow-up work in release notes and issue threads.
+Use `CONTINUE_TAG: #continue-utils` for follow-up work in release notes and issue threads.
 
 ## Wiki mirror
 
-Repository wiki source lives in `wiki/` and is synced by `.github/workflows/wiki-sync.yml`.
+Wiki source lives in `wiki/` and syncs via `.github/workflows/wiki-sync.yml`.
