@@ -239,12 +239,34 @@ h3 {
 }
 
 @media (min-width: 721px) {
+  .site-header .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .site-title {
+    float: none;
+    margin-right: auto;
+    white-space: nowrap;
+    line-height: 1.2;
+  }
+
   .site-nav {
+    float: none;
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    line-height: 1.2;
+  }
+
+  .site-nav .trigger {
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-end;
     gap: 0.35rem 0.45rem;
-    max-width: 68%;
+    max-width: 100%;
   }
 
   .site-nav .page-link {
