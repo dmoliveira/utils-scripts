@@ -2,7 +2,7 @@
 
 ![utils-scripts hero image](assets/hero-gpt-image-1.svg)
 
-> Build a reliable terminal workstation in minutes, then keep it healthy with repeatable checks.
+> Build a reliable terminal workstation in minutes, then keep it sharp with repeatable checks.
 
 [![Docs: GitHub Pages](https://img.shields.io/badge/Docs-GitHub%20Pages-2ea44f?logo=github)](https://dmoliveira.github.io/utils-scripts/)
 [![Platform](https://img.shields.io/badge/Platform-Debian%20%7C%20macOS-lightgrey.svg)](../README.md#supported-platforms)
@@ -27,7 +27,7 @@ Like the toolkit? [Donate here](https://buy.stripe.com/8x200i8bSgVe3Vl3g8bfO00) 
 2. Want fast command recall? Jump to [Cheatsheets Index](cheatsheets/index.md).
 3. Maintaining quality and releases? Open [Release Flow](release-flow.md).
 
-## Pick a path
+## Pick your path
 
 ### 🚀 Start Fast
 
@@ -56,7 +56,7 @@ Keep docs, checks, and release flow aligned.
 - [Top 10 Release Maintainer Commands](top-10-release-maintainer-commands.md)
 - [Donation Impact](donation-impact.md)
 
-## What this docs site gives you
+## Why this docs site works
 
 - install + verify flow for macOS and Debian/Ubuntu
 - command references for daily delivery work
@@ -71,7 +71,7 @@ Keep docs, checks, and release flow aligned.
 | Practical command references | Onboarding and day-to-day work stay consistent |
 | Guarded release checks | Docs, CI, and scripts stay aligned as the repo evolves |
 
-## Workflow map
+## Operator map
 
 - **Install:** `install_my_programs_mac`, `install_my_programs_debian`, `install_my_programs_unix`
 - **Verify:** `verify_post_install_unix`, `doctor_post_install_unix`, `verify_linux_edge_cases`

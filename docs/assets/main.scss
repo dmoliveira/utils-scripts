@@ -22,6 +22,32 @@ body {
   color: var(--ink);
   background: linear-gradient(180deg, var(--bg-top) 0%, var(--bg-bottom) 100%);
   line-height: 1.65;
+  position: relative;
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  z-index: -1;
+  width: 38rem;
+  height: 38rem;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(4px);
+}
+
+body::before {
+  top: -14rem;
+  right: -12rem;
+  background: radial-gradient(circle at center, rgba(15, 111, 155, 0.18), rgba(15, 111, 155, 0));
+}
+
+body::after {
+  bottom: -17rem;
+  left: -14rem;
+  background: radial-gradient(circle at center, rgba(243, 184, 79, 0.2), rgba(243, 184, 79, 0));
 }
 
 .site-header {
@@ -60,6 +86,7 @@ body {
   border-radius: 18px;
   padding: 2rem 2.25rem;
   box-shadow: 0 24px 50px rgba(12, 38, 71, 0.08);
+  max-width: 1040px;
 }
 
 .page-content p,
@@ -77,6 +104,24 @@ h3 {
 h1 {
   font-size: 2.35rem;
   line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+
+h2 {
+  margin-top: 2.1rem;
+  position: relative;
+  padding-bottom: 0.3rem;
+}
+
+h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2.9rem;
+  height: 0.2rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--brand), #3d92bc);
 }
 
 a {
@@ -88,17 +133,25 @@ a:hover {
 }
 
 blockquote {
-  background: #f4f8ff;
-  border-left: 5px solid var(--brand);
-  border-radius: 10px;
-  padding: 0.9rem 1rem;
+  background: linear-gradient(135deg, #eef6ff 0%, #f5fbff 100%);
+  border: 1px solid #d0e3fb;
+  border-left: 6px solid var(--brand);
+  border-radius: 12px;
+  padding: 1rem 1.15rem;
   color: var(--ink-soft);
+}
+
+.page-content blockquote:first-of-type {
+  font-size: 1.08rem;
+  color: #274462;
+  box-shadow: 0 10px 22px rgba(18, 67, 108, 0.09);
 }
 
 table {
   border: 1px solid var(--line);
   border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 9px 20px rgba(17, 56, 92, 0.06);
 }
 
 table th {
@@ -109,6 +162,10 @@ table th {
 
 table tr:nth-child(even) td {
   background: #fbfdff;
+}
+
+ul li {
+  margin-bottom: 0.2rem;
 }
 
 code,
@@ -122,6 +179,7 @@ pre,
   border-radius: 12px;
   border: 1px solid #e3ecfa;
   background: linear-gradient(180deg, #f9fbff 0%, #f4f8ff 100%);
+  box-shadow: inset 0 1px 0 #fff;
 }
 
 hr {
@@ -134,6 +192,7 @@ img[alt*="hero"] {
   border-radius: 14px;
   border: 1px solid #d7e1ee;
   box-shadow: 0 18px 30px rgba(12, 38, 71, 0.12);
+  margin-bottom: 0.8rem;
 }
 
 img[src*="img.shields.io"] {
@@ -148,10 +207,6 @@ h3 {
   border: 1px solid #d3e3fa;
   border-radius: 10px;
   padding: 0.35rem 0.65rem;
-}
-
-h2 {
-  margin-top: 2.1rem;
 }
 
 @media (max-width: 720px) {
@@ -169,9 +224,14 @@ h2 {
   .page-content .wrapper {
     padding: 1.25rem 1rem;
     border-radius: 12px;
+    box-shadow: 0 10px 24px rgba(12, 38, 71, 0.08);
   }
 
   h1 {
     font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.32rem;
   }
 }
