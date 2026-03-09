@@ -129,6 +129,7 @@ install_monitoring_stack() {
 install_productivity_cli_stack() {
   echo "Installing advanced productivity CLI tools..."
   install_optional_brew_formula lazygit
+  install_optional_brew_formula repomix
   install_optional_brew_formula glow
   install_optional_brew_formula hyperfine
   install_optional_brew_formula yq

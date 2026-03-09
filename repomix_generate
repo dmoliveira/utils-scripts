@@ -32,6 +32,10 @@ fi
 
 # Run Repomix
 echo "-> Generating repomix-output.xml"
-npx repomix@latest --compress
+if command -v repomix >/dev/null 2>&1; then
+  repomix --compress
+else
+  npx repomix@latest --compress
+fi
 
 echo "OK Repomix completed"
