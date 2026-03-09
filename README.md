@@ -139,7 +139,6 @@ make rollback
 ### Bootstrap
 
 - installs terminal, editor, and productivity tooling
-- includes Repomix in the macOS productivity CLI stack for repository context exports
 - applies baseline shell config templates with backups
 - supports dry runs for low-risk previews
 
