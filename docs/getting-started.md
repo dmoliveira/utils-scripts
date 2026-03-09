@@ -14,6 +14,8 @@ make help
 
 ```bash
 make install-mac
+# optional macOS desktop extras
+make install-mac-desktop
 # or
 make install-debian
 # or
@@ -21,6 +23,7 @@ make install-unix
 ```
 
 If you want a preview before changing your machine, run the installer script with `--dry-run`.
+For the extra macOS desktop apps, use `./install_my_programs_mac --desktop-extras --dry-run`.
 
 ## 3) Verify your environment
 

@@ -40,7 +40,8 @@ Special progress keyword for ongoing work across docs and release notes:
 git clone https://github.com/dmoliveira/utils-scripts.git
 cd utils-scripts
 make help
-make install-mac    # or: make install-debian / make install-unix
+make install-mac    # baseline macOS setup
+# or: make install-mac-desktop / make install-debian / make install-unix
 make verify
 ```
 
@@ -78,6 +79,7 @@ make docs-browse
 | --- | --- |
 | `install_my_programs_debian` | Debian/Ubuntu installer |
 | `install_my_programs_mac` | macOS installer (Homebrew based) |
+| `make install-mac-desktop` | macOS installer + desktop extras (`dockdoor`, `maccy`, `espanso`, `appcleaner`, `yabai`) |
 | `install_my_programs_unix` | Generic Unix installer |
 | `verify_post_install_unix` | Smoke checks after install |
 | `doctor_post_install_unix` | Strict checks with fix hints |

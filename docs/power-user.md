@@ -31,6 +31,29 @@ trivy fs .
 - prefer short command examples that people can paste
 - add the follow-up marker `CONTINUE_TAG: #continue-utils` for remaining tasks
 
+## macOS desktop extras
+
+Use one command when you want the terminal stack plus GUI helpers:
+
+```bash
+make install-mac-desktop
+```
+
+What it adds:
+
+- `dockdoor` for Dock previews and window switching
+- `maccy` for clipboard history
+- `espanso` for text expansion
+- `appcleaner` for app removal cleanup
+- `yabai` for advanced tiling/window management
+
+Post-install notes:
+
+- Launch DockDoor, Maccy, and Espanso once so macOS can request permissions.
+- Expect Accessibility prompts for DockDoor, Maccy auto-paste workflows, Espanso behavior, and yabai.
+- Start yabai manually with `yabai --start-service` after reviewing its upstream setup notes.
+- Keep yabai optional: advanced features may require extra SIP and scripting-addition steps.
+
 ## Incident mode checklist
 
 ```bash
