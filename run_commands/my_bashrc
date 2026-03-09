@@ -18,8 +18,8 @@ export LSCOLORS=GxFxCxDxBxegedabagaced
 # Default Editor
 export EDITOR='vim'
 
-# Use Solaris at Terminal-Vim
-export TERM="xterm-256color"
+# Preserve terminal features from the outer terminal when available
+export TERM="${TERM:-xterm-256color}"
 
 # Enable X11 Forwarding
 export DISPLAY=:0.0
