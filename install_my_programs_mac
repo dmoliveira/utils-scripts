@@ -4,6 +4,7 @@ set -euo pipefail
 timestamp=$(date +"%Y%m%d%H%M%S")
 ARCH=$(uname -m)
 DRY_RUN=false
+INSTALL_DESKTOP_EXTRAS=false
 BEADS_INSTALL_REF="dd01a655b9602ba20d0c666515467e064a815609"
 BR_INSTALL_FAILED=false
 
@@ -13,6 +14,7 @@ Usage: install_my_programs_mac [options]
 
 Options:
   --dry-run   Print planned actions without changing the system
+  --desktop-extras  Install optional macOS desktop apps and services
   -h, --help  Show this help message
 EOF
 }
@@ -22,6 +24,9 @@ parse_args() {
     case "$1" in
       --dry-run)
         DRY_RUN=true
+        ;;
+      --desktop-extras)
+        INSTALL_DESKTOP_EXTRAS=true
         ;;
       -h | --help)
         usage
@@ -66,6 +71,48 @@ install_optional_brew_formula() {
 
   brew install "$formula"
   echo "✅ Installed ${label}"
+}
+
+install_optional_brew_cask() {
+  local cask="$1"
+  local label="${2:-$1}"
+
+  if [[ "$DRY_RUN" == "true" ]]; then
+    run_cmd brew install --cask "$cask"
+    return
+  fi
+
+  if ! brew info --cask "$cask" >/dev/null 2>&1; then
+    echo "${label} unavailable in current Homebrew taps; skipping"
+    return
+  fi
+
+  if brew list --cask "$cask" &>/dev/null; then
+    echo "${label} already installed"
+    return
+  fi
+
+  brew install --cask "$cask"
+  echo "Installed ${label}"
+}
+
+install_macos_desktop_extras() {
+  echo "Installing optional macOS desktop extras..."
+  install_optional_brew_cask dockdoor "DockDoor"
+  install_optional_brew_cask maccy "Maccy"
+  install_optional_brew_cask espanso "Espanso"
+  install_optional_brew_cask appcleaner "AppCleaner"
+  install_optional_brew_formula asmvik/formulae/yabai "yabai"
+
+  cat <<'EOF'
+
+Next steps for macOS desktop extras:
+- DockDoor: launch once and grant Accessibility access.
+- Maccy: launch once; grant Accessibility if you want auto-paste/global shortcut reliability.
+- Espanso: launch once, confirm the menu bar app appears, and review Secure Input guidance if expansion stops.
+- AppCleaner: optional manual app; SmartDelete is personal preference.
+- yabai: advanced window manager; grant Accessibility, run `yabai --start-service`, and review upstream docs before enabling scripting addition or SIP-related features.
+EOF
 }
 
 install_monitoring_stack() {
@@ -190,6 +237,10 @@ if [[ "$DRY_RUN" == "true" ]]; then
   run_cmd brew install --cask ghostty
 elif ! brew list --cask ghostty &>/dev/null; then
   run_cmd brew install --cask ghostty
+fi
+
+if [[ "$INSTALL_DESKTOP_EXTRAS" == "true" ]]; then
+  install_macos_desktop_extras
 fi
 
 # 🧠 AI/ML environment (optional)
