@@ -54,6 +54,16 @@ y             copy selection to system clipboard
 Enter         copy selection to system clipboard
 ```
 
+Over SSH, tmux uses OSC52 so copy-mode sends the selection back to the local terminal clipboard.
+This is the reliable path for `Ghostty -> ssh -> tmux -> nvim` style sessions where remote `pbcopy`
+or `xclip` are not available on the host.
+
+This setup assumes the remote host is trusted because tmux is allowed to forward clipboard writes
+from apps running inside the session.
+
+If copy still fails, reload tmux with `Ctrl-b r` and confirm the outer terminal keeps its native
+`TERM` value instead of being forced to `xterm-256color`.
+
 ## Validate config quickly
 
 ```bash

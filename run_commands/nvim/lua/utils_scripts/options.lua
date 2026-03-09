@@ -8,6 +8,9 @@ vim.o.wrap = false
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.termguicolors = true
+if vim.env.SSH_CONNECTION or vim.env.SSH_CLIENT or vim.env.SSH_TTY then
+  vim.g.clipboard = "osc52"
+end
 vim.o.clipboard = "unnamedplus"
 vim.o.cursorline = true
 vim.o.scrolloff = 8
