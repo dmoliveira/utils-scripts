@@ -49,9 +49,12 @@ If `NET` is blank, run `make verify` to check tmux plugin health and `numfmt` av
 
 ```text
 Ctrl-b [      enter copy mode
+Space         begin selection
 v             begin selection (copy-mode-vi)
+V             select whole lines
 y             copy selection to system clipboard
 Enter         copy selection to system clipboard
+mouse drag    select in copy mode; release to copy
 ```
 
 Over SSH, tmux uses OSC52 so copy-mode sends the selection back to the local terminal clipboard.
@@ -63,6 +66,10 @@ from apps running inside the session.
 
 If copy still fails, reload tmux with `Ctrl-b r` and confirm the outer terminal keeps its native
 `TERM` value instead of being forced to `xterm-256color`.
+
+For multiline copy, `V` is usually the easiest path because it switches to whole-line selection.
+If you prefer the mouse, enter copy mode first with `Ctrl-b [` and then drag; plain terminal drag
+outside tmux copy mode is less reliable in remote sessions.
 
 ## Validate config quickly
 
