@@ -57,6 +57,14 @@ Enter         copy selection to system clipboard
 mouse drag    select in copy mode; release to copy
 ```
 
+Best remote workflow:
+
+```text
+logs/output    drag with mouse to auto-enter copy mode, then release to copy
+multiline      Ctrl-b [ then V, move with j/k, then y
+apps with mouse use their own mouse handling; tmux passes drag through
+```
+
 Over SSH, tmux uses OSC52 so copy-mode sends the selection back to the local terminal clipboard.
 This is the reliable path for `Ghostty -> ssh -> tmux -> nvim` style sessions where remote `pbcopy`
 or `xclip` are not available on the host.
@@ -68,8 +76,8 @@ If copy still fails, reload tmux with `Ctrl-b r` and confirm the outer terminal 
 `TERM` value instead of being forced to `xterm-256color`.
 
 For multiline copy, `V` is usually the easiest path because it switches to whole-line selection.
-If you prefer the mouse, enter copy mode first with `Ctrl-b [` and then drag; plain terminal drag
-outside tmux copy mode is less reliable in remote sessions.
+If you prefer the mouse, dragging in a normal shell pane now auto-enters tmux copy mode and copies
+on release. In apps that handle mouse input themselves, tmux passes drag events through instead.
 
 ## Validate config quickly
 
