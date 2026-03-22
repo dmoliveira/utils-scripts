@@ -45,6 +45,8 @@ make install-mac    # baseline macOS setup
 make verify
 ```
 
+On macOS, `make install-mac` now installs the toolchain and syncs the managed local setup files: `~/.zshrc`, `~/.tmux.conf`, `~/.config/starship.toml`, `~/.config/nvim/init.lua`, `~/.wezterm.lua`, `~/.config/ghostty/config`, `~/.codex/config.template.toml`, and local helper scripts in `~/.local/bin`. Add `--desktop-extras` if you also want optional window tools such as `DockDoor`, `Maccy`, `Espanso`, `AppCleaner`, `borders`, `yabai`, and `skhd`; those services are installed but not auto-started.
+
 First five minutes after install:
 
 ```bash
