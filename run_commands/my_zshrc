@@ -237,6 +237,18 @@ if ! command -v parallel >/dev/null 2>&1 && command -v gparallel >/dev/null 2>&1
   alias parallel='gparallel'
 fi
 
+open_tabs() {
+  local script_dir="$HOME/Codes/Projects/my-cmds"
+  local name="$1"
+
+  if [[ -z "$name" ]]; then
+    echo "Usage: open_tabs <session-name>"
+    return 1
+  fi
+
+  "$script_dir/open_tabs.sh" "$script_dir/data/${name}.txt"
+}
+
 da() {
   direnv allow "${1:-.}"
 }
@@ -439,5 +451,41 @@ if [[ -f ~/.zcompdump ]] && { [[ -f ~/.zfunc/_codex && ~/.zcompdump -ot ~/.zfunc
   rm -f ~/.zcompdump*
 fi
 compinit
+
+unalias ocq 2>/dev/null
+
+ocq() {
+  if [[ $# -eq 0 ]]; then
+    printf 'usage: ocq <prompt>\n' >&2
+    return 2
+  fi
+
+  local attach_url
+  local -a model_args
+  attach_url="${OCQ_ATTACH:-http://localhost:4096}"
+
+  if [[ -n "${OCQ_MODEL:-}" ]]; then
+    model_args=(-m "$OCQ_MODEL")
+  else
+    model_args=()
+  fi
+
+  opencode run --attach "$attach_url" --format json "${model_args[@]}" "$*" 2>/dev/null |
+    python3 -c 'import json,sys
+for line in sys.stdin:
+    line=line.strip()
+    if not line:
+        continue
+    try:
+        obj=json.loads(line)
+    except Exception:
+        continue
+    if obj.get("type") == "text":
+        text=((obj.get("part") or {}).get("text"))
+        if text:
+            print(text)'
+}
+
+alias ocq='noglob ocq'
 
 # -- EC-End -----------------------------------

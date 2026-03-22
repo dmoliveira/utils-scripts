@@ -25,6 +25,21 @@ make install-unix
 If you want a preview before changing your machine, run the installer script with `--dry-run`.
 For the extra macOS desktop apps, use `./install_my_programs_mac --desktop-extras --dry-run`.
 
+On macOS, the installer also syncs the repo-managed terminal and editor setup into your home directory, including Zsh, tmux, Starship, Neovim, WezTerm, Ghostty, Codex template config, and helper scripts under `~/.local/bin`.
+
+### Optional macOS window tools
+
+Run `make install-mac ARGS="--desktop-extras"` when you also want optional macOS window tools from Homebrew, including `DockDoor`, `Maccy`, `Espanso`, `AppCleaner`, `borders`, `yabai`, and `skhd`.
+
+These are installed but not auto-started by the installer. If you want to use the window-manager services later, start them manually:
+
+```bash
+yabai --start-service
+skhd --start-service
+```
+
+If you prefer Rectangle or another window manager, you can leave `yabai` and `skhd` installed but disabled.
+
 ## 3) Verify your environment
 
 ```bash

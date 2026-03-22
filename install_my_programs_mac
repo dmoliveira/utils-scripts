@@ -50,6 +50,34 @@ run_cmd() {
   "$@"
 }
 
+backup_copy() {
+  local source="$1"
+  local target="$2"
+  local target_dir
+
+  [[ -f "$source" ]] || return 0
+
+  target_dir="$(dirname "$target")"
+  run_cmd mkdir -p "$target_dir"
+  if [[ -f "$target" ]]; then
+    run_cmd cp "$target" "$target.${timestamp}.bak"
+  fi
+  run_cmd cp -f "$source" "$target"
+  echo "✅ Installed ${target#"$HOME"/}"
+}
+
+install_local_bin_script() {
+  local source="$1"
+  local name
+  name="$(basename "$source")"
+
+  [[ -f "$source" ]] || return 0
+
+  run_cmd mkdir -p "$HOME/.local/bin"
+  run_cmd cp -f "$source" "$HOME/.local/bin/$name"
+  run_cmd chmod +x "$HOME/.local/bin/$name"
+}
+
 install_optional_brew_formula() {
   local formula="$1"
   local label="${2:-$1}"
@@ -83,17 +111,17 @@ install_optional_brew_cask() {
   fi
 
   if ! brew info --cask "$cask" >/dev/null 2>&1; then
-    echo "${label} unavailable in current Homebrew taps; skipping"
+    echo "ℹ️ ${label} unavailable in current Homebrew taps; skipping"
     return
   fi
 
   if brew list --cask "$cask" &>/dev/null; then
-    echo "${label} already installed"
+    echo "✅ ${label} already installed"
     return
   fi
 
   brew install --cask "$cask"
-  echo "Installed ${label}"
+  echo "✅ Installed ${label}"
 }
 
 install_macos_desktop_extras() {
@@ -102,7 +130,9 @@ install_macos_desktop_extras() {
   install_optional_brew_cask maccy "Maccy"
   install_optional_brew_cask espanso "Espanso"
   install_optional_brew_cask appcleaner "AppCleaner"
-  install_optional_brew_formula asmvik/formulae/yabai "yabai"
+  install_optional_brew_formula borders "JankyBorders (borders)"
+  install_optional_brew_formula koekeishiya/formulae/yabai "yabai"
+  install_optional_brew_formula koekeishiya/formulae/skhd "skhd"
 
   cat <<'EOF'
 
@@ -111,7 +141,9 @@ Next steps for macOS desktop extras:
 - Maccy: launch once; grant Accessibility if you want auto-paste/global shortcut reliability.
 - Espanso: launch once, confirm the menu bar app appears, and review Secure Input guidance if expansion stops.
 - AppCleaner: optional manual app; SmartDelete is personal preference.
+- JankyBorders: start manually with `brew services start borders` if you want always-on borders.
 - yabai: advanced window manager; grant Accessibility, run `yabai --start-service`, and review upstream docs before enabling scripting addition or SIP-related features.
+- skhd: start manually with `skhd --start-service` after you have a keybinding config you want to keep.
 EOF
 }
 
@@ -185,6 +217,87 @@ install_br_tracker() {
   rm -f "$install_script"
 }
 
+install_repo_configs() {
+  echo "Syncing shell and terminal configs..."
+  backup_copy "./run_commands/my_bashrc" "$HOME/.bashrc"
+  backup_copy "./run_commands/my_zshrc" "$HOME/.zshrc"
+  backup_copy "./run_commands/my_tmux.conf" "$HOME/.tmux.conf"
+  backup_copy "./run_commands/my_startship.toml" "$HOME/.config/starship.toml"
+  backup_copy "./run_commands/my_ghostty_config" "$HOME/.config/ghostty/config"
+  backup_copy "./run_commands/my_wezterm.lua" "$HOME/.wezterm.lua"
+  backup_copy "./run_commands/codex_config.toml" "$HOME/.codex/config.template.toml"
+
+  if [[ -f "./run_commands/my_nvim_init.lua" ]]; then
+    backup_copy "./run_commands/my_nvim_init.lua" "$HOME/.config/nvim/init.lua"
+  fi
+
+  for module in plugins options keymaps lsp ui; do
+    backup_copy "./run_commands/nvim/lua/utils_scripts/${module}.lua" "$HOME/.config/nvim/lua/utils_scripts/${module}.lua"
+  done
+
+  if [[ -f "./run_commands/secrets_shell.env.example" ]]; then
+    run_cmd mkdir -p "$HOME/.config/secrets"
+    if [[ ! -f "$HOME/.config/secrets/shell.env" ]]; then
+      run_cmd cp -f "./run_commands/secrets_shell.env.example" "$HOME/.config/secrets/shell.env"
+      run_cmd chmod 600 "$HOME/.config/secrets/shell.env"
+      echo "✅ Installed $HOME/.config/secrets/shell.env (edit with your local secrets)"
+    fi
+  fi
+}
+
+install_local_helpers() {
+  echo "Installing local helper scripts..."
+  install_local_bin_script "./bootstrap_shell_secrets"
+  install_local_bin_script "./br_init_project"
+  install_local_bin_script "./codex_apply_config"
+  install_local_bin_script "./repomix_generate"
+  install_local_bin_script "./run_commands/tmux_network_bandwidth_safe"
+}
+
+install_tmux_plugins() {
+  if [[ "$DRY_RUN" == "true" ]]; then
+    printf '[dry-run] %s\n' 'sync tmux plugins from ~/.tmux.conf'
+    return 0
+  fi
+
+  run_cmd mkdir -p "$HOME/.tmux/plugins"
+  if [[ ! -d "$HOME/.tmux/plugins/tpm" ]]; then
+    run_cmd git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
+  fi
+
+  if command -v tmux >/dev/null 2>&1 && [[ -x "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]]; then
+    echo "Installing tmux plugins from ~/.tmux.conf..."
+    tmux start-server >/dev/null 2>&1 || true
+    tmux has-session -t installer-bootstrap >/dev/null 2>&1 || tmux new-session -d -s installer-bootstrap >/dev/null 2>&1 || true
+
+    if ! tmux source-file "$HOME/.tmux.conf"; then
+      echo "⚠️ tmux source-file failed; continuing without tmux plugin bootstrap"
+    elif ! "$HOME/.tmux/plugins/tpm/bin/install_plugins"; then
+      echo "⚠️ tmux plugin install failed; continuing"
+    fi
+
+    tmux kill-session -t installer-bootstrap >/dev/null 2>&1 || true
+  fi
+}
+
+install_window_manager_examples() {
+  if [[ "$DRY_RUN" == "true" ]]; then
+    printf '[dry-run] %s\n' 'install yabai/skhd example configs when missing'
+    return 0
+  fi
+
+  if [[ -x "/opt/homebrew/opt/yabai/bin/yabai" ]] && [[ ! -f "$HOME/.yabairc" ]]; then
+    cp "/opt/homebrew/opt/yabai/share/yabai/examples/yabairc" "$HOME/.yabairc"
+    chmod +x "$HOME/.yabairc"
+    echo "✅ Installed ~/.yabairc from yabai example"
+  fi
+
+  if [[ -x "/opt/homebrew/opt/skhd/bin/skhd" ]] && [[ ! -f "$HOME/.skhdrc" ]]; then
+    cp "/opt/homebrew/opt/skhd/share/skhd/examples/skhdrc" "$HOME/.skhdrc"
+    echo "✅ Installed ~/.skhdrc from skhd example"
+  fi
+}
+
 parse_args "$@"
 
 if ! command -v brew &>/dev/null; then
@@ -256,31 +369,13 @@ run_cmd brew install starship zsh zsh-autosuggestions zsh-syntax-highlighting
 # 🧩 Fonts (optional)
 run_cmd brew install --cask font-fira-code-nerd-font
 
-if [[ -f "./run_commands/my_ghostty_config" ]]; then
-  run_cmd mkdir -p "$HOME/.config/ghostty"
-  if [[ -f "$HOME/.config/ghostty/config" ]]; then
-    run_cmd cp "$HOME/.config/ghostty/config" "$HOME/.config/ghostty/config.${timestamp}.bak"
-  fi
-  run_cmd cp -f "./run_commands/my_ghostty_config" "$HOME/.config/ghostty/config"
-  echo "✅ Installed Ghostty config to ~/.config/ghostty/config"
-fi
+install_repo_configs
+install_local_helpers
+install_tmux_plugins
+install_window_manager_examples
 
-if [[ -f "./run_commands/secrets_shell.env.example" ]]; then
-  run_cmd mkdir -p "$HOME/.config/secrets"
-  if [[ ! -f "$HOME/.config/secrets/shell.env" ]]; then
-    run_cmd cp -f "./run_commands/secrets_shell.env.example" "$HOME/.config/secrets/shell.env"
-    run_cmd chmod 600 "$HOME/.config/secrets/shell.env"
-    echo "✅ Installed $HOME/.config/secrets/shell.env (edit with your local secrets)"
-  fi
-fi
-
-if [[ -f "./run_commands/my_starship.toml" ]]; then
-  run_cmd mkdir -p "$HOME/.config"
-  if [[ -f "$HOME/.config/starship.toml" ]]; then
-    run_cmd cp "$HOME/.config/starship.toml" "$HOME/.config/starship.toml.${timestamp}.bak"
-  fi
-  run_cmd cp -f "./run_commands/my_starship.toml" "$HOME/.config/starship.toml"
-  echo "✅ Installed Starship config to ~/.config/starship.toml"
+if [[ -x "$HOME/.local/bin/codex_apply_config" ]]; then
+  "$HOME/.local/bin/codex_apply_config"
 fi
 
 # 🧮 Lua / auxiliary tools (optional)
@@ -289,6 +384,7 @@ run_cmd brew install luarocks
 echo "✅ Setup complete! Recommended next steps:"
 echo "- Run: 'chsh -s $(which zsh)' to make Zsh your default shell"
 echo "- Run: 'eval \"\$(starship init zsh)\"' to enable Starship prompt"
+echo "- Optional: start window services manually with 'yabai --start-service' and 'skhd --start-service'"
 if [[ "$BR_INSTALL_FAILED" == "true" ]]; then
   echo "⚠️ Setup completed with warnings: br could not be installed automatically."
 fi

@@ -1,78 +1,89 @@
-# Config file for starship at '~/.config/starship.toml'
-
-# ─────────────────────────────────────────────
-# Global Settings
-# ─────────────────────────────────────────────
 add_newline = false
-format = """
-$directory$git_branch$git_status$python$nodejs$docker_context$cmd_duration$character
-"""
+command_timeout = 1200
 
-# ─────────────────────────────────────────────
-# Prompt Symbols
-# ─────────────────────────────────────────────
-[character]
-success_symbol = "[❯](bold green)"
-error_symbol = "[✗](bold red)"
-vimcmd_symbol = "[❮](bold yellow)"
+format = "$directory$git_branch$git_status$python$nodejs$golang$rust$kubernetes$custom$character"
+right_format = "$jobs$time"
 
-# ─────────────────────────────────────────────
-# Directory
-# ─────────────────────────────────────────────
 [directory]
-style = "bold blue"
-truncation_length = 3
-truncate_to_repo = false
+style = "bold #61afef"
+truncation_length = 4
+truncate_to_repo = true
+format = "[$path]($style) "
+read_only = " "
 
-# ─────────────────────────────────────────────
-# Git
-# ─────────────────────────────────────────────
 [git_branch]
-symbol = "🌱 "
-style = "bold green"
+symbol = " "
+style = "bold #98c379"
+format = "on [$symbol$branch]($style) "
 
 [git_status]
-conflicted = "⚔️ "
+style = "bold #e5c07b"
+format = "([$all_status$ahead_behind]($style) )"
+conflicted = ""
 ahead = "⇡${count}"
 behind = "⇣${count}"
 diverged = "⇕${count}"
-untracked = "?"
-stashed = "📦"
-modified = "✏️ "
-staged = "+"
-renamed = "»"
-deleted = "✗"
-style = "bold yellow"
+up_to_date = ""
+untracked = "?${count}"
+stashed = "${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
 
-# ─────────────────────────────────────────────
-# Python
-# ─────────────────────────────────────────────
 [python]
-symbol = "🐍 "
-style = "bold magenta"
-pyenv_version_name = true
-format = "[$symbol$version]($style) "
+symbol = " "
+style = "bold #c678dd"
+format = "via [$symbol$version(\\($virtualenv\\))]($style) "
 
-# ─────────────────────────────────────────────
-# NodeJS
-# ─────────────────────────────────────────────
 [nodejs]
-symbol = "⬢ "
-style = "bold cyan"
-format = "[$symbol$version]($style) "
+symbol = " "
+style = "bold #98c379"
+format = "via [$symbol$version]($style) "
 
-# ─────────────────────────────────────────────
-# Docker
-# ─────────────────────────────────────────────
-[docker_context]
-symbol = "🐳 "
-style = "bold blue"
-format = "[$symbol$context]($style) "
+[golang]
+symbol = " "
+style = "bold #56b6c2"
+format = "via [$symbol$version]($style) "
 
-# ─────────────────────────────────────────────
-# Command Duration
-# ─────────────────────────────────────────────
+[rust]
+symbol = " "
+style = "bold #d19a66"
+format = "via [$symbol$version]($style) "
+
+[kubernetes]
+symbol = "⎈ "
+style = "bold #61afef"
+format = "on [$symbol$context(\\($namespace\\))]($style) "
+disabled = false
+
 [cmd_duration]
-min_time = 500
+min_time = 2000
 format = "took [$duration]($style) "
-style = "bold yellow"
+style = "bold #e5c07b"
+show_milliseconds = true
+show_notifications = false
+
+[custom.cmd_duration_adaptive]
+command = "printf '%s' \"$ADAPTIVE_CMD_DURATION\""
+when = "test -n \"$ADAPTIVE_CMD_DURATION\""
+shell = ["sh", "-c"]
+format = "took [$output]($style) "
+style = "bold #e5c07b"
+
+[jobs]
+symbol = " "
+style = "bold #abb2bf"
+number_threshold = 1
+format = "[$symbol$number]($style) "
+
+[time]
+disabled = false
+time_format = "%H:%M"
+style = "bold #5c6370"
+format = "[$time]($style)"
+
+[character]
+success_symbol = "[❯](bold #98c379)"
+error_symbol = "[✗](bold #e06c75)"
+vimcmd_symbol = "[❮](bold #e5c07b)"
