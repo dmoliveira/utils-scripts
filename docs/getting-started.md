@@ -22,6 +22,21 @@ make install-unix
 
 If you want a preview before changing your machine, run the installer script with `--dry-run`.
 
+On macOS, the installer also syncs the repo-managed terminal and editor setup into your home directory, including Zsh, tmux, Starship, Neovim, WezTerm, Ghostty, Codex template config, and helper scripts under `~/.local/bin`.
+
+### Optional macOS window tools
+
+`make install-mac` also installs optional macOS window tools when Homebrew provides them, including `DockDoor`, `Maccy`, `Espanso`, `AppCleaner`, `borders`, `yabai`, and `skhd`.
+
+These are installed but not auto-started by the installer. If you want to use the window-manager services later, start them manually:
+
+```bash
+yabai --start-service
+skhd --start-service
+```
+
+If you prefer Rectangle or another window manager, you can leave `yabai` and `skhd` installed but disabled.
+
 ## 3) Verify your environment
 
 ```bash

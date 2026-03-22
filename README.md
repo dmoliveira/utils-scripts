@@ -44,6 +44,8 @@ make install-mac    # or: make install-debian / make install-unix
 make verify
 ```
 
+On macOS, `make install-mac` now installs the toolchain and syncs the managed local setup files: `~/.zshrc`, `~/.tmux.conf`, `~/.config/starship.toml`, `~/.config/nvim/init.lua`, `~/.wezterm.lua`, `~/.config/ghostty/config`, `~/.codex/config.template.toml`, and local helper scripts in `~/.local/bin`. It also installs optional window tools such as `yabai` and `skhd`, but does not auto-start those services.
+
 First five minutes after install:
 
 ```bash
