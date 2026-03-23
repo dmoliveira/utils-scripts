@@ -7,6 +7,7 @@ These references are designed for copy/paste speed and practical command recall.
 - [tmux](tmux.md)
 - [starship](starship.md)
 - [zsh](zsh.md)
+- [rectangle](rectangle.md)
 - [ghostty](ghostty.md)
 - [zellij](zellij.md)
 - [nvim](nvim.md)
