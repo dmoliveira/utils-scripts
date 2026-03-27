@@ -141,7 +141,7 @@ Next steps for macOS desktop extras:
 - Maccy: launch once; grant Accessibility if you want auto-paste/global shortcut reliability.
 - Espanso: launch once, confirm the menu bar app appears, and review Secure Input guidance if expansion stops.
 - AppCleaner: optional manual app; SmartDelete is personal preference.
-- JankyBorders: start manually with `brew services start borders` if you want always-on borders.
+- JankyBorders: the installer now syncs `~/.config/borders/bordersrc`; start it with `brew services start borders` if you want always-on borders.
 - yabai: advanced window manager; grant Accessibility, run `yabai --start-service`, and review upstream docs before enabling scripting addition or SIP-related features.
 - skhd: start manually with `skhd --start-service` after you have a keybinding config you want to keep.
 EOF
@@ -224,6 +224,8 @@ install_repo_configs() {
   backup_copy "./run_commands/my_tmux.conf" "$HOME/.tmux.conf"
   backup_copy "./run_commands/my_startship.toml" "$HOME/.config/starship.toml"
   backup_copy "./run_commands/my_ghostty_config" "$HOME/.config/ghostty/config"
+  backup_copy "./run_commands/bordersrc" "$HOME/.config/borders/bordersrc"
+  run_cmd chmod +x "$HOME/.config/borders/bordersrc"
   backup_copy "./run_commands/my_wezterm.lua" "$HOME/.wezterm.lua"
   backup_copy "./run_commands/codex_config.toml" "$HOME/.codex/config.template.toml"
 
