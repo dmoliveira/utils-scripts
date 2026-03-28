@@ -45,7 +45,7 @@ make install-mac    # baseline macOS setup
 make verify
 ```
 
-On macOS, `make install-mac` now installs the toolchain and syncs the managed local setup files: `~/.zshrc`, `~/.tmux.conf`, `~/.config/starship.toml`, `~/.config/nvim/init.lua`, `~/.wezterm.lua`, `~/.config/ghostty/config`, `~/.config/borders/bordersrc`, `~/.codex/config.template.toml`, and local helper scripts in `~/.local/bin`. Add `--desktop-extras` if you also want optional window tools such as `DockDoor`, `Maccy`, `Espanso`, `AppCleaner`, `borders`, `yabai`, and `skhd`; those services are installed but not auto-started.
+On macOS, `make install-mac` now installs the toolchain and syncs the managed local setup files: `~/.zshrc`, `~/.tmux.conf`, `~/.config/starship.toml`, `~/.config/nvim/init.lua`, `~/.wezterm.lua`, `~/.config/ghostty/config`, `~/.config/borders/bordersrc`, `~/.codex/config.template.toml`, and local helper scripts in `~/.local/bin`. Add `--desktop-extras` if you also want optional desktop apps and window tools such as `Stats`, `Raycast`, `Rectangle`, `DockDoor`, `Maccy`, `Espanso`, `Tailscale`, `AppCleaner`, `borders`, `yabai`, and `skhd`; services stay manual unless you start them yourself.
 
 First five minutes after install:
 
@@ -81,7 +81,7 @@ make docs-browse
 | --- | --- |
 | `install_my_programs_debian` | Debian/Ubuntu installer |
 | `install_my_programs_mac` | macOS installer (Homebrew based) |
-| `make install-mac-desktop` | macOS installer + desktop extras (`dockdoor`, `maccy`, `espanso`, `appcleaner`, `yabai`) |
+| `make install-mac-desktop` | macOS installer + desktop extras (`stats`, `raycast`, `rectangle`, `dockdoor`, `maccy`, `espanso`, `tailscale`, `appcleaner`, `yabai`) |
 | `install_my_programs_unix` | Generic Unix installer |
 | `verify_post_install_unix` | Smoke checks after install |
 | `doctor_post_install_unix` | Strict checks with fix hints |

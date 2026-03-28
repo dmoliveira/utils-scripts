@@ -128,9 +128,13 @@ install_optional_brew_cask() {
 
 install_macos_desktop_extras() {
   echo "Installing optional macOS desktop extras..."
+  install_optional_brew_cask stats "Stats"
+  install_optional_brew_cask raycast "Raycast"
+  install_optional_brew_cask rectangle "Rectangle"
   install_optional_brew_cask dockdoor "DockDoor"
   install_optional_brew_cask maccy "Maccy"
   install_optional_brew_cask espanso "Espanso"
+  install_optional_brew_cask tailscale-app "Tailscale"
   install_optional_brew_cask appcleaner "AppCleaner"
   install_optional_brew_formula borders "JankyBorders (borders)"
   install_optional_brew_formula koekeishiya/formulae/yabai "yabai"
@@ -139,9 +143,13 @@ install_macos_desktop_extras() {
   cat <<'EOF'
 
 Next steps for macOS desktop extras:
+- Stats: launch once if you want menu bar system metrics and choose the modules you want visible.
+- Raycast: launch once, complete onboarding, and decide whether it should replace Spotlight shortcuts.
+- Rectangle: launch once, grant Accessibility access, and import your preferred keyboard layout.
 - DockDoor: launch once and grant Accessibility access.
 - Maccy: launch once; grant Accessibility if you want auto-paste/global shortcut reliability.
 - Espanso: launch once, confirm the menu bar app appears, and review Secure Input guidance if expansion stops.
+- Tailscale: the app installer may prompt for admin approval; sign in after launch and approve the system extension if macOS asks.
 - AppCleaner: optional manual app; SmartDelete is personal preference.
 - JankyBorders: the installer now syncs `~/.config/borders/bordersrc`; start it with `brew services start borders` if you want always-on borders.
 - yabai: advanced window manager; grant Accessibility, run `yabai --start-service`, and review upstream docs before enabling scripting addition or SIP-related features.
