@@ -8,6 +8,8 @@ INSTALL_DESKTOP_EXTRAS=false
 BEADS_INSTALL_REF="dd01a655b9602ba20d0c666515467e064a815609"
 BR_INSTALL_FAILED=false
 
+export PATH="$HOME/.local/bin:$PATH"
+
 usage() {
   cat <<'EOF'
 Usage: install_my_programs_mac [options]
@@ -190,7 +192,11 @@ install_br_tracker() {
     return
   fi
   if command -v bd &>/dev/null; then
-    echo "ℹ️ Found legacy bd command. Installing br alongside it."
+    if [[ ! -e "$HOME/.local/bin/br" ]]; then
+      ln -sf "$(command -v bd)" "$HOME/.local/bin/br"
+    fi
+    echo "✅ bd already installed; linked br -> bd"
+    return
   fi
 
   local install_url="https://raw.githubusercontent.com/steveyegge/beads/${BEADS_INSTALL_REF}/scripts/install.sh"
@@ -215,6 +221,19 @@ install_br_tracker() {
     return
   fi
   rm -f "$install_script"
+
+  if [[ -x "$HOME/.local/bin/bd" ]] && [[ ! -e "$HOME/.local/bin/br" ]]; then
+    ln -sf "$HOME/.local/bin/bd" "$HOME/.local/bin/br"
+  fi
+
+  export PATH="$HOME/.local/bin:$PATH"
+
+  if command -v br >/dev/null 2>&1; then
+    echo "✅ br available on PATH"
+  else
+    echo "⚠️ br installed under ~/.local/bin but is not yet on PATH for this shell." >&2
+    BR_INSTALL_FAILED=true
+  fi
 }
 
 install_repo_configs() {
@@ -350,7 +369,11 @@ install_br_tracker
 
 if [[ "$DRY_RUN" == "true" ]]; then
   run_cmd brew install --cask ghostty
-elif ! brew list --cask ghostty &>/dev/null; then
+elif brew list --cask ghostty &>/dev/null; then
+  :
+elif [[ -d "/Applications/Ghostty.app" ]]; then
+  echo "✅ Ghostty app already present at /Applications/Ghostty.app"
+else
   run_cmd brew install --cask ghostty
 fi
 

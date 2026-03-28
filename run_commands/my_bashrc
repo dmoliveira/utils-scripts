@@ -7,6 +7,9 @@ export LANG=en_US.utf8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+# Paths
+export PATH="$HOME/.local/bin:$HOME/bin:/usr/local/bin:$PATH"
+
 # TMUX Folder Pluging
 export TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins"
 export POWERLINE_CONFIG_COMMAND="$HOME/.powerline/scripts/powerline-config"
