@@ -80,6 +80,15 @@ install_local_bin_script() {
   run_cmd chmod +x "$HOME/.local/bin/$name"
 }
 
+install_iterm2_profile() {
+  local source="./run_commands/my_iterm2_profile.json"
+  local target="$HOME/Library/Application Support/iTerm2/DynamicProfiles/utils-scripts.json"
+
+  [[ -f "$source" ]] || return 0
+
+  backup_copy "$source" "$target"
+}
+
 install_optional_brew_formula() {
   local formula="$1"
   local label="${2:-$1}"
@@ -249,6 +258,7 @@ install_repo_configs() {
   backup_copy "./run_commands/my_bashrc" "$HOME/.bashrc"
   backup_copy "./run_commands/my_zshrc" "$HOME/.zshrc"
   backup_copy "./run_commands/my_tmux.conf" "$HOME/.tmux.conf"
+  backup_copy "./run_commands/my_vimrc" "$HOME/.vimrc"
   backup_copy "./run_commands/my_startship.toml" "$HOME/.config/starship.toml"
   backup_copy "./run_commands/my_ghostty_config" "$HOME/.config/ghostty/config"
   backup_copy "./run_commands/bordersrc" "$HOME/.config/borders/bordersrc"
@@ -272,6 +282,8 @@ install_repo_configs() {
       echo "✅ Installed $HOME/.config/secrets/shell.env (edit with your local secrets)"
     fi
   fi
+
+  install_iterm2_profile
 }
 
 install_local_helpers() {
@@ -375,15 +387,21 @@ install_monitoring_stack
 install_productivity_cli_stack
 install_br_tracker
 
-if [[ "$DRY_RUN" == "true" ]]; then
-  run_cmd brew install --cask ghostty
-elif brew list --cask ghostty &>/dev/null; then
-  :
-elif [[ -d "/Applications/Ghostty.app" ]]; then
-  echo "✅ Ghostty app already present at /Applications/Ghostty.app"
-else
-  run_cmd brew install --cask ghostty
-fi
+for terminal_cask in ghostty wezterm iterm2; do
+  if [[ "$DRY_RUN" == "true" ]]; then
+    run_cmd brew install --cask "$terminal_cask"
+  elif brew list --cask "$terminal_cask" &>/dev/null; then
+    :
+  elif [[ "$terminal_cask" == "ghostty" && -d "/Applications/Ghostty.app" ]]; then
+    echo "✅ Ghostty app already present at /Applications/Ghostty.app"
+  elif [[ "$terminal_cask" == "wezterm" && -d "/Applications/WezTerm.app" ]]; then
+    echo "✅ WezTerm app already present at /Applications/WezTerm.app"
+  elif [[ "$terminal_cask" == "iterm2" && -d "/Applications/iTerm.app" ]]; then
+    echo "✅ iTerm app already present at /Applications/iTerm.app"
+  else
+    run_cmd brew install --cask "$terminal_cask"
+  fi
+done
 
 if [[ "$INSTALL_DESKTOP_EXTRAS" == "true" ]]; then
   install_macos_desktop_extras

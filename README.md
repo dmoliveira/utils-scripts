@@ -45,7 +45,7 @@ make install-mac    # baseline macOS setup
 make verify
 ```
 
-On macOS, `make install-mac` now installs the toolchain and syncs the managed local setup files: `~/.zshrc`, `~/.tmux.conf`, `~/.config/starship.toml`, `~/.config/nvim/init.lua`, `~/.wezterm.lua`, `~/.config/ghostty/config`, `~/.config/borders/bordersrc`, `~/.codex/config.template.toml`, and local helper scripts in `~/.local/bin`. Add `--desktop-extras` if you also want optional desktop apps and window tools such as `Stats`, `Raycast`, `Rectangle`, `DockDoor`, `Maccy`, `Espanso`, `Tailscale`, `AppCleaner`, `borders`, `yabai`, and `skhd`; services stay manual unless you start them yourself.
+On macOS, `make install-mac` now installs the toolchain plus the terminal apps `Ghostty`, `WezTerm`, and `iTerm2`, then syncs the managed local setup files: `~/.zshrc`, `~/.tmux.conf`, `~/.vimrc`, `~/.config/starship.toml`, `~/.config/nvim/init.lua`, `~/.wezterm.lua`, `~/.config/ghostty/config`, `~/Library/Application Support/iTerm2/DynamicProfiles/utils-scripts.json`, `~/.config/borders/bordersrc`, `~/.codex/config.template.toml`, and local helper scripts in `~/.local/bin`. Add `--desktop-extras` if you also want optional desktop apps and window tools such as `Stats`, `Raycast`, `Rectangle`, `DockDoor`, `Maccy`, `Espanso`, `Tailscale`, `AppCleaner`, `borders`, `yabai`, and `skhd`; services stay manual unless you start them yourself.
 
 First five minutes after install:
 
@@ -80,7 +80,7 @@ make docs-browse
 | File | Purpose |
 | --- | --- |
 | `install_my_programs_debian` | Debian/Ubuntu installer |
-| `install_my_programs_mac` | macOS installer (Homebrew based) |
+| `install_my_programs_mac` | macOS installer with terminal stack (`ghostty`, `wezterm`, `iterm2`) |
 | `make install-mac-desktop` | macOS installer + desktop extras (`stats`, `raycast`, `rectangle`, `dockdoor`, `maccy`, `espanso`, `tailscale`, `appcleaner`, `yabai`) |
 | `install_my_programs_unix` | Generic Unix installer |
 | `verify_post_install_unix` | Smoke checks after install |
@@ -173,10 +173,12 @@ make rollback
 
 - Zsh template: `run_commands/my_zshrc`
 - Tmux template: `run_commands/my_tmux.conf`
+- Vim template: `run_commands/my_vimrc`
 - Starship template: `run_commands/my_starship.toml`
 - Neovim template: `run_commands/my_nvim_init.lua`
 - Ghostty template: `run_commands/my_ghostty_config`
 - WezTerm template: `run_commands/my_wezterm.lua`
+- iTerm2 profile: `run_commands/my_iterm2_profile.json`
 
 ## Troubleshooting quick picks
 

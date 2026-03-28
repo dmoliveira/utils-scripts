@@ -1,0 +1,122 @@
+{
+  "Profiles": [
+    {
+      "Guid": "8D08F2F0-7C52-4B3E-AF19-UTILSSCRIPTS01",
+      "Name": "utils-scripts",
+      "Custom Command": "No",
+      "Normal Font": "FiraCodeNFM-Retina 14",
+      "Use Non-ASCII Font": false,
+      "Scrollback Lines": 20000,
+      "Unlimited Scrollback": false,
+      "Option Key Sends": 2,
+      "Draw Powerline Glyphs": true,
+      "Horizontal Spacing": 1,
+      "Vertical Spacing": 1,
+      "Transparency": 0,
+      "Blur": false,
+      "Rows": 38,
+      "Columns": 120,
+      "Use Separate Colors for Light Mode": false,
+      "Foreground Color": {
+        "Red Component": 0.839,
+        "Green Component": 0.859,
+        "Blue Component": 0.878
+      },
+      "Background Color": {
+        "Red Component": 0.118,
+        "Green Component": 0.137,
+        "Blue Component": 0.208
+      },
+      "Cursor Color": {
+        "Red Component": 0.960,
+        "Green Component": 0.878,
+        "Blue Component": 0.702
+      },
+      "Selection Color": {
+        "Red Component": 0.255,
+        "Green Component": 0.286,
+        "Blue Component": 0.392
+      },
+      "Ansi 0 Color": {
+        "Red Component": 0.180,
+        "Green Component": 0.200,
+        "Blue Component": 0.247
+      },
+      "Ansi 1 Color": {
+        "Red Component": 0.925,
+        "Green Component": 0.529,
+        "Blue Component": 0.588
+      },
+      "Ansi 2 Color": {
+        "Red Component": 0.651,
+        "Green Component": 0.890,
+        "Blue Component": 0.631
+      },
+      "Ansi 3 Color": {
+        "Red Component": 0.976,
+        "Green Component": 0.886,
+        "Blue Component": 0.686
+      },
+      "Ansi 4 Color": {
+        "Red Component": 0.541,
+        "Green Component": 0.678,
+        "Blue Component": 0.957
+      },
+      "Ansi 5 Color": {
+        "Red Component": 0.961,
+        "Green Component": 0.733,
+        "Blue Component": 0.902
+      },
+      "Ansi 6 Color": {
+        "Red Component": 0.549,
+        "Green Component": 0.937,
+        "Blue Component": 0.902
+      },
+      "Ansi 7 Color": {
+        "Red Component": 0.729,
+        "Green Component": 0.776,
+        "Blue Component": 0.910
+      },
+      "Ansi 8 Color": {
+        "Red Component": 0.345,
+        "Green Component": 0.365,
+        "Blue Component": 0.420
+      },
+      "Ansi 9 Color": {
+        "Red Component": 0.925,
+        "Green Component": 0.529,
+        "Blue Component": 0.588
+      },
+      "Ansi 10 Color": {
+        "Red Component": 0.651,
+        "Green Component": 0.890,
+        "Blue Component": 0.631
+      },
+      "Ansi 11 Color": {
+        "Red Component": 0.976,
+        "Green Component": 0.886,
+        "Blue Component": 0.686
+      },
+      "Ansi 12 Color": {
+        "Red Component": 0.541,
+        "Green Component": 0.678,
+        "Blue Component": 0.957
+      },
+      "Ansi 13 Color": {
+        "Red Component": 0.961,
+        "Green Component": 0.733,
+        "Blue Component": 0.902
+      },
+      "Ansi 14 Color": {
+        "Red Component": 0.549,
+        "Green Component": 0.937,
+        "Blue Component": 0.902
+      },
+      "Ansi 15 Color": {
+        "Red Component": 0.773,
+        "Green Component": 0.816,
+        "Blue Component": 0.961
+      }
+    }
+  ]
+}
