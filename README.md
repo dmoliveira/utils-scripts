@@ -45,7 +45,7 @@ make install-mac    # baseline macOS setup
 make verify
 ```
 
-On macOS, `make install-mac` now installs the toolchain plus the terminal apps `Ghostty`, `WezTerm`, and `iTerm2`, then syncs the managed local setup files: `~/.zshrc`, `~/.tmux.conf`, `~/.vimrc`, `~/.config/starship.toml`, `~/.config/nvim/init.lua`, `~/.wezterm.lua`, `~/.config/ghostty/config`, `~/Library/Application Support/iTerm2/DynamicProfiles/utils-scripts.json`, `~/.config/borders/bordersrc`, `~/.codex/config.template.toml`, and local helper scripts in `~/.local/bin`. Add `--desktop-extras` if you also want optional desktop apps and window tools such as `Stats`, `Raycast`, `Rectangle`, `DockDoor`, `Maccy`, `Espanso`, `Tailscale`, `AppCleaner`, `borders`, `yabai`, and `skhd`; services stay manual unless you start them yourself.
+On macOS, `make install-mac` now installs the toolchain plus the terminal apps `Ghostty`, `WezTerm`, and `iTerm2`, then syncs the managed local setup files: `~/.zshrc`, `~/.tmux.conf`, `~/.vimrc`, `~/.config/starship.toml`, `~/.config/nvim/init.lua`, `~/.wezterm.lua`, `~/.config/ghostty/config`, `~/Library/Application Support/iTerm2/DynamicProfiles/utils-scripts.json`, `~/.config/borders/bordersrc`, `~/.skhdrc`, `~/.codex/config.template.toml`, and local helper scripts in `~/.local/bin`. Add `--desktop-extras` if you also want optional desktop apps and window tools such as `Stats`, `Raycast`, `Rectangle`, `AltTab`, `DockDoor`, `Maccy`, `Espanso`, `Tailscale`, `AppCleaner`, `borders`, `yabai`, and `skhd`; services stay manual unless you start them yourself.
 
 First five minutes after install:
 
@@ -81,7 +81,7 @@ make docs-browse
 | --- | --- |
 | `install_my_programs_debian` | Debian/Ubuntu installer |
 | `install_my_programs_mac` | macOS installer with terminal stack (`ghostty`, `wezterm`, `iterm2`) |
-| `make install-mac-desktop` | macOS installer + desktop extras (`stats`, `raycast`, `rectangle`, `dockdoor`, `maccy`, `espanso`, `tailscale`, `appcleaner`, `yabai`) |
+| `make install-mac-desktop` | macOS installer + desktop extras (`stats`, `raycast`, `rectangle`, `alt-tab`, `dockdoor`, `maccy`, `espanso`, `tailscale`, `appcleaner`, `yabai`, `skhd`) |
 | `install_my_programs_unix` | Generic Unix installer |
 | `verify_post_install_unix` | Smoke checks after install |
 | `doctor_post_install_unix` | Strict checks with fix hints |
@@ -179,6 +179,7 @@ make rollback
 - Ghostty template: `run_commands/my_ghostty_config`
 - WezTerm template: `run_commands/my_wezterm.lua`
 - iTerm2 profile: `run_commands/my_iterm2_profile.json`
+- skhd template: `run_commands/my_skhdrc`
 
 ## Troubleshooting quick picks
 

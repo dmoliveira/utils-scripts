@@ -131,8 +131,11 @@ install_optional_brew_cask() {
     return
   fi
 
-  brew install --cask "$cask"
-  echo "✅ Installed ${label}"
+  if brew install --cask "$cask"; then
+    echo "✅ Installed ${label}"
+  else
+    echo "⚠️ Failed to install ${label}; continuing." >&2
+  fi
 }
 
 install_macos_desktop_extras() {
@@ -140,6 +143,7 @@ install_macos_desktop_extras() {
   install_optional_brew_cask stats "Stats"
   install_optional_brew_cask raycast "Raycast"
   install_optional_brew_cask rectangle "Rectangle"
+  install_optional_brew_cask alt-tab "AltTab"
   install_optional_brew_cask dockdoor "DockDoor"
   install_optional_brew_cask maccy "Maccy"
   install_optional_brew_cask espanso "Espanso"
@@ -155,6 +159,7 @@ Next steps for macOS desktop extras:
 - Stats: launch once if you want menu bar system metrics and choose the modules you want visible.
 - Raycast: launch once, complete onboarding, and decide whether it should replace Spotlight shortcuts.
 - Rectangle: launch once, grant Accessibility access, and import your preferred keyboard layout.
+- AltTab: launch once and grant Accessibility access if you want app switching to replace macOS Cmd-Tab.
 - DockDoor: launch once and grant Accessibility access.
 - Maccy: launch once; grant Accessibility if you want auto-paste/global shortcut reliability.
 - Espanso: launch once, confirm the menu bar app appears, and review Secure Input guidance if expansion stops.
@@ -264,6 +269,7 @@ install_repo_configs() {
   backup_copy "./run_commands/bordersrc" "$HOME/.config/borders/bordersrc"
   run_cmd chmod +x "$HOME/.config/borders/bordersrc"
   backup_copy "./run_commands/my_wezterm.lua" "$HOME/.wezterm.lua"
+  backup_copy "./run_commands/my_skhdrc" "$HOME/.skhdrc"
   backup_copy "./run_commands/codex_config.toml" "$HOME/.codex/config.template.toml"
 
   if [[ -f "./run_commands/my_nvim_init.lua" ]]; then

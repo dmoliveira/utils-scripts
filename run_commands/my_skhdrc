@@ -1,0 +1,23 @@
+# utils-scripts skhd template
+# Keep the daemon disabled by default until you want to enable yabai shortcuts.
+
+# Reload config
+shift + alt - r : skhd --reload
+
+# Toggle yabai float for the focused window
+shift + alt - space : yabai -m window --toggle float
+
+# Basic focus movement
+shift + alt - h : yabai -m window --focus west
+shift + alt - j : yabai -m window --focus south
+shift + alt - k : yabai -m window --focus north
+shift + alt - l : yabai -m window --focus east
+
+# Basic window movement
+ctrl + shift + alt - h : yabai -m window --warp west
+ctrl + shift + alt - j : yabai -m window --warp south
+ctrl + shift + alt - k : yabai -m window --warp north
+ctrl + shift + alt - l : yabai -m window --warp east
+
+# Fullscreen toggle
+shift + alt - f : yabai -m window --toggle zoom-fullscreen
