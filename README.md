@@ -45,7 +45,7 @@ make install-mac    # baseline macOS setup
 make verify
 ```
 
-On macOS, `make install-mac` now installs the toolchain plus the terminal apps `Ghostty`, `WezTerm`, and `iTerm2`, then syncs the managed local setup files: `~/.zshrc`, `~/.tmux.conf`, `~/.vimrc`, `~/.config/starship.toml`, `~/.config/nvim/init.lua`, `~/.wezterm.lua`, `~/.config/ghostty/config`, `~/Library/Application Support/iTerm2/DynamicProfiles/utils-scripts.json`, `~/.config/borders/bordersrc`, `~/.skhdrc`, `~/.codex/config.template.toml`, and local helper scripts in `~/.local/bin`. Add `--desktop-extras` if you also want optional desktop apps and window tools such as `Stats`, `Raycast`, `Rectangle`, `AltTab`, `DockDoor`, `Maccy`, `Espanso`, `Tailscale`, `AppCleaner`, `borders`, `yabai`, and `skhd`; services stay manual unless you start them yourself.
+On macOS, `make install-mac` now installs the toolchain plus the terminal apps `Ghostty`, `WezTerm`, and `iTerm2`, then syncs the managed local setup files: `~/.zshrc`, `~/.tmux.conf`, `~/.vimrc`, `~/.config/starship.toml`, `~/.config/nvim/init.lua`, `~/.wezterm.lua`, `~/.config/ghostty/config`, `~/Library/Application Support/iTerm2/DynamicProfiles/utils-scripts.json`, `~/Library/Application Support/Rectangle/RectangleConfig.json`, `~/.config/borders/bordersrc`, `~/.skhdrc`, `~/.codex/config.template.toml`, and local helper scripts in `~/.local/bin`. Add `--desktop-extras` if you also want optional desktop apps and window tools such as `Stats`, `Raycast`, `Rectangle`, `AltTab`, `DockDoor`, `Maccy`, `Espanso`, `Tailscale`, `AppCleaner`, `borders`, `yabai`, and `skhd`; services stay manual unless you start them yourself.
 
 First five minutes after install:
 

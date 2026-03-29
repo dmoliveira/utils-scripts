@@ -2,20 +2,23 @@
 
 This cheat sheet documents a practical Rectangle layout for a full-size keyboard with a numpad.
 
-## Base layer: `cmd+alt`
+## Base layer: `ctrl+alt`
 
-These bindings keep the numpad as the primary spatial layer.
+These bindings keep the numpad as the primary spatial layer, with sixths on the corners and large-window actions on the middle row.
 
 | Keys | Action |
 | --- | --- |
-| `4` | `moveLeft` |
-| `6` | `moveRight` |
+| `4` | `leftHalf` |
+| `5` | `center` |
+| `6` | `rightHalf` |
 | `7` | `topLeftSixth` |
 | `8` | `topCenterSixth` |
 | `9` | `topRightSixth` |
 | `1` | `bottomLeftSixth` |
 | `2` | `bottomCenterSixth` |
 | `3` | `bottomRightSixth` |
+| `0` | `maximize` |
+| `.` | `restore` |
 
 ## Grid layer: `ctrl+alt+shift`
 
@@ -33,21 +36,9 @@ These bindings use Rectangle's 3x3 `ninth` actions, so the numpad behaves like a
 | `2` | `bottomCenterNinth` |
 | `3` | `bottomRightNinth` |
 
-## Nav-cluster layer: `ctrl+alt+shift`
-
-This companion layer provides larger shapes and reset actions without changing the numpad muscle memory.
-
-| Keys | Action |
-| --- | --- |
-| `Insert` | `leftHalf` |
-| `Home` | `topHalf` |
-| `Page Up` | `maximize` |
-| `Delete` | `rightHalf` |
-| `End` | `bottomHalf` |
-| `Page Down` | `center` |
-
 ## Notes
 
-- Keep the numpad base layer stable; add new shapes on other keys instead of replacing the main layout.
+- Keep the numpad base layer stable; use `ctrl+alt` for everyday layout moves and `ctrl+alt+shift` for exact 33% placement.
 - For exact 3x3 placement, prefer Rectangle `ninth` actions over `third` actions.
+- `4 5 6` and `0 .` stay on the base layer so the most common large-window actions are still one chord away.
 - If a shortcut does not trigger, verify it in Rectangle's shortcut UI because some keyboard firmware remaps numpad chords.

@@ -25,13 +25,13 @@ make install-unix
 If you want a preview before changing your machine, run the installer script with `--dry-run`.
 For the extra macOS desktop apps, use `./install_my_programs_mac --desktop-extras --dry-run`.
 
-On macOS, the installer also syncs the repo-managed terminal and editor setup into your home directory, including Zsh, tmux, Vim, Starship, Neovim, WezTerm, Ghostty, iTerm2 dynamic profiles, a default JankyBorders config, a starter `skhd` config, the Codex template config, and helper scripts under `~/.local/bin`.
+On macOS, the installer also syncs the repo-managed terminal and editor setup into your home directory, including Zsh, tmux, Vim, Starship, Neovim, WezTerm, Ghostty, iTerm2 dynamic profiles, the Rectangle shortcut config, a default JankyBorders config, a starter `skhd` config, the Codex template config, and helper scripts under `~/.local/bin`.
 
 ### Optional macOS window tools
 
 Run `make install-mac ARGS="--desktop-extras"` when you also want optional macOS window tools from Homebrew, including `Stats`, `Raycast`, `Rectangle`, `AltTab`, `DockDoor`, `Maccy`, `Espanso`, `Tailscale`, `AppCleaner`, `borders`, `yabai`, and `skhd`.
 
-These are installed but not auto-started by the installer. `borders` reads `~/.config/borders/bordersrc` on launch, so you can tweak the synced theme before starting the service. If you want to use the window-manager services later, start them manually:
+These are installed but not auto-started by the installer. `borders` reads `~/.config/borders/bordersrc` on launch, and Rectangle will load `~/Library/Application Support/Rectangle/RectangleConfig.json` on its next launch. If you want to use the window-manager services later, start them manually:
 
 ```bash
 brew services start borders

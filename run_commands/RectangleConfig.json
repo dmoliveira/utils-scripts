@@ -1,0 +1,94 @@
+{
+  "bundleId": "com.knollsoft.Rectangle",
+  "defaults": {
+    "allowAnyShortcut": {
+      "bool": true
+    },
+    "alternateDefaultShortcuts": {
+      "bool": true
+    }
+  },
+  "shortcuts": {
+    "bottomCenterNinth": {
+      "keyCode": 84,
+      "modifierFlags": 917504
+    },
+    "bottomCenterSixth": {
+      "keyCode": 84,
+      "modifierFlags": 786432
+    },
+    "bottomLeftNinth": {
+      "keyCode": 83,
+      "modifierFlags": 917504
+    },
+    "bottomLeftSixth": {
+      "keyCode": 83,
+      "modifierFlags": 786432
+    },
+    "bottomRightNinth": {
+      "keyCode": 85,
+      "modifierFlags": 917504
+    },
+    "bottomRightSixth": {
+      "keyCode": 85,
+      "modifierFlags": 786432
+    },
+    "center": {
+      "keyCode": 87,
+      "modifierFlags": 786432
+    },
+    "leftHalf": {
+      "keyCode": 86,
+      "modifierFlags": 786432
+    },
+    "maximize": {
+      "keyCode": 82,
+      "modifierFlags": 786432
+    },
+    "middleCenterNinth": {
+      "keyCode": 87,
+      "modifierFlags": 917504
+    },
+    "middleLeftNinth": {
+      "keyCode": 86,
+      "modifierFlags": 917504
+    },
+    "middleRightNinth": {
+      "keyCode": 88,
+      "modifierFlags": 917504
+    },
+    "restore": {
+      "keyCode": 65,
+      "modifierFlags": 786432
+    },
+    "rightHalf": {
+      "keyCode": 88,
+      "modifierFlags": 786432
+    },
+    "topCenterNinth": {
+      "keyCode": 91,
+      "modifierFlags": 917504
+    },
+    "topCenterSixth": {
+      "keyCode": 91,
+      "modifierFlags": 786432
+    },
+    "topLeftNinth": {
+      "keyCode": 89,
+      "modifierFlags": 917504
+    },
+    "topLeftSixth": {
+      "keyCode": 89,
+      "modifierFlags": 786432
+    },
+    "topRightNinth": {
+      "keyCode": 92,
+      "modifierFlags": 917504
+    },
+    "topRightSixth": {
+      "keyCode": 92,
+      "modifierFlags": 786432
+    }
+  },
+  "version": "100"
+}
