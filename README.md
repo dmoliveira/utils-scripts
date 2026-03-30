@@ -81,7 +81,7 @@ make docs-browse
 | --- | --- |
 | `install_my_programs_debian` | Debian/Ubuntu installer |
 | `install_my_programs_mac` | macOS installer with terminal stack (`ghostty`, `wezterm`, `iterm2`) |
-| `make install-mac-desktop` | macOS installer + desktop extras (`stats`, `raycast`, `rectangle`, `alt-tab`, `dockdoor`, `maccy`, `espanso`, `tailscale`, `appcleaner`, `yabai`, `skhd`) |
+| `make install-mac-desktop` | macOS installer + desktop extras (`stats`, `raycast`, `rectangle`, `alt-tab`, `dockdoor`, `maccy`, `espanso`, `tailscale`, `appcleaner`, `borders`, `yabai`, `skhd`) |
 | `install_my_programs_unix` | Generic Unix installer |
 | `verify_post_install_unix` | Smoke checks after install |
 | `doctor_post_install_unix` | Strict checks with fix hints |

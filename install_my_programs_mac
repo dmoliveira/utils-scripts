@@ -112,6 +112,23 @@ install_optional_brew_formula() {
   echo "✅ Installed ${label}"
 }
 
+install_brew_tap() {
+  local tap="$1"
+
+  if [[ "$DRY_RUN" == "true" ]]; then
+    run_cmd brew tap "$tap"
+    return
+  fi
+
+  if brew tap | grep -qx "$tap"; then
+    echo "✅ Homebrew tap ${tap} already available"
+    return
+  fi
+
+  brew tap "$tap"
+  echo "✅ Added Homebrew tap ${tap}"
+}
+
 install_optional_brew_cask() {
   local cask="$1"
   local label="${2:-$1}"
@@ -149,7 +166,9 @@ install_macos_desktop_extras() {
   install_optional_brew_cask espanso "Espanso"
   install_optional_brew_cask tailscale-app "Tailscale"
   install_optional_brew_cask appcleaner "AppCleaner"
+  install_brew_tap FelixKratz/formulae
   install_optional_brew_formula borders "JankyBorders (borders)"
+  install_brew_tap koekeishiya/formulae
   install_optional_brew_formula koekeishiya/formulae/yabai "yabai"
   install_optional_brew_formula koekeishiya/formulae/skhd "skhd"
 
