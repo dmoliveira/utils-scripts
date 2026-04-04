@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get install -y zsh tmux neovim lua5.4 python3 fd-find bat
+        run: sudo apt-get update && sudo apt-get install -y vim zsh tmux neovim lua5.4 python3 fd-find bat
 
       - name: Prepare tmux powerline placeholder
         run: mkdir -p "$HOME/.powerline/powerline/bindings/tmux" && touch "$HOME/.powerline/powerline/bindings/tmux/powerline.conf"
@@ -31,6 +31,12 @@ jobs:
 
       - name: Validate Neovim template syntax
         run: lua -e "assert(loadfile('run_commands/my_nvim_init.lua'))"
+
+      - name: Validate Vim template startup
+        run: vim -Nu run_commands/my_vimrc -n -es +qa!
+
+      - name: Validate hidden Vim template startup
+        run: vim -Nu run_commands/.my_vimrc -n -es +qa!
 
       - name: Validate Makefile targets
         run: make help

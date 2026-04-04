@@ -3,38 +3,40 @@
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'derekwyatt/vim-scala'
-Plugin 'JuliaLang/julia-vim'
-Plugin 'jmcantrell/vim-virtualenv'
-Plugin 'edkolev/tmuxline.vim'
-Plugin 'sjl/gundo.vim'
-Plugin 'bling/vim-bufferline'
-Plugin 'airblade/vim-gitgutter.git'
-Plugin 'godlygeek/csapprox'
-Plugin 'altercation/vim-colors-solarized.git'
-Plugin 'majutsushi/tagbar'
-Plugin 'vim-scripts/supertab.git'
-Plugin 'tomtom/tcomment_vim'
-Plugin 'Raimondi/delimitMate'
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'easymotion/vim-easymotion'
-Plugin 'kien/ctrlp.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'vim-airline/vim-airline-themes'
-"FIXME: Problems with Calalina MacOs
-"Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
-Plugin 'chrisbra/csv.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'itchyny/lightline.vim'
-Plugin 'itchyny/landscape.vim'
-Plugin 'python-rope/rope'
-Plugin 'tpope/vim-fugitive'
-Plugin 'git://git.wincent.com/command-t.git'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'terryma/vim-multiple-cursors'
-call vundle#end()
+if exists('*vundle#begin')
+  call vundle#begin()
+  Plugin 'derekwyatt/vim-scala'
+  Plugin 'JuliaLang/julia-vim'
+  Plugin 'jmcantrell/vim-virtualenv'
+  Plugin 'edkolev/tmuxline.vim'
+  Plugin 'sjl/gundo.vim'
+  Plugin 'bling/vim-bufferline'
+  Plugin 'airblade/vim-gitgutter.git'
+  Plugin 'godlygeek/csapprox'
+  Plugin 'altercation/vim-colors-solarized.git'
+  Plugin 'majutsushi/tagbar'
+  Plugin 'vim-scripts/supertab.git'
+  Plugin 'tomtom/tcomment_vim'
+  Plugin 'Raimondi/delimitMate'
+  Plugin 'haya14busa/incsearch.vim'
+  Plugin 'easymotion/vim-easymotion'
+  Plugin 'kien/ctrlp.vim'
+  Plugin 'scrooloose/nerdtree'
+  Plugin 'vim-airline/vim-airline-themes'
+  "FIXME: Problems with Calalina MacOs
+  "Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim/'}
+  Plugin 'chrisbra/csv.vim'
+  Plugin 'scrooloose/syntastic'
+  Plugin 'davidhalter/jedi-vim'
+  Plugin 'itchyny/lightline.vim'
+  Plugin 'itchyny/landscape.vim'
+  Plugin 'python-rope/rope'
+  Plugin 'tpope/vim-fugitive'
+  Plugin 'git://git.wincent.com/command-t.git'
+  Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+  Plugin 'terryma/vim-multiple-cursors'
+  call vundle#end()
+endif
 filetype plugin indent on
 
 " Brief help
@@ -48,7 +50,9 @@ filetype plugin indent on
 " ----------------------------------------------------------------------------
 
 " Pathogen
-execute pathogen#infect()
+if exists('*pathogen#infect')
+  execute pathogen#infect()
+endif
 
 " Jedi-Vim
 let g:jedi#auto_initialization = 1
@@ -81,7 +85,9 @@ let g:airline#extensions#tmuxline#enabled = 0
 set laststatus=2
 set statusline=%<%f\    " Filename
 set statusline+=%w%h%m%r " Options
-set statusline+=%{fugitive#statusline()} "  Git Hotness
+if exists('*fugitive#statusline')
+  set statusline+=%{fugitive#statusline()} "  Git Hotness
+endif
 set statusline+=\ [%{&ff}/%Y]            " filetype
 set statusline+=\ [%{getcwd()}]          " current dir
 
@@ -138,7 +144,9 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['pyflakes', 'flake8']
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+if exists('*SyntasticStatuslineFlag')
+  set statusline+=%{SyntasticStatuslineFlag()}
+endif
 set statusline+=%*
 
 " Color Theme
@@ -174,7 +182,10 @@ let g:solarized_termtrans=1
 let g:solarized_termcolors=256
 let g:solarized_contrast="normal"
 let g:solarized_visibility="normal"
-colorscheme solarized
+silent! colorscheme solarized
+if !exists('g:colors_name') || g:colors_name !=# 'solarized'
+  silent! colorscheme torte
+endif
 let g:CSApprox_loaded = 1
 
 " Highligh Line and Column
