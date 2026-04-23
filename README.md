@@ -90,6 +90,7 @@ make docs-browse
 | `rollback_installer_backups` | Restore latest installer backups |
 | `configure_git_delta` | Configure global git delta UX |
 | `install_git_hooks` | Install local hooks |
+| `repomix_generate` | Generate `repomix-output.xml` repository context with Repomix |
 | `run_commands/` | Shell/editor templates and helper functions |
 | `docs/cheatsheets/*.md` | Command-by-command practical references |
 | `.github/workflows/*` | CI checks + release/docs publishing workflows |
