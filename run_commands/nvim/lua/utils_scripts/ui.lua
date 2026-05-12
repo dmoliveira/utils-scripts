@@ -4,5 +4,5 @@ require("catppuccin").setup({ flavour = "mocha" })
 vim.cmd.colorscheme("catppuccin")
 
 require("lualine").setup({
-  options = { theme = "catppuccin" },
+  options = { theme = "catppuccin-nvim" },
 })
